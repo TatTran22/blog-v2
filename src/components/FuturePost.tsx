@@ -1,7 +1,7 @@
 import PostPreview from '@/components/PostPreview'
-import type { Post } from '@/lib/sanity.queries'
+import type { Post } from '@/lib/types'
 
-export default function MoreStories({ posts }: { posts: Post[] }) {
+export default function FuturePost({ posts }: { posts: Post[] }) {
   return (
     <section>
       <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">

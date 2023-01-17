@@ -1,7 +1,7 @@
 // 'tailwindcss/tailwind.css'
+// import '@/styles/prism.css'
 import '@/styles/globals.css'
 
-// import { usePathname } from 'next/navigation'
 import React from 'react'
 
 import Container from '@/components/pages/Container'
@@ -14,8 +14,6 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const author = await getAuthorBySlug('tat-tran')
-  // const pathName = usePathname()
-  const isExcluded = false
 
   return (
     <html lang="en">

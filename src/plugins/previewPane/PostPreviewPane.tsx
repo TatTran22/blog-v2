@@ -22,7 +22,7 @@ type Props = {
 
 export default function PostPreviewPane(props: Props) {
   const { previewSecretId, apiVersion } = props
-  // Whenever the slug changes there's it's best to wait a little for elastic search to reach eventual consistency
+  // Whenever the slug changes there's its best to wait a little for elastic search to reach eventual consistency
   // this helps prevent seeing "Invalid slug" or 404 errors while editing the slug manually
   const [slug, setSlug] = useState(props.slug)
   useEffect(() => {
@@ -103,6 +103,7 @@ const Iframe = memo(function Iframe(
 
   return (
     <iframe
+      title="Preview"
       style={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}
       src={url.toString()}
     />

@@ -17,6 +17,12 @@ export interface Author {
   }
 }
 
+export interface Category {
+  _id: string
+  name: string
+  slug: string
+}
+
 export interface Post {
   _id: string
   title?: string
@@ -26,7 +32,7 @@ export interface Post {
   author?: Author
   slug: string
   content?: any
-  categories?: any[]
+  categories?: Category[]
 }
 
 export interface Snippet {

@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
 
+import ContainerHeader from '@/components/ContainerHeader'
 import Image from '@/components/Image'
 // import { PageSEO } from '@/components/SEO'
 import { urlForImage } from '@/lib/sanity.image'
@@ -19,11 +20,7 @@ export default function AuthorContainer({ children, author }: Props) {
     <>
       {/* <PageSEO title={`About - ${name}`} description={`About me - ${name}`} /> */}
       <div className="divide-y">
-        <div className="pt-6 pb-8 space-y-2 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-transparent background-author-animate bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            About
-          </h1>
-        </div>
+        <ContainerHeader title="About" />
         <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
           <div className="flex flex-col items-center pt-8">
             <Image
@@ -56,7 +53,6 @@ export default function AuthorContainer({ children, author }: Props) {
               >
                 <FaFacebook className="w-6 h-6" title="Facebook" />
               </a>
-              {/* <SocialIcon kind="twitter" href={twitter} /> * */}
             </div>
           </div>
           <div className="pt-8 pb-8 prose max-w-none dark:prose-dark xl:col-span-2">

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import styles from './BlogHeader.module.css'
 
-export default function BlogHeader({
+export default function BlogHero({
   title,
   description,
   level,

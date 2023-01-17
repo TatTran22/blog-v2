@@ -4,6 +4,7 @@ import { createClient } from 'next-sanity'
 
 import { apiVersion, dataset, projectId, useCdn } from '@/lib/sanity.api'
 import {
+  featuredPostsQuery,
   getAuthorQuery,
   indexQuery,
   postAndMoreStoriesQuery,
@@ -30,6 +31,13 @@ export async function getSettings(): Promise<Settings> {
 export async function getAllPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(indexQuery)) || []
+  }
+  return []
+}
+
+export async function getFeaturedPosts(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(featuredPostsQuery)) || []
   }
   return []
 }

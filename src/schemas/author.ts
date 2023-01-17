@@ -8,18 +8,6 @@ import {
 import { MdOutlineEmail } from 'react-icons/md'
 import { defineField, defineType } from 'sanity'
 
-// export interface Author {
-//   name: string
-//   slug: string
-//   avatar: any
-//   bio: any[]
-//   occupation?: string
-//   company?: string
-//   email: string
-//   twitter?: string
-//   linkedin?: string
-//   github?: string
-// }
 export default defineType({
   name: 'author',
   title: 'Author',
@@ -51,19 +39,7 @@ export default defineType({
       },
       validation: (rule) => rule.required(),
     }),
-    defineField({
-      name: 'bio',
-      title: 'Bio',
-      type: 'array',
-      of: [
-        {
-          title: 'Block',
-          type: 'block',
-          styles: [{ title: 'Normal', value: 'normal' }],
-          lists: [],
-        },
-      ],
-    }),
+    defineField({ name: 'bio', title: 'Bio', type: 'blockContent' }),
     defineField({
       name: 'occupation',
       title: 'Occupation',

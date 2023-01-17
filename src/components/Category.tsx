@@ -1,20 +1,22 @@
 import Link from 'next/link'
 
+import { Category } from '@/lib/types'
 import kebabCase from '@/lib/utils/kebabCase'
 
 interface Props {
-  text: string
+  category: Category
 }
 
-const Tag = ({ text }: Props) => {
+const Category = ({ category }: Props) => {
+  const { name, slug } = category
   return (
     <Link
-      href={`/tags/${kebabCase(text)}`}
+      href={`/tags/${kebabCase(slug)}`}
       className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
     >
-      {text.split(' ').join('-')}
+      {name}
     </Link>
   )
 }
 
-export default Tag
+export default Category

@@ -1,16 +1,5 @@
 import { groq } from 'next-sanity'
 
-const postFields = groq`
-  _id,
-  title,
-  date,
-  excerpt,
-  categories[]->{title},
-  coverImage,
-  "slug": slug.current,
-  "author": author->{name, avatar, slug},
-`
-
 const authorFields = groq`
   _id,
   name,
@@ -22,10 +11,32 @@ const authorFields = groq`
   socials,
 `
 
+const postFields = groq`
+  _id,
+  title,
+  date,
+  excerpt,
+  categories[]->,
+  coverImage,
+  "slug": slug.current,
+  authors[]->{
+    name,
+    "slug": slug.current,
+    avatar,
+    socials,
+  },
+`
+
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
+  ${postFields}
+}`
+
+// export const featuredPostsQuery (latest 3 posts)
+export const featuredPostsQuery = groq`
+*[_type == "post"] | order(date desc, _updatedAt desc) [0..3] {
   ${postFields}
 }`
 

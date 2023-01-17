@@ -1,27 +1,12 @@
-import { previewData } from 'next/headers'
-
 import IndexPage from '@/components/pages/homepage/IndexPage'
-import PreviewIndexPage from '@/components/PreviewIndexPage'
-import { PreviewSuspense } from '@/components/PreviewSuspense'
-import { getAllPosts, getSettings } from '@/lib/sanity.client'
+import { getFeaturedPosts, getSettings } from '@/lib/sanity.client'
 
 export default async function IndexRoute() {
   // Fetch queries in parallel
-  const [settings, posts] = await Promise.all([getSettings(), getAllPosts()])
-
-  if (previewData()) {
-    const token = previewData().token || null
-
-    return (
-      <PreviewSuspense
-        fallback={
-          <IndexPage loading preview posts={posts} settings={settings} />
-        }
-      >
-        <PreviewIndexPage token={token} />
-      </PreviewSuspense>
-    )
-  }
+  const [settings, posts] = await Promise.all([
+    getSettings(),
+    getFeaturedPosts(),
+  ])
 
   return <IndexPage posts={posts} settings={settings} />
 }

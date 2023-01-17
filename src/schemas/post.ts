@@ -2,8 +2,6 @@ import { format, parseISO } from 'date-fns'
 import { FaBook } from 'react-icons/fa'
 import { defineField, defineType } from 'sanity'
 
-import authorType from './author'
-
 /**
  * This file is the schema definition for a post.
  *
@@ -39,22 +37,20 @@ export default defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    defineField({ name: 'content', title: 'Content', type: 'blockContent' }),
     defineField({
-      name: 'content',
-      title: 'Content',
+      name: 'authors',
+      title: 'Authors',
       type: 'array',
-      of: [{ type: 'block' }],
-    }),
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: authorType.name }],
+      of: [{ type: 'reference', to: { type: 'author' } }],
     }),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
+      rows: 3,
+      description:
+        'This ends up on summary pages, on Google, when people share your post in social media.',
     }),
     defineField({
       name: 'coverImage',
@@ -68,7 +64,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }],
+      of: [{ type: 'reference', to: [{ type: 'category' }] }],
     }),
     defineField({
       name: 'date',
