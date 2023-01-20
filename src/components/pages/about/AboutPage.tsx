@@ -1,6 +1,4 @@
-'use client'
 import { PortableText } from '@portabletext/react'
-import { useEffect } from 'react'
 
 import Layout from '@/components/BlogLayout'
 import type { Author } from '@/lib/types'
@@ -13,11 +11,6 @@ export default function AboutPage(props: {
   author: Author
 }) {
   const { preview, loading, author } = props
-
-  useEffect(() => {
-    console.log('AboutPage')
-    console.log('author', author)
-  }, [author])
 
   return (
     <>

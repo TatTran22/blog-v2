@@ -27,6 +27,18 @@ const postFields = groq`
   },
 `
 
+const categoryFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+`
+
+const tagFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+`
+
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
@@ -98,5 +110,24 @@ export const snippetBySlugQuery = `
 export const getAuthorQuery = groq`
 *[_type == "author" && slug.current == $slug][0] {
   ${authorFields}
+}
+`
+
+export const getAllTagsQuery = groq`
+*[_type == "tag"] | order(title asc) {
+  ${tagFields}
+  "count": count(*[_type == "post" && references(^._id)])
+}
+`
+
+export const getAllTagsWithCountQuery = groq`
+*[_type == "tag"] | order(title asc) {
+  ${tagFields},
+}
+`
+
+export const getPostsBySlugTagQuery = groq`
+*[_type == "post" && $slug in tags[]->slug.current] | order(date desc, _updatedAt desc) {
+  ${postFields}
 }
 `

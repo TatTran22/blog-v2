@@ -5,14 +5,17 @@ import { createClient } from 'next-sanity'
 import { apiVersion, dataset, projectId, useCdn } from '@/lib/sanity.api'
 import {
   featuredPostsQuery,
+  getAllTagsQuery,
+  getAllTagsWithCountQuery,
   getAuthorQuery,
+  getPostsBySlugTagQuery,
   indexQuery,
   postAndMoreStoriesQuery,
   postBySlugQuery,
   postSlugsQuery,
   settingsQuery,
 } from '@/lib/sanity.queries'
-import { Author, Post, Settings } from '@/lib/types'
+import { Author, Category, Post, Settings, Tag } from '@/lib/types'
 
 /**
  * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
@@ -79,4 +82,25 @@ export async function getAuthorBySlug(slug: string): Promise<Author> {
     return (await client.fetch(getAuthorQuery, { slug })) || ({} as any)
   }
   return {} as any
+}
+
+export async function getAllTags(): Promise<(Tag & { count: number })[]> {
+  if (client) {
+    return (await client.fetch(getAllTagsQuery)) || []
+  }
+  return []
+}
+
+export async function getAllTagsWithCount(): Promise<Tag[]> {
+  if (client) {
+    return (await client.fetch(getAllTagsWithCountQuery)) || []
+  }
+  return []
+}
+
+export async function getPostsBySlugTag(slug: string): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(getPostsBySlugTagQuery, { slug })) || []
+  }
+  return []
 }

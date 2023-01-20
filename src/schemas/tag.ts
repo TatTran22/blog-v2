@@ -1,15 +1,15 @@
-import { BiCategory } from 'react-icons/bi'
+import { FaTags } from 'react-icons/fa'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'category',
-  title: 'Category',
+  name: 'tag',
+  title: 'Tag',
   type: 'document',
-  icon: BiCategory,
+  icon: FaTags,
   fields: [
     defineField({
-      name: 'name',
-      title: 'Name',
+      name: 'title',
+      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
@@ -18,8 +18,8 @@ export default defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
-        maxLength: 40,
+        source: 'title',
+        maxLength: 20,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
       validation: (rule) => rule.required(),
@@ -27,7 +27,7 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'name',
+      title: 'title',
       subtitle: 'slug.current',
     },
   },

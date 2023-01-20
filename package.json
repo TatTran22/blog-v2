@@ -5,7 +5,7 @@
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint -- --ignore-path .gitignore",
-    "lint:fix": "pnpm run format && pnpm run lint -- --fix",
+    "lint:fix": "pnpm run format && pnpm run lint --fix",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -43,6 +43,7 @@
     "remark-gfm": "^3.0.1",
     "sanity": "^3.2.4",
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
+    "satori": "^0.1.1",
     "server-only": "^0.0.1",
     "slugify": "^1.6.5",
     "styled-components": "^5.3.6",

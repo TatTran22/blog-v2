@@ -17,9 +17,7 @@ import {
 import { previewDocumentNode } from '@/plugins/previewPane'
 import { productionUrl } from '@/plugins/productionUrl'
 import { settingsPlugin, settingsStructure } from '@/plugins/settings'
-import authorType from '@/schemas/author'
-import blockContentType from '@/schemas/blockContent'
-import categoryType from '@/schemas/category'
+import types from '@/schemas'
 import postType from '@/schemas/post'
 import settingsType from '@/schemas/settings'
 
@@ -31,8 +29,7 @@ export default defineConfig({
   dataset,
   title,
   schema: {
-    // If you want more content types, you can add them to this array
-    types: [authorType, blockContentType, categoryType, postType, settingsType],
+    types: types,
   },
   plugins: [
     deskTool({

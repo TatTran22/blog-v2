@@ -35,6 +35,12 @@ export interface Post {
   categories?: Category[]
 }
 
+export interface Tag {
+  _id: string
+  title: string
+  slug: string
+}
+
 export interface Snippet {
   _id: string
   slug: string
