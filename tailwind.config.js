@@ -3,6 +3,9 @@ const colors = require('tailwindcss/colors')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  experimental: {
+    optimizeUniversalDefaults: true,
+  },
   darkMode: ['class'],
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
@@ -85,7 +88,7 @@ module.exports = {
               backgroundColor: theme('colors.gray.800'),
             },
             code: {
-              color: theme('colors.pink.500'),
+              color: theme('colors.Fuchsia.500'),
               backgroundColor: theme('colors.gray.100'),
               paddingLeft: '4px',
               paddingRight: '4px',
@@ -186,5 +189,5 @@ module.exports = {
       }),
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }

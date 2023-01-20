@@ -1,8 +1,6 @@
-import { PortableText } from '@portabletext/react'
-
 import Layout from '@/components/BlogLayout'
-import FuturePost from '@/components/FuturePost'
 import BlogHero from '@/components/pages/homepage/BlogHero'
+import PostCard from '@/components/pages/posts/PostCard'
 import type { Post, Settings } from '@/lib/types'
 
 export default function IndexPage(props: {
@@ -18,7 +16,11 @@ export default function IndexPage(props: {
     <>
       <Layout preview={preview} loading={loading}>
         <BlogHero title={title} description={description} level={1} />
-        {posts.length > 0 && <FuturePost posts={posts} />}
+        <ul>
+          {posts.map((post) => (
+            <PostCard key={post.title} post={post} />
+          ))}
+        </ul>
       </Layout>
     </>
   )

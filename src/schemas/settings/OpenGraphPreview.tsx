@@ -5,7 +5,7 @@ import _satori, { type SatoriOptions } from 'satori'
 import styled from 'styled-components'
 
 import { height, OpenGraphImage, width } from '@/components/OpenGraphImage'
-import type { Settings } from '@/lib/sanity.queries'
+import type { Settings } from '@/lib/types'
 
 const init = cache(async function init(): Promise<SatoriOptions['fonts']> {
   if (!globalThis?.Intl?.Segmenter) {

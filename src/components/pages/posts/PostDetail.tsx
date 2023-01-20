@@ -1,6 +1,11 @@
-import { PortableText, PortableTextReactComponents } from '@portabletext/react'
+import {
+  PortableText,
+  PortableTextReactComponents,
+  toPlainText,
+} from '@portabletext/react'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import slugify from 'slugify'
 
 import Layout from '@/components/BlogLayout'
 import PostDetailTitle from '@/components/pages/posts/PostDetailTitle'
@@ -26,7 +31,7 @@ const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
         <Image
           alt={value.alt || ' '}
           loading="lazy"
-          src={urlForImage(value).width(320).height(240).url()}
+          src={urlForImage(value).url()}
         />
       )
     },
@@ -40,10 +45,21 @@ const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
         : undefined
 
       return (
-        <a href={value.href} rel={rel}>
+        // eslint-disable-next-line react/jsx-no-target-blank
+        <a href={value.href} rel={rel} target={rel ? '_blank' : undefined}>
           {children}
         </a>
       )
+    },
+  },
+  block: {
+    h1: ({ children, value }) => {
+      const slug = slugify(toPlainText(value))
+      return <h1 id={slug}>{children}</h1>
+    },
+    h2: ({ children, value }) => {
+      const slug = slugify(toPlainText(value))
+      return <h2 id={slug}>{children}</h2>
     },
   },
 }
@@ -88,7 +104,7 @@ export default function PostDetail(props: {
             </div>
           </header>
           <div
-            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+            className="pb-8 divide-y divide-gray-200 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
             <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
@@ -109,12 +125,12 @@ export default function PostDetail(props: {
                           width={38}
                           height={38}
                           alt="avatar"
-                          className="h-10 w-10 rounded-full"
+                          className="w-10 h-10 rounded-full"
                         />
                       )}
-                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
+                      <dl className="text-sm font-medium leading-5 whitespace-nowrap">
                         <dt className="sr-only">Name</dt>
-                        <dd className="background-author-animate bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text font-semibold text-transparent">
+                        <dd className="font-semibold text-transparent background-author-animate bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text">
                           {author.name}
                         </dd>
                         {/*<dt className="sr-only">Twitter</dt>*/}
@@ -138,7 +154,7 @@ export default function PostDetail(props: {
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+              <div className="pt-10 pb-8 prose max-w-none dark:prose-dark">
                 <PortableText
                   value={content}
                   components={BlogContentPortableComponents}
