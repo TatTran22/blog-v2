@@ -9,7 +9,6 @@
       "plugins/*": ["plugins/*"],
       "schemas/*": ["schemas/*"],
       "styles/*": ["styles/*"],
-      "~/*": ["../*"]
     },
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],

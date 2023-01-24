@@ -44,12 +44,12 @@ export default function SignInDialog({ isOpen, onClose }) {
                     <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 ">
                       <Dialog.Title
                         as="h1"
-                        className="mb-4 text-2xl font-bold leading-6 text-gray-900"
+                        className="mb-4 text-2xl font-bold leading-6 text-gray-900 uppercase"
                       >
-                        Sign in to your account
+                        continue with
                       </Dialog.Title>
                       <div className="w-full mt-2 bg-white rounded-lg dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-                        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                        {/* <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                           <SignInWithEmailForm ref={initialFocusRef} />
                         </div>
                         <div className="flex items-center justify-center p-2 space-x-4 md:space-x-6">
@@ -58,7 +58,7 @@ export default function SignInDialog({ isOpen, onClose }) {
                             or continue with
                           </div>
                           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
-                        </div>
+                        </div> */}
                         <SignInWithProviders />
                       </div>
                     </div>
