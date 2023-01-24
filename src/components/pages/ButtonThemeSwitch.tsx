@@ -30,7 +30,7 @@ export default function ButtonThemeSwitch() {
       document.documentElement.classList.add('dark')
     }
   }
-  const env = process.env.NEXT_ENV
+  const env = process.env.VERCEL_ENV
 
   if (env === 'production') return null
 
