@@ -1,17 +1,17 @@
 import Image from 'next/image'
 
 import { urlForImage } from '@/lib/sanity.image'
-import type { Author } from '@/lib/sanity.queries'
+import type { Author } from '@/lib/types'
 
 export default function AuthorAvatar(props: Author) {
-  const { name, picture } = props
+  const { name, avatar } = props
   return (
     <div className="flex items-center">
       <div className="relative w-12 h-12 mr-4">
         <Image
           src={
-            picture?.asset?._ref
-              ? urlForImage(picture).height(96).width(96).fit('crop').url()
+            avatar?.asset?._ref
+              ? urlForImage(avatar).height(96).width(96).fit('crop').url()
               : 'https://source.unsplash.com/96x96/?face'
           }
           className="rounded-full"

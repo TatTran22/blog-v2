@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Avatar from '@/components/AuthorAvatar'
 import CoverImage from '@/components/CoverImage'
 import Date from '@/components/PostDate'
-import type { Post } from '@/lib/sanity.queries'
+import type { Post } from '@/lib/types'
 
 export default function PostPreview({
   title,
@@ -32,7 +32,7 @@ export default function PostPreview({
         <Date dateString={date} />
       </div>
       {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
-      {author && <Avatar name={author.name} picture={author.picture} />}
+      {author && <Avatar {...author} />}
     </div>
   )
 }
