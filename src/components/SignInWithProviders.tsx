@@ -35,6 +35,9 @@ export default function SignInWithProviders() {
   const handleProviderSignIn = async (provider: Provider) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
+      options: {
+        redirectTo: window.location.origin,
+      },
     })
 
     if (error) {
