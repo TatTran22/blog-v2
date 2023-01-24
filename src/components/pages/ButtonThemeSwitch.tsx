@@ -30,6 +30,9 @@ export default function ButtonThemeSwitch() {
       document.documentElement.classList.add('dark')
     }
   }
+  const env = process.env.NEXT_ENV
+
+  if (env === 'production') return null
 
   return (
     <button
