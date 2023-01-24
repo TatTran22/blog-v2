@@ -1,6 +1,5 @@
 'use client'
 import { Provider } from '@supabase/supabase-js'
-import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 
@@ -27,30 +26,14 @@ const providers: ProviderProps[] = [
 
 export default function SignInWithProviders() {
   const { supabase, session } = useSupabase()
-  const [toast, setToast] = useState<{
-    message: string
-    type: 'success' | 'danger' | 'warning'
-  } | null>(null)
 
   const handleProviderSignIn = async (provider: Provider) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: {
-        redirectTo: window.location.origin,
-      },
     })
 
     if (error) {
       console.log({ error })
-      setToast({
-        message: error.message,
-        type: 'danger',
-      })
-    } else {
-      setToast({
-        message: 'Signed in successfully',
-        type: 'success',
-      })
     }
   }
 
