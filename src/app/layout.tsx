@@ -1,5 +1,3 @@
-// 'tailwindcss/tailwind.css'
-// import 'styles/prism.css'
 import 'styles/globals.css'
 
 import Container from 'components/pages/Container'

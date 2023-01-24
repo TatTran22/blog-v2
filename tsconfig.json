@@ -9,6 +9,8 @@
       "plugins/*": ["plugins/*"],
       "schemas/*": ["schemas/*"],
       "styles/*": ["styles/*"],
+      "public/*": ["../public/*"],
+      "~/*": ["../*"]
     },
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
