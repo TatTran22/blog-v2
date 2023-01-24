@@ -40,9 +40,15 @@ export default function Container(props: ContainerProps) {
                 Sign In
               </button>
             ) : (
-              <button className="mr-2" onClick={() => supabase.auth.signOut()}>
-                Sign Out
-              </button>
+              <div className="flex items-center">
+                <span className="mr-2">{session.user.email}</span>
+                <button
+                  className="mr-2"
+                  onClick={() => supabase.auth.signOut()}
+                >
+                  Sign Out
+                </button>
+              </div>
             )}
 
             <ButtonThemeSwitch />
