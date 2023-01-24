@@ -32,7 +32,10 @@ export default function ButtonThemeSwitch() {
   }
   const env = process.env.VERCEL_ENV
 
-  if (env === 'production') return null
+  if (env === 'production') {
+    localStorage.removeItem('theme')
+    return null
+  }
 
   return (
     <button
