@@ -1,10 +1,9 @@
 'use client'
+import Footer from 'components/Footer'
+import MobileMenu from 'components/MobileMenu'
+import { Author } from 'lib/types'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-
-import Footer from '@/components/Footer'
-import MobileMenu from '@/components/MobileMenu'
-import { Author } from '@/lib/types'
 
 import { useSupabase } from '../providers/supabase-provider'
 import LoginDialog from '../SignInDialog'

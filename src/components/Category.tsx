@@ -1,6 +1,5 @@
+import { Category } from 'lib/types'
 import Link from 'next/link'
-
-import { Category } from '@/lib/types'
 
 interface Props {
   category: Category

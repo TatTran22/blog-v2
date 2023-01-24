@@ -1,5 +1,5 @@
-import ListTags from '@/components/pages/tag/ListTags'
-import { getAllTags, getAllTagsWithCount } from '@/lib/sanity.client'
+import ListTags from 'components/pages/tag/ListTags'
+import { getAllTags, getAllTagsWithCount } from 'lib/sanity.client'
 
 export default async function Blog() {
   const tags = await getAllTags()

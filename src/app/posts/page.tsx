@@ -1,5 +1,5 @@
-import ListPosts from '@/components/pages/posts/ListPosts'
-import { getAllPosts } from '@/lib/sanity.client'
+import ListPosts from 'components/pages/posts/ListPosts'
+import { getAllPosts } from 'lib/sanity.client'
 
 export default async function Blog() {
   const [posts] = await Promise.all([getAllPosts()])

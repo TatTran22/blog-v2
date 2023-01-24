@@ -1,5 +1,5 @@
-import PostPreview from '@/components/PostPreview'
-import type { Post } from '@/lib/types'
+import PostPreview from 'components/PostPreview'
+import type { Post } from 'lib/types'
 
 export default function FuturePost({ posts }: { posts: Post[] }) {
   return (

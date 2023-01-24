@@ -1,13 +1,12 @@
 import { ImageResponse } from '@vercel/og'
+import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
+import * as demo from 'lib/demo.data'
+import { apiVersion, dataset, projectId } from 'lib/sanity.api'
+import { settingsQuery } from 'lib/sanity.queries'
+import type { Settings } from 'lib/types'
 import type { NextRequest, NextResponse } from 'next/server'
 import type { PageConfig } from 'next/types'
 import { createClient } from 'next-sanity'
-
-import { height, OpenGraphImage, width } from '@/components/OpenGraphImage'
-import * as demo from '@/lib/demo.data'
-import { apiVersion, dataset, projectId } from '@/lib/sanity.api'
-import { settingsQuery } from '@/lib/sanity.queries'
-import type { Settings } from '@/lib/types'
 
 export const config: PageConfig = { runtime: 'experimental-edge' }
 

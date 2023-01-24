@@ -1,14 +1,13 @@
 // 'tailwindcss/tailwind.css'
-// import '@/styles/prism.css'
-import '@/styles/globals.css'
+// import 'styles/prism.css'
+import 'styles/globals.css'
 
+import Container from 'components/pages/Container'
+import SupabaseProvider from 'components/providers/supabase-provider'
+import SupabaseListener from 'components/SupabaseListener'
+import { getAuthorBySlug } from 'lib/sanity.client'
+import { createClient } from 'lib/supabase-server'
 import React from 'react'
-
-import Container from '@/components/pages/Container'
-import SupabaseProvider from '@/components/providers/supabase-provider'
-import SupabaseListener from '@/components/SupabaseListener'
-import { getAuthorBySlug } from '@/lib/sanity.client'
-import { createClient } from '@/lib/supabase-server'
 
 // do not cache this layout
 export const revalidate = 0

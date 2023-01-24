@@ -1,9 +1,8 @@
+import Layout from 'components/BlogLayout'
+import ContainerHeader from 'components/ContainerHeader'
+import PostCard from 'components/pages/posts/PostCard'
+import type { Post } from 'lib/types'
 import { Suspense } from 'react'
-
-import Layout from '@/components/BlogLayout'
-import ContainerHeader from '@/components/ContainerHeader'
-import PostCard from '@/components/pages/posts/PostCard'
-import type { Post } from '@/lib/types'
 
 interface BlogPostsProps {
   posts: Post[]

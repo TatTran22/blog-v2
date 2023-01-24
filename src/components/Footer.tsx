@@ -1,4 +1,4 @@
-import { Author } from '@/lib/types'
+import { Author } from 'lib/types'
 
 interface FooterProps {
   owner: Author

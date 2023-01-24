@@ -1,12 +1,11 @@
+import ContainerHeader from 'components/ContainerHeader'
+import Image from 'components/Image'
+// import { PageSEO } from 'components/SEO'
+import { urlForImage } from 'lib/sanity.image'
+import type { Author } from 'lib/types'
 import { ReactNode } from 'react'
 import { FaFacebook, FaGithub } from 'react-icons/fa'
 import { FiMail } from 'react-icons/fi'
-
-import ContainerHeader from '@/components/ContainerHeader'
-import Image from '@/components/Image'
-// import { PageSEO } from '@/components/SEO'
-import { urlForImage } from '@/lib/sanity.image'
-import type { Author } from '@/lib/types'
 
 interface Props {
   children: ReactNode

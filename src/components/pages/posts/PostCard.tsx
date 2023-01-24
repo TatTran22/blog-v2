@@ -1,11 +1,10 @@
-import Link from 'next/link'
-
-import Category from '@/components/Category'
-import formatDate from '@/lib/formatDate'
+import Category from 'components/Category'
+import formatDate from 'lib/formatDate'
 // import useSWR from 'swr'
 //
-// import fetcher from '@/lib/fetcher'
-import type { Post } from '@/lib/types'
+// import fetcher from 'lib/fetcher'
+import type { Post } from 'lib/types'
+import Link from 'next/link'
 
 export default function PostCard({ post }: { post: Post }) {
   // const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher)

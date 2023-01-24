@@ -3,16 +3,16 @@ import {
   PortableTextReactComponents,
   toPlainText,
 } from '@portabletext/react'
+import Layout from 'components/BlogLayout'
+import PostDetailTitle from 'components/pages/posts/PostDetailTitle'
+import Pre from 'components/Pre'
+import GithubSlugger from 'github-slugger'
+import { urlForImage } from 'lib/sanity.image'
+import type { Post } from 'lib/types'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import slugify from 'slugify'
 
-import Layout from '@/components/BlogLayout'
-import PostDetailTitle from '@/components/pages/posts/PostDetailTitle'
-import Pre from '@/components/Pre'
-import { urlForImage } from '@/lib/sanity.image'
-import type { Post, Settings } from '@/lib/types'
-
+const slugger = new GithubSlugger()
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
@@ -40,25 +40,24 @@ const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
 
   marks: {
     link: ({ children, value }) => {
-      const rel = !value.href.startsWith('/')
-        ? 'noreferrer noopener'
-        : undefined
+      if (!value.href.startsWith('/')) {
+        return (
+          <a href={value.href} rel="noreferrer noopener" target="_blank">
+            {children}
+          </a>
+        )
+      }
 
-      return (
-        // eslint-disable-next-line react/jsx-no-target-blank
-        <a href={value.href} rel={rel} target={rel ? '_blank' : undefined}>
-          {children}
-        </a>
-      )
+      return <a href={value.href}>{children}</a>
     },
   },
   block: {
     h1: ({ children, value }) => {
-      const slug = slugify(toPlainText(value))
+      const slug = slugger.slug(toPlainText(value))
       return <h1 id={slug}>{children}</h1>
     },
     h2: ({ children, value }) => {
-      const slug = slugify(toPlainText(value))
+      const slug = slugger.slug(toPlainText(value))
       return <h2 id={slug}>{children}</h2>
     },
   },

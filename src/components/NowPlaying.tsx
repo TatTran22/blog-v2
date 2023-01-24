@@ -1,9 +1,8 @@
+import fetcher from 'lib/fetcher'
+import { NowPlayingSong } from 'lib/types'
 import { animate } from 'motion'
 import { useEffect } from 'react'
 import useSWR from 'swr'
-
-import fetcher from '@/lib/fetcher'
-import { NowPlayingSong } from '@/lib/types'
 
 function AnimatedBars() {
   useEffect(() => {

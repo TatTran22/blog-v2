@@ -1,9 +1,9 @@
 'use client'
 
-import PostDetail from '@/components/pages/posts/PostDetail'
-import { usePreview } from '@/lib/sanity.preview'
-import { postAndMoreStoriesQuery, settingsQuery } from '@/lib/sanity.queries'
-import { type Post, type Settings } from '@/lib/types'
+import PostDetail from 'components/pages/posts/PostDetail'
+import { usePreview } from 'lib/sanity.preview'
+import { postAndMoreStoriesQuery, settingsQuery } from 'lib/sanity.queries'
+import { type Post, type Settings } from 'lib/types'
 
 export default function PreviewPostPage({
   token,

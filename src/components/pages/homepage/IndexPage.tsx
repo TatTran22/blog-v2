@@ -1,7 +1,7 @@
-import Layout from '@/components/BlogLayout'
-import BlogHero from '@/components/pages/homepage/BlogHero'
-import PostCard from '@/components/pages/posts/PostCard'
-import type { Post, Settings } from '@/lib/types'
+import Layout from 'components/BlogLayout'
+import BlogHero from 'components/pages/homepage/BlogHero'
+import PostCard from 'components/pages/posts/PostCard'
+import type { Post, Settings } from 'lib/types'
 
 export default function IndexPage(props: {
   preview?: boolean

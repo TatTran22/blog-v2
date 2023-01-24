@@ -1,7 +1,6 @@
 import { PortableText } from '@portabletext/react'
-
-import Layout from '@/components/BlogLayout'
-import type { Author } from '@/lib/types'
+import Layout from 'components/BlogLayout'
+import type { Author } from 'lib/types'
 
 import AuthorContainer from '../AuthorContainer'
 

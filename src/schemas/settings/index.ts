@@ -1,8 +1,6 @@
 import { FiSettings } from 'react-icons/fi'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
-import * as demo from '@/lib/demo.data'
-
 import OpenGraphInput from './OpenGraphInput'
 
 export default defineType({
@@ -19,7 +17,7 @@ export default defineType({
       description: 'This field is the title of your blog.',
       title: 'Title',
       type: 'string',
-      initialValue: demo.title,
+      initialValue: "Tat Tran's Blog",
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -28,7 +26,6 @@ export default defineType({
         'Used both for the <meta> description tag for SEO, and the blog subheader.',
       title: 'Descriprion',
       type: 'array',
-      initialValue: demo.description,
       of: [
         defineArrayMember({
           type: 'block',
@@ -63,14 +60,14 @@ export default defineType({
         'Used for social media previews when linking to the index page.',
       type: 'object',
       components: {
-        input: OpenGraphInput as any,
+        input: OpenGraphInput,
       },
       fields: [
         defineField({
           name: 'title',
           title: 'Title',
           type: 'string',
-          initialValue: demo.ogImageTitle,
+          initialValue: "Tat Tran's Blog",
         }),
       ],
     }),

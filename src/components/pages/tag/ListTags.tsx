@@ -1,9 +1,8 @@
+import Layout from 'components/BlogLayout'
+import ContainerHeader from 'components/ContainerHeader'
+import type { Tag } from 'lib/types'
 import Link from 'next/link'
 import { Suspense } from 'react'
-
-import Layout from '@/components/BlogLayout'
-import ContainerHeader from '@/components/ContainerHeader'
-import type { Tag } from '@/lib/types'
 
 import TagComponent from './Tag'
 

@@ -1,9 +1,9 @@
 // import { previewData } from 'next/headers'
 
-import AboutPage from '@/components/pages/about/AboutPage'
-// import PreviewIndexPage from '@/components/PreviewIndexPage'
-// import { PreviewSuspense } from '@/components/PreviewSuspense'
-import { getAuthorBySlug } from '@/lib/sanity.client'
+import AboutPage from 'components/pages/about/AboutPage'
+// import PreviewIndexPage from 'components/PreviewIndexPage'
+// import { PreviewSuspense } from 'components/PreviewSuspense'
+import { getAuthorBySlug } from 'lib/sanity.client'
 
 export default async function AboutRoute() {
   // Fetch queries in parallel
