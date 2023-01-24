@@ -88,7 +88,7 @@ module.exports = {
               backgroundColor: theme('colors.gray.800'),
             },
             code: {
-              color: theme('colors.Fuchsia.500'),
+              color: theme('colors.fuchsia.500'),
               backgroundColor: theme('colors.gray.100'),
               paddingLeft: '4px',
               paddingRight: '4px',

@@ -48,7 +48,6 @@ export default defineType({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-      rows: 3,
       description:
         'This ends up on summary pages, on Google, when people share your post in social media.',
     }),

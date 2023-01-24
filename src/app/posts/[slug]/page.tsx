@@ -3,15 +3,11 @@ import { previewData } from 'next/headers'
 import PostDetail from '@/components/pages/posts/PostDetail'
 import PreviewPostPage from '@/components/PreviewPostPage'
 import { PreviewSuspense } from '@/components/PreviewSuspense'
-import {
-  getAllPostsSlugs,
-  getPostAndMoreStories,
-  getSettings,
-} from '@/lib/sanity.client'
+import { getAllPostsSlugs, getPostAndMoreStories } from '@/lib/sanity.client'
 
-export async function generateStaticParams() {
-  return await getAllPostsSlugs()
-}
+// export async function generateStaticParams() {
+//   return await getAllPostsSlugs()
+// }
 
 export default async function BlogDetailRoute({
   params,

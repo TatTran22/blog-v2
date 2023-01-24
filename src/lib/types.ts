@@ -19,7 +19,7 @@ export interface Author {
 
 export interface Category {
   _id: string
-  name: string
+  title: string
   slug: string
 }
 
@@ -110,3 +110,5 @@ export interface Unsplash {
   downloads: number
   views: number
 }
+
+export interface Database {}

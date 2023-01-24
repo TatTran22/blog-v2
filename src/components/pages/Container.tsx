@@ -1,10 +1,13 @@
 'use client'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 import Footer from '@/components/Footer'
 import MobileMenu from '@/components/MobileMenu'
 import { Author } from '@/lib/types'
 
+import { useSupabase } from '../providers/supabase-provider'
+import LoginDialog from '../SignInDialog'
 import ButtonThemeSwitch from './ButtonThemeSwitch'
 import NavItem from './NavItem'
 
@@ -16,6 +19,8 @@ interface ContainerProps {
 export default function Container(props: ContainerProps) {
   const { children, siteOwner } = props
   const pathName = usePathname()
+  const [isOpen, setIsOpen] = useState(false)
+  const { supabase, session } = useSupabase()
 
   if (pathName.startsWith('/studio')) return <>{children}</>
 
@@ -30,10 +35,23 @@ export default function Container(props: ContainerProps) {
             <NavItem href="/tags" text="Tag" />
             <NavItem href="/about" text="About" />
           </div>
-          <ButtonThemeSwitch />
+          <div className="flex">
+            {!session ? (
+              <button className="mr-2" onClick={() => setIsOpen(true)}>
+                Sign In
+              </button>
+            ) : (
+              <button className="mr-2" onClick={() => supabase.auth.signOut()}>
+                Sign Out
+              </button>
+            )}
+
+            <ButtonThemeSwitch />
+          </div>
         </nav>
       </div>
       <main className="flex flex-col justify-center px-8 bg-gray-50 dark:bg-gray-900">
+        <LoginDialog isOpen={isOpen} onClose={() => setIsOpen(false)} />
         {children}
         <Footer owner={siteOwner} />
       </main>
