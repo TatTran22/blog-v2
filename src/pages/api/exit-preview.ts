@@ -5,10 +5,7 @@ import type { PageConfig } from 'next/types'
 // option in next.config.mjs without breaking preview mode
 export const config: PageConfig = { runtime: 'nodejs' }
 
-export default function exit(
-  _req: NextApiRequest,
-  res: NextApiResponse<void>
-): void {
+export default function exit(_req: NextApiRequest, res: NextApiResponse<void>): void {
   // Exit the current user from "Preview Mode".
   res.clearPreviewData()
 

@@ -1,13 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Container from 'components/BlogContainer'
 
-export default function Alert({
-  preview,
-  loading,
-}: {
-  preview?: boolean
-  loading?: boolean
-}) {
+export default function Alert({ preview, loading }: { preview?: boolean; loading?: boolean }) {
   if (!preview) return null
 
   return (

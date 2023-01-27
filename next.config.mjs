@@ -3,14 +3,11 @@ const config = {
   reactStrictMode: true,
   images: {
     domains: [
-      'i.scdn.co', // Spotify Album Art
-      'pbs.twimg.com', // Twitter Profile Picture
+      // 'i.scdn.co', // Spotify Album Art
+      // 'pbs.twimg.com', // Twitter Profile Picture
       'cdn.sanity.io',
     ],
-    remotePatterns: [
-      { hostname: 'cdn.sanity.io' },
-      { hostname: 'source.unsplash.com' },
-    ],
+    remotePatterns: [{ hostname: 'cdn.sanity.io' }, { hostname: 'source.unsplash.com' }],
   },
   experimental: {
     appDir: true,

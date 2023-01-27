@@ -3,13 +3,7 @@
  */
 import { Card, Flex, Spinner, Text } from '@sanity/ui'
 import { getSecret } from 'plugins/productionUrl/utils'
-import React, {
-  memo,
-  startTransition,
-  Suspense,
-  useEffect,
-  useState,
-} from 'react'
+import React, { memo, startTransition, Suspense, useEffect, useState } from 'react'
 import { useClient } from 'sanity'
 import { suspend } from 'suspend-react'
 
@@ -25,10 +19,7 @@ export default function PostPreviewPane(props: Props) {
   // this helps prevent seeing "Invalid slug" or 404 errors while editing the slug manually
   const [slug, setSlug] = useState(props.slug)
   useEffect(() => {
-    const timeout = setTimeout(
-      () => startTransition(() => setSlug(props.slug)),
-      3000
-    )
+    const timeout = setTimeout(() => startTransition(() => setSlug(props.slug)), 3000)
     return () => clearTimeout(timeout)
   }, [props.slug])
 
@@ -36,24 +27,15 @@ export default function PostPreviewPane(props: Props) {
   if (!slug) {
     return (
       <Card tone="primary" margin={5} padding={6}>
-        <Text align="center">
-          Please add a slug to the post to see the preview!
-        </Text>
+        <Text align="center">Please add a slug to the post to see the preview!</Text>
       </Card>
     )
   }
 
   return (
-    <Card
-      scheme="light"
-      style={{ width: '100%', height: '100%', position: 'relative' }}
-    >
+    <Card scheme="light" style={{ width: '100%', height: '100%', position: 'relative' }}>
       <Suspense fallback={null}>
-        <Iframe
-          apiVersion={apiVersion}
-          previewSecretId={previewSecretId}
-          slug={slug}
-        />
+        <Iframe apiVersion={apiVersion} previewSecretId={previewSecretId} slug={slug} />
       </Suspense>
       <Flex
         as={Card}
@@ -81,9 +63,7 @@ export default function PostPreviewPane(props: Props) {
 
 // Used as a cache key that doesn't risk collision or getting affected by other components that might be using `suspend-react`
 const fetchSecret = Symbol('preview.secret')
-const Iframe = memo(function Iframe(
-  props: Omit<Props, 'slug'> & Required<Pick<Props, 'slug'>>
-) {
+const Iframe = memo(function Iframe(props: Omit<Props, 'slug'> & Required<Pick<Props, 'slug'>>) {
   const { apiVersion, previewSecretId, slug } = props
   const client = useClient({ apiVersion })
 

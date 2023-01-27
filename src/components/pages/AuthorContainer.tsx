@@ -26,36 +26,34 @@ export default function AuthorContainer({ children, author }: Props) {
             alt="avatar"
             width={192}
             height={192}
-            className="h-auto max-w-full align-middle border-none rounded-full shadow"
+            className="h-auto max-w-full rounded-full border-none align-middle shadow"
           />
-          <h3 className="pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight text-transparent background-author-animate bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text">
+          <h3 className="background-author-animate bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight text-transparent">
             {name}
           </h3>
           <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
           <div className="text-gray-500 dark:text-gray-400">{company}</div>
-          <div className="flex pt-6 space-x-3">
+          <div className="flex space-x-3 pt-6">
             <a href={`mailto:${socials.email}`}>
-              <FiMail className="w-6 h-6" title="Email" />
+              <FiMail className="h-6 w-6" title="Email" />
             </a>
             <a
               href={`https://github.com/${socials.github}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaGithub className="w-6 h-6" title="Github" />
+              <FaGithub className="h-6 w-6" title="Github" />
             </a>
             <a
               href={`https://facebook.com/${socials.facebook}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <FaFacebook className="w-6 h-6" title="Facebook" />
+              <FaFacebook className="h-6 w-6" title="Facebook" />
             </a>
           </div>
         </div>
-        <div className="pt-8 pb-8 prose max-w-none dark:prose-dark xl:col-span-2">
-          {children}
-        </div>
+        <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">{children}</div>
       </div>
     </>
   )

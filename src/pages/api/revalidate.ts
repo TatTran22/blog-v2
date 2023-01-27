@@ -27,15 +27,9 @@ import { type ParseBody, parseBody } from 'next-sanity/webhook'
 
 export { config } from 'next-sanity/webhook'
 
-export default async function revalidate(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function revalidate(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { body, isValidSignature } = await parseBody(
-      req,
-      process.env.SANITY_REVALIDATE_SECRET
-    )
+    const { body, isValidSignature } = await parseBody(req, process.env.SANITY_REVALIDATE_SECRET)
     if (isValidSignature === false) {
       const message = 'Invalid signature'
       console.log(message)
@@ -112,10 +106,7 @@ async function queryAllRoutes(client: SanityClient): Promise<StaleRoute[]> {
   return ['/', ...slugs.map((slug) => `/posts/${slug}` as StaleRoute)]
 }
 
-async function mergeWithMoreStories(
-  client,
-  slugs: string[]
-): Promise<string[]> {
+async function mergeWithMoreStories(client, slugs: string[]): Promise<string[]> {
   const moreStories = await client.fetch(
     groq`*[_type == "post"] | order(date desc, _updatedAt desc) [0...3].slug.current`
   )
@@ -127,10 +118,7 @@ async function mergeWithMoreStories(
   return slugs
 }
 
-async function queryStaleAuthorRoutes(
-  client: SanityClient,
-  id: string
-): Promise<StaleRoute[]> {
+async function queryStaleAuthorRoutes(client: SanityClient, id: string): Promise<StaleRoute[]> {
   let slugs = await client.fetch(
     groq`*[_type == "author" && _id == $id] {
     "slug": *[_type == "post" && references(^._id)].slug.current
@@ -146,14 +134,8 @@ async function queryStaleAuthorRoutes(
   return []
 }
 
-async function queryStalePostRoutes(
-  client: SanityClient,
-  id: string
-): Promise<StaleRoute[]> {
-  let slugs = await client.fetch(
-    groq`*[_type == "post" && _id == $id].slug.current`,
-    { id }
-  )
+async function queryStalePostRoutes(client: SanityClient, id: string): Promise<StaleRoute[]> {
+  let slugs = await client.fetch(groq`*[_type == "post" && _id == $id].slug.current`, { id })
 
   slugs = await mergeWithMoreStories(client, slugs)
 

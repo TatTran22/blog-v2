@@ -1,10 +1,4 @@
-import {
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaUserCog,
-} from 'react-icons/fa'
+import { FaFacebook, FaGithub, FaLinkedin, FaTwitter, FaUserCog } from 'react-icons/fa'
 import { MdOutlineEmail } from 'react-icons/md'
 import { defineField, defineType } from 'sanity'
 

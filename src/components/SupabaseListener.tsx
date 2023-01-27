@@ -5,11 +5,7 @@ import { useEffect } from 'react'
 
 import { useSupabase } from './providers/supabase-provider'
 
-export default function SupabaseListener({
-  serverAccessToken,
-}: {
-  serverAccessToken?: string
-}) {
+export default function SupabaseListener({ serverAccessToken }: { serverAccessToken?: string }) {
   const { supabase } = useSupabase()
   const router = useRouter()
 

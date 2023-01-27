@@ -10,11 +10,7 @@ import React from 'react'
 // do not cache this layout
 export const revalidate = 0
 
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient()
 
   const {

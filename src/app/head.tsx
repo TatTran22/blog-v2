@@ -4,11 +4,7 @@ import * as demo from 'lib/demo.data'
 import { getSettings } from 'lib/sanity.client'
 
 export default async function PageHead() {
-  const {
-    title = demo.title,
-    description = demo.description,
-    ogImage = {},
-  } = await getSettings()
+  const { title = demo.title, description = demo.description, ogImage = {} } = await getSettings()
   const ogImageTitle = ogImage?.title || demo.ogImageTitle
 
   return (

@@ -1,8 +1,4 @@
-import {
-  PortableText,
-  PortableTextReactComponents,
-  toPlainText,
-} from '@portabletext/react'
+import { PortableText, PortableTextReactComponents, toPlainText } from '@portabletext/react'
 import Layout from 'components/BlogLayout'
 import PostDetailTitle from 'components/pages/posts/PostDetailTitle'
 import Pre from 'components/Pre'
@@ -27,13 +23,7 @@ const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
         return null
       }
 
-      return (
-        <Image
-          alt={value.alt || ' '}
-          loading="lazy"
-          src={urlForImage(value).url()}
-        />
-      )
+      return <Image alt={value.alt || ' '} loading="lazy" src={urlForImage(value).url()} />
     },
     code: ({ value }) => <Pre value={value} />,
   },
@@ -89,10 +79,7 @@ export default function PostDetail(props: {
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
                     <time dateTime={date}>
-                      {new Date(date).toLocaleDateString(
-                        'en-US',
-                        postDateTemplate
-                      )}
+                      {new Date(date).toLocaleDateString('en-US', postDateTemplate)}
                     </time>
                   </dd>
                 </div>
@@ -103,7 +90,7 @@ export default function PostDetail(props: {
             </div>
           </header>
           <div
-            className="pb-8 divide-y divide-gray-200 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
+            className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
             style={{ gridTemplateRows: 'auto 1fr' }}
           >
             <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
@@ -111,25 +98,19 @@ export default function PostDetail(props: {
               <dd>
                 <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
                   {authors.map((author) => (
-                    <li
-                      className="flex items-center space-x-2"
-                      key={author.name}
-                    >
+                    <li className="flex items-center space-x-2" key={author.name}>
                       {author.avatar && (
                         <Image
-                          src={urlForImage(author.avatar)
-                            .width(768)
-                            .height(768)
-                            .url()}
+                          src={urlForImage(author.avatar).width(768).height(768).url()}
                           width={38}
                           height={38}
                           alt="avatar"
-                          className="w-10 h-10 rounded-full"
+                          className="h-10 w-10 rounded-full"
                         />
                       )}
-                      <dl className="text-sm font-medium leading-5 whitespace-nowrap">
+                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
                         <dt className="sr-only">Name</dt>
-                        <dd className="font-semibold text-transparent background-author-animate bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text">
+                        <dd className="background-author-animate bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text font-semibold text-transparent">
                           {author.name}
                         </dd>
                         {/*<dt className="sr-only">Twitter</dt>*/}
@@ -153,11 +134,8 @@ export default function PostDetail(props: {
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="pt-10 pb-8 prose max-w-none dark:prose-dark">
-                <PortableText
-                  value={content}
-                  components={BlogContentPortableComponents}
-                />
+              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+                <PortableText value={content} components={BlogContentPortableComponents} />
               </div>
               {/*<div className="pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">*/}
               {/*  <Link href={discussUrl(slug)} rel="nofollow">*/}

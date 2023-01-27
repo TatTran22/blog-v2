@@ -1,10 +1,4 @@
-import {
-  apiVersion,
-  dataset,
-  previewSecretId,
-  projectId,
-  useCdn,
-} from 'lib/sanity.api'
+import { apiVersion, dataset, previewSecretId, projectId, useCdn } from 'lib/sanity.api'
 import { postBySlugQuery } from 'lib/sanity.queries'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { PageConfig } from 'next/types'
@@ -29,19 +23,13 @@ function redirectToPreview(
 
 const _client = createClient({ projectId, dataset, apiVersion, useCdn })
 
-export default async function preview(
-  req: NextApiRequest,
-  res: NextApiResponse<string | void>
-) {
+export default async function preview(req: NextApiRequest, res: NextApiResponse<string | void>) {
   const previewData: { token?: string } = {}
   // If you want to require preview mode sessions to be started from the Studio, set the SANITY_REQUIRE_PREVIEW_SECRET
   // environment variable to 'true'. The benefit of doing this that unauthorized users attempting to brute force into your
   // preview mode won't make it past the secret check, and only legitimate users are able to bypass the statically generated pages and load up
   // the serverless-powered preview mode.
-  if (
-    process.env.SANITY_REQUIRE_PREVIEW_SECRET === 'true' &&
-    !req.query.secret
-  ) {
+  if (process.env.SANITY_REQUIRE_PREVIEW_SECRET === 'true' && !req.query.secret) {
     return res.status(401).send('Invalid secret')
   }
 
@@ -70,8 +58,7 @@ export default async function preview(
   const client = _client.withConfig({
     // Fallback to using the WRITE token until https://www.sanity.io/docs/vercel-integration starts shipping a READ token.
     // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
-    token:
-      process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
+    token: process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
   })
   const post = await client.fetch(postBySlugQuery, {
     slug: req.query.slug,

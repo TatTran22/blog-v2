@@ -11,8 +11,8 @@ import { createClient } from 'next-sanity'
 export const config: PageConfig = { runtime: 'experimental-edge' }
 
 export default async function og(req: NextRequest, res: NextResponse) {
-  const font = fetch(new URL('public/Inter-Bold.woff', import.meta.url)).then(
-    (res) => res.arrayBuffer()
+  const font = fetch(new URL('public/Inter-Bold.woff', import.meta.url)).then((res) =>
+    res.arrayBuffer()
   )
   const { searchParams } = new URL(req.url)
 
@@ -28,19 +28,16 @@ export default async function og(req: NextRequest, res: NextResponse) {
     title = settings?.ogImage?.title
   }
 
-  return new ImageResponse(
-    <OpenGraphImage title={title || demo.ogImageTitle} />,
-    {
-      width,
-      height,
-      fonts: [
-        {
-          name: 'Inter',
-          data: await font,
-          style: 'normal',
-          weight: 700,
-        },
-      ],
-    }
-  )
+  return new ImageResponse(<OpenGraphImage title={title || demo.ogImageTitle} />, {
+    width,
+    height,
+    fonts: [
+      {
+        name: 'Inter',
+        data: await font,
+        style: 'normal',
+        weight: 700,
+      },
+    ],
+  })
 }

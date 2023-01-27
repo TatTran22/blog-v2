@@ -1,10 +1,4 @@
-import {
-  FaFacebook,
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaYoutube,
-} from 'react-icons/fa'
+import { FaFacebook, FaGithub, FaLinkedin, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { MdOutlineEmail } from 'react-icons/md'
 
 // Icons taken from: https://simpleicons.org/
@@ -19,11 +13,7 @@ const components = {
 }
 
 const SocialIcon = ({ kind, href, size = 8 }) => {
-  if (
-    !href ||
-    (kind === 'mail' &&
-      !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href))
-  )
+  if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
     return null
 
   const SocialSvg = components[kind]

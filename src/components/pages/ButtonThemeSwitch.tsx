@@ -8,8 +8,7 @@ export default function ButtonThemeSwitch() {
     setMounted(true)
     if (
       localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches)
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark')
       setTheme('dark')
@@ -41,7 +40,7 @@ export default function ButtonThemeSwitch() {
     <button
       aria-label="Toggle Dark Mode"
       type="button"
-      className="flex items-center justify-center transition-all bg-gray-200 rounded-lg w-9 h-9 dark:bg-gray-600 hover:ring-2 ring-gray-300"
+      className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-200 ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600"
       onClick={handleThemeChange}
     >
       {mounted && (
@@ -50,7 +49,7 @@ export default function ButtonThemeSwitch() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          className="w-5 h-5 text-gray-800 dark:text-gray-200"
+          className="h-5 w-5 text-gray-800 dark:text-gray-200"
         >
           {theme === 'dark' ? (
             <path

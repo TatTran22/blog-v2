@@ -24,9 +24,7 @@ export const previewDocumentNode = ({
         return S.document().views([
           S.view.form(),
           S.view
-            .component(({ document }) => (
-              <AuthorAvatarPreviewPane {...document.displayed} />
-            ))
+            .component(({ document }) => <AuthorAvatarPreviewPane {...document.displayed} />)
             .title('Preview'),
         ])
 

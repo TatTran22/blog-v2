@@ -18,9 +18,7 @@ export async function getSecret(
   )
   if (!secret && createIfNotExists) {
     const newSecret =
-      createIfNotExists === true
-        ? Math.random().toString(36).slice(2)
-        : createIfNotExists()
+      createIfNotExists === true ? Math.random().toString(36).slice(2) : createIfNotExists()
     try {
       const patch = client.patch(id).set({ secret: newSecret })
       await client

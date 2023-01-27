@@ -24,9 +24,9 @@ export default function Container(props: ContainerProps) {
   if (pathName.startsWith('/studio')) return <>{children}</>
 
   return (
-    <div className="max-w-3xl px-4 mx-auto sm:px-6 xl:max-w-5xl xl:px-0">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="flex flex-col justify-center px-8">
-        <nav className="relative flex items-center justify-between flex-1 w-full pt-8 pb-8 text-gray-900 border-gray-200 dark:border-gray-700 sm:pb-16 bg-gray-50 dark:bg-gray-900 bg-opacity-60 dark:text-gray-100">
+        <nav className="relative flex w-full flex-1 items-center justify-between border-gray-200 bg-gray-50 bg-opacity-60 pt-8 pb-8 text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 sm:pb-16">
           <div className="ml-[-0.60rem]">
             <MobileMenu />
             <NavItem href="/" text="Home" />
@@ -42,10 +42,7 @@ export default function Container(props: ContainerProps) {
             ) : (
               <div className="flex items-center">
                 <span className="mr-2">{session.user.email}</span>
-                <button
-                  className="mr-2"
-                  onClick={() => supabase.auth.signOut()}
-                >
+                <button className="mr-2" onClick={() => supabase.auth.signOut()}>
                   Sign Out
                 </button>
               </div>
@@ -55,7 +52,7 @@ export default function Container(props: ContainerProps) {
           </div>
         </nav>
       </div>
-      <main className="flex flex-col justify-center px-8 bg-gray-50 dark:bg-gray-900">
+      <main className="flex flex-col justify-center bg-gray-50 px-8 dark:bg-gray-900">
         <LoginDialog isOpen={isOpen} onClose={() => setIsOpen(false)} />
         {children}
         <Footer owner={siteOwner} />

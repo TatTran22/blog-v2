@@ -4,11 +4,7 @@ import type { Author } from 'lib/types'
 
 import AuthorContainer from '../AuthorContainer'
 
-export default function AboutPage(props: {
-  preview?: boolean
-  loading?: boolean
-  author: Author
-}) {
+export default function AboutPage(props: { preview?: boolean; loading?: boolean; author: Author }) {
   const { preview, loading, author } = props
 
   return (

@@ -17,9 +17,9 @@ const init = cache(async function init(): Promise<SatoriOptions['fonts']> {
     )
   }
 
-  const fontData = await fetch(
-    new URL('public/Inter-Bold.woff', import.meta.url)
-  ).then((res) => res.arrayBuffer())
+  const fontData = await fetch(new URL('public/Inter-Bold.woff', import.meta.url)).then((res) =>
+    res.arrayBuffer()
+  )
 
   return [{ name: 'Inter', data: fontData, style: 'normal', weight: 700 }]
 })
@@ -50,10 +50,7 @@ export default function OpenGraphPreview(props: Settings['ogImage']) {
 
   const __html = use(
     satori(
-      useMemo(
-        () => <OpenGraphImage title={props.title || ''} />,
-        [props.title]
-      ),
+      useMemo(() => <OpenGraphImage title={props.title || ''} />, [props.title]),
       useMemo(() => ({ width, height, fonts }), [fonts])
     )
   )

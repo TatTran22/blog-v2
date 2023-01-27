@@ -18,9 +18,9 @@ export default function TagsPage(props: TagsPageProps) {
   return (
     <Layout preview={preview} loading={loading}>
       <Suspense fallback={null}>
-        <div className="pb-8 space-y-2 md:space-y-5">
+        <div className="space-y-2 pb-8 md:space-y-5">
           <ContainerHeader title="Tags" />
-          <div className="flex flex-wrap max-w-lg">
+          <div className="flex max-w-lg flex-wrap">
             {Object.keys(tags).length === 0 && 'No tags found.'}
             {tags.map((t) => {
               return (
@@ -28,7 +28,7 @@ export default function TagsPage(props: TagsPageProps) {
                   <TagComponent text={t.slug} />
                   <Link
                     href={`/tags/${t.slug}`}
-                    className="-ml-2 text-sm font-semibold text-gray-600 uppercase dark:text-gray-300"
+                    className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
                   >
                     {` (${t.count})`}
                   </Link>

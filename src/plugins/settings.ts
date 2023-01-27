@@ -32,21 +32,14 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
 
 // The StructureResolver is how we're changing the DeskTool structure to linking to a single "Settings" document, instead of rendering "settings" in a list
 // like how "Post" and "Author" is handled.
-export const settingsStructure = (
-  typeDef: DocumentDefinition
-): StructureResolver => {
+export const settingsStructure = (typeDef: DocumentDefinition): StructureResolver => {
   return (S) => {
     // The `Settings` root list item
     const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
       S.listItem()
         .title(typeDef.title)
         .icon(typeDef.icon)
-        .child(
-          S.editor()
-            .id(typeDef.name)
-            .schemaType(typeDef.name)
-            .documentId(typeDef.name)
-        )
+        .child(S.editor().id(typeDef.name).schemaType(typeDef.name).documentId(typeDef.name))
 
     // The default root list items (except custom ones)
     const defaultListItems = S.documentTypeListItems().filter(

@@ -1,11 +1,7 @@
 import PostDetail from 'components/pages/posts/PostDetail'
 import { getAllPostsSlugs, getPostAndMoreStories } from 'lib/sanity.client'
 
-export default async function BlogDetailRoute({
-  params,
-}: {
-  params: { slug: string }
-}) {
+export default async function BlogDetailRoute({ params }: { params: { slug: string } }) {
   const data = getPostAndMoreStories(params.slug)
   return <PostDetail data={await data} />
 }
