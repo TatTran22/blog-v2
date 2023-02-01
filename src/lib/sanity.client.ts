@@ -13,7 +13,7 @@ import {
   postSlugsQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
-import { Author, Category, Post, Settings, Tag } from 'lib/types'
+import { Author, Category, Post, PostHeading, Settings, Tag } from 'lib/types'
 import { createClient } from 'next-sanity'
 
 /**
@@ -21,7 +21,7 @@ import { createClient } from 'next-sanity'
  */
 const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null
 
-export async function getSettings(): Promise<Settings> {
+export async function getSettings(): Promise<Settings | Record<string, never>> {
   if (client) {
     return (await client.fetch(settingsQuery)) || {}
   }
@@ -50,7 +50,12 @@ export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
   return []
 }
 
-export async function getPostBySlug(slug: string): Promise<Post> {
+export async function getPostBySlug(slug: string): Promise<{
+  current: Post
+  headings: PostHeading[]
+  previous: Pick<Post, 'title' | 'slug' | 'publicReleaseDate' | 'tags'>
+  next: Pick<Post, 'title' | 'slug' | 'publicReleaseDate' | 'tags'>
+}> {
   if (client) {
     return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
   }
@@ -61,14 +66,7 @@ export async function getPostAndMoreStories(
   slug: string,
   token?: string | null
 ): Promise<{ post: Post; morePosts: Post[] }> {
-  if (projectId) {
-    const client = createClient({
-      projectId,
-      dataset,
-      apiVersion,
-      useCdn,
-      token: token || undefined,
-    })
+  if (client) {
     return await client.fetch(postAndMoreStoriesQuery, { slug })
   }
   return { post: null, morePosts: [] }

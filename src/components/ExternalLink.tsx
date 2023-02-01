@@ -1,3 +1,4 @@
+import { HTMLProps } from 'react'
 import { MdLaunch } from 'react-icons/md'
 
 const ExternalLinkRenderer = (props) => (
@@ -9,13 +10,11 @@ const ExternalLinkRenderer = (props) => (
   </span>
 )
 
-const ExternalLink = ({ href, children }) => (
-  <a
-    className="text-gray-500 transition hover:text-gray-600"
-    target="_blank"
-    rel="noopener noreferrer"
-    href={href}
-  >
+interface ExternalLinkProps extends HTMLProps<HTMLAnchorElement> {
+  href: string
+}
+const ExternalLink = ({ children, ...rest }: ExternalLinkProps) => (
+  <a target="_blank" rel="noopener noreferrer" {...rest}>
     {children}
   </a>
 )

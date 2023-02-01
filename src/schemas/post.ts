@@ -73,8 +73,8 @@ export default defineType({
     }),
 
     defineField({
-      name: 'date',
-      title: 'Date',
+      name: 'publicReleaseDate',
+      title: 'Public Release Date',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
     }),
@@ -83,13 +83,13 @@ export default defineType({
     select: {
       title: 'title',
       author: 'author.name',
-      date: 'date',
+      publicReleaseDate: 'publicReleaseDate',
       media: 'coverImage',
     },
-    prepare({ title, media, author, date }) {
+    prepare({ title, media, author, publicReleaseDate }) {
       const subtitles = [
         author && `by ${author}`,
-        date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
+        publicReleaseDate && `on ${format(parseISO(publicReleaseDate), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
       return { title, media, subtitle: subtitles.join(' ') }

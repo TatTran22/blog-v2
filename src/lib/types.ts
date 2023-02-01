@@ -1,3 +1,5 @@
+import type { Image } from 'sanity'
+
 export interface Author {
   _id: string
   name: string
@@ -21,16 +23,25 @@ export interface Category {
   slug: string
 }
 
+export interface PostHeading {
+  _key: string
+  style: string
+  children: {
+    text: string
+  }[]
+}
+
 export interface Post {
   _id: string
   title?: string
-  coverImage?: any
-  date?: string
+  coverImage?: Image
+  publicReleaseDate?: string
   excerpt?: string
-  author?: Author
+  authors?: Author[]
   slug: string
-  content?: any
+  content: any[]
   categories?: Category[]
+  tags?: Tag[]
 }
 
 export interface Tag {
@@ -41,10 +52,9 @@ export interface Tag {
 
 export interface Settings {
   title?: string
+  owner: Author
   description?: any[]
-  ogImage?: {
-    title?: string
-  }
+  ogImage?: Image & { title: string }
 }
 
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]

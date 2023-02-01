@@ -1,6 +1,5 @@
 import { ImageResponse } from '@vercel/og'
 import { height, OpenGraphImage, width } from 'components/OpenGraphImage'
-import * as demo from 'lib/demo.data'
 import { apiVersion, dataset, projectId } from 'lib/sanity.api'
 import { settingsQuery } from 'lib/sanity.queries'
 import type { Settings } from 'lib/types'
@@ -24,11 +23,11 @@ export default async function og(req: NextRequest, res: NextResponse) {
       apiVersion,
       useCdn: false,
     })
-    const settings = (await client.fetch<Settings>(settingsQuery)) || {}
-    title = settings?.ogImage?.title
+    const settings = await client.fetch<Settings>(settingsQuery)
+    title = settings?.title
   }
 
-  return new ImageResponse(<OpenGraphImage title={title || demo.ogImageTitle} />, {
+  return new ImageResponse(<OpenGraphImage title={title} />, {
     width,
     height,
     fonts: [

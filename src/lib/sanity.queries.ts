@@ -1,5 +1,17 @@
 import { groq } from 'next-sanity'
 
+const categoryFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+`
+
+const tagFields = groq`
+  _id,
+  title,
+  "slug": slug.current,
+`
+
 const authorFields = groq`
   _id,
   name,
@@ -14,32 +26,22 @@ const authorFields = groq`
 const postFields = groq`
   _id,
   title,
-  date,
+  publicReleaseDate,
+  content,
   excerpt,
-  categories[]->,
+  categories[]->{${categoryFields}},
   coverImage,
   "slug": slug.current,
-  authors[]->{
-    name,
-    "slug": slug.current,
-    avatar,
-    socials,
-  },
+  authors[]->{${authorFields}},
+  tags[]->{${tagFields}},
 `
 
-const categoryFields = groq`
-  _id,
+export const settingsQuery = groq`*[_type == "settings"][0]{
   title,
-  "slug": slug.current,
-`
-
-const tagFields = groq`
-  _id,
-  title,
-  "slug": slug.current,
-`
-
-export const settingsQuery = groq`*[_type == "settings"][0]`
+  owner->{${authorFields}},
+  description,
+  ogImage,
+}`
 
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
@@ -55,11 +57,9 @@ export const featuredPostsQuery = groq`
 export const postAndMoreStoriesQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
     ${postFields}
   },
   "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
     ${postFields}
   }
 }`
@@ -69,12 +69,19 @@ export const postSlugsQuery = groq`
 `
 
 export const postBySlugQuery = groq`
-*[_type == "post" && slug.current == $slug][0] {
-  ${postFields}
-}
+*[_type == "post"  && slug.current == $slug]{
+  "current": { 
+    ${postFields}
+  },
+  "headings": content[length(style) == 2 && string::startsWith(style, "h")],
+  "previous": *[_type == "post" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publicReleaseDate > publicReleaseDate]|order(publicReleaseDate desc)[0]{ 
+      "slug": slug.current, title, publicReleaseDate, "tags": tags[]->
+  },
+  "next": *[_type == "post" && count((tags[]->tag)[@ in ^.^.tags[]->tag]) > 0 && ^.publicReleaseDate < publicReleaseDate]|order(publicReleaseDate asc)[0]{ 
+      "slug": slug.current, title, publicReleaseDate, "tags": tags[]->
+  },
+}|order(publicReleaseDate)[0]
 `
-
-export const postUpdatedQuery = `*[_type == "post" && _id == $id].slug.current`
 
 const snippetFields = `
   _id,

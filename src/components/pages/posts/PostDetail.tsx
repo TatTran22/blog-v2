@@ -1,14 +1,15 @@
-import { PortableText, PortableTextReactComponents, toPlainText } from '@portabletext/react'
+import { PortableText } from '@portabletext/react'
 import Layout from 'components/BlogLayout'
-import PostDetailTitle from 'components/pages/posts/PostDetailTitle'
-import Pre from 'components/Pre'
-import GithubSlugger from 'github-slugger'
+import { ExternalLink } from 'components/ExternalLink'
+import TableOfContent from 'components/pages/posts/TableOfContent'
 import { urlForImage } from 'lib/sanity.image'
-import type { Post } from 'lib/types'
+import type { Post, PostHeading } from 'lib/types'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-const slugger = new GithubSlugger()
+import BlogContentPortableComponents from './BlogContentPortableComponent'
+
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',
   year: 'numeric',
@@ -16,57 +17,24 @@ const postDateTemplate: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 }
 
-const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
-  types: {
-    image: ({ value }) => {
-      if (!value?.asset?._ref) {
-        return null
-      }
-
-      return <Image alt={value.alt || ' '} loading="lazy" src={urlForImage(value).url()} />
-    },
-    code: ({ value }) => <Pre value={value} />,
-  },
-
-  marks: {
-    link: ({ children, value }) => {
-      if (!value.href.startsWith('/')) {
-        return (
-          <a href={value.href} rel="noreferrer noopener" target="_blank">
-            {children}
-          </a>
-        )
-      }
-
-      return <a href={value.href}>{children}</a>
-    },
-  },
-  block: {
-    h1: ({ children, value }) => {
-      const slug = slugger.slug(toPlainText(value))
-      return <h1 id={slug}>{children}</h1>
-    },
-    h2: ({ children, value }) => {
-      const slug = slugger.slug(toPlainText(value))
-      return <h2 id={slug}>{children}</h2>
-    },
-  },
-}
 export default function PostDetail(props: {
   preview?: boolean
   loading?: boolean
-  data: { post: Post; morePosts: Post[] }
+  data: {
+    current: Post
+    headings: PostHeading[]
+    previous: Pick<Post, 'title' | 'slug' | 'publicReleaseDate' | 'tags'>
+    next: Pick<Post, 'title' | 'slug' | 'publicReleaseDate' | 'tags'>
+  }
 }) {
   const { preview, loading, data } = props
-  const { post = {} as any, morePosts = [] } = data || {}
+  const { current, headings, previous, next } = data
 
-  const slug = post?.slug
-
-  if (!slug && !preview) {
+  if ((!current || !current.slug) && !preview) {
     notFound()
   }
 
-  const { title, description, coverImage, date, authors, content } = post
+  const { title, coverImage, publicReleaseDate, authors, content } = current
 
   return (
     <Layout preview={preview} loading={loading}>
@@ -78,14 +46,16 @@ export default function PostDetail(props: {
                 <div>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      {new Date(date).toLocaleDateString('en-US', postDateTemplate)}
+                    <time dateTime={publicReleaseDate}>
+                      {new Date(publicReleaseDate).toLocaleDateString('en-US', postDateTemplate)}
                     </time>
                   </dd>
                 </div>
               </dl>
               <div>
-                <PostDetailTitle>{title}</PostDetailTitle>
+                <h1 className="text-3xl font-extrabold leading-9 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+                  {title}
+                </h1>
               </div>
             </div>
           </header>
@@ -113,20 +83,17 @@ export default function PostDetail(props: {
                         <dd className="background-author-animate bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500 bg-clip-text font-semibold text-transparent">
                           {author.name}
                         </dd>
-                        {/*<dt className="sr-only">Twitter</dt>*/}
-                        {/*<dd>*/}
-                        {/*  {author.twitter && (*/}
-                        {/*    <Link*/}
-                        {/*      href={author.twitter}*/}
-                        {/*      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"*/}
-                        {/*    >*/}
-                        {/*      {author.twitter.replace(*/}
-                        {/*        'https://twitter.com/',*/}
-                        {/*        '@'*/}
-                        {/*      )}*/}
-                        {/*    </Link>*/}
-                        {/*  )}*/}
-                        {/*</dd>*/}
+                        <dt className="sr-only">Twitter</dt>
+                        <dd>
+                          {author.socials.twitter && (
+                            <ExternalLink
+                              href={`https://twitter.com/${author.socials.twitter}`}
+                              className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                            >
+                              @{author.socials.twitter}
+                            </ExternalLink>
+                          )}
+                        </dd>
                       </dl>
                     </li>
                   ))}
@@ -146,6 +113,35 @@ export default function PostDetail(props: {
               {/*</div>*/}
               {/*<Comments frontMatter={content} />*/}
             </div>
+            <footer>
+              <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
+                <TableOfContent headings={headings} />
+                {(next || previous) && (
+                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
+                    {previous && (
+                      <div>
+                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                          Previous Article
+                        </h2>
+                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                          <Link href={`/posts/${previous.slug}`}>{previous.title}</Link>
+                        </div>
+                      </div>
+                    )}
+                    {next && (
+                      <div>
+                        <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                          Next Article
+                        </h2>
+                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                          <Link href={`/posts/${next.slug}`}>{next.title}</Link>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </footer>
           </div>
         </div>
       </article>

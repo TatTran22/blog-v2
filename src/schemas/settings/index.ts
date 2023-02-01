@@ -21,6 +21,13 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'owner',
+      title: 'Site owner',
+      type: 'reference',
+      to: [{ type: 'author' }],
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'description',
       description: 'Used both for the <meta> description tag for SEO, and the blog subheader.',
       title: 'Descriprion',

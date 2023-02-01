@@ -1,5 +1,3 @@
-// 'tailwindcss/tailwind.css'
-
 export default async function BlogDetailLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="divide-y">

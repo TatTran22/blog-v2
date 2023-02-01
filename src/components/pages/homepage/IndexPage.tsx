@@ -9,13 +9,17 @@ export default function IndexPage(props: {
   posts: Post[]
   settings: Settings
 }) {
-  const { preview, loading, posts, settings } = props
-  const { title, description } = settings
-
+  const {
+    preview,
+    loading,
+    posts,
+    settings: { title, owner, description },
+  } = props
+  console.log(props)
   return (
     <>
       <Layout preview={preview} loading={loading}>
-        <BlogHero title={title} description={description} level={1} />
+        <BlogHero siteOwner={owner} description={description} level={1} />
         <ul>
           {posts.map((post) => (
             <PostCard key={post.title} post={post} />

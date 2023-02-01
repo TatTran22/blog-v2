@@ -60,7 +60,7 @@ export default async function preview(req: NextApiRequest, res: NextApiResponse<
     // As this client only exists on the server and the token is never shared with the browser, we don't risk escalating permissions to untrustworthy users
     token: process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_WRITE_TOKEN,
   })
-  const post = await client.fetch(postBySlugQuery, {
+  const { post } = await client.fetch(postBySlugQuery, {
     slug: req.query.slug,
   })
 

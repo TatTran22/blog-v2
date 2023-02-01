@@ -9,7 +9,7 @@ import Link from 'next/link'
 export default function PostCard({ post }: { post: Post }) {
   // const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher)
   // const views = data?.total
-  const { title, coverImage, date, author, slug, excerpt, categories } = post
+  const { title, coverImage, publicReleaseDate, authors, slug, excerpt, categories } = post
 
   return (
     <li key={slug} className="py-4">
@@ -17,7 +17,7 @@ export default function PostCard({ post }: { post: Post }) {
         <dl>
           <dt className="sr-only">Published on</dt>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-            <time dateTime={date}>{formatDate(date)}</time>
+            <time dateTime={publicReleaseDate}>{formatDate(publicReleaseDate)}</time>
           </dd>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
             {/*{`${views ? new Number(views).toLocaleString() : '–––'} views`}*/}3 views

@@ -3,18 +3,16 @@ import { getPostBySlug, getSettings } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
 
 export default async function SlugHead({ params }: { params: { slug: string } }) {
-  const [{ title = "Tat Tran's Blog" }, post] = await Promise.all([
-    getSettings(),
-    getPostBySlug(params.slug),
-  ])
+  const { current } = await getPostBySlug(params.slug)
+  const data = await getSettings()
   return (
     <>
-      <title>{post.title ? `${post.title} | ${title}` : title}</title>
+      <title>{current && current.title ? `${current.title} | ${data.title}` : data.title}</title>
       <BlogMeta />
-      {post.coverImage?.asset?._ref && (
+      {current && current.coverImage?.asset?._ref && (
         <meta
           property="og:image"
-          content={urlForImage(post.coverImage).width(1200).height(627).fit('crop').url()}
+          content={urlForImage(current.coverImage).width(1200).height(627).fit('crop').url()}
         />
       )}
     </>

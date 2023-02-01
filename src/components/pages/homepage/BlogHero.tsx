@@ -1,12 +1,13 @@
 import { PortableText } from '@portabletext/react'
+import { Author } from 'lib/types'
 
 import styles from './BlogHeader.module.css'
 
 export default function BlogHero({
-  title,
+  siteOwner,
   description,
 }: {
-  title: string
+  siteOwner: Author
   description?: any[]
   level: 1 | 2
 }) {
@@ -22,7 +23,7 @@ export default function BlogHero({
         <h1 className="text-3xl font-extrabold leading-9 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
           I&#39;m{' '}
           <span className="background-author-animate bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
-            {title}
+            {siteOwner.name}
           </span>
         </h1>
       </div>
