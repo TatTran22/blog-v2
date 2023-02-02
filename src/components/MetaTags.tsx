@@ -12,7 +12,7 @@ export default function MetaTags({
   image?: string
 }) {
   const descriptionText = typeof description === 'string' ? description : toPlainText(description)
-  const siteUrl = url ? url : process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : ''
+  const siteUrl = url ? url : process.env.NEXT_PUBLIC_SITE_URL
   const imageUrl = image ? image : '/images/tattran-square1.png'
   return (
     <>
