@@ -7,7 +7,7 @@ export default function IndexPage(props: {
   preview?: boolean
   loading?: boolean
   posts: Post[]
-  settings: Settings
+  settings: Settings | null
 }) {
   const {
     preview,
@@ -15,7 +15,6 @@ export default function IndexPage(props: {
     posts,
     settings: { title, owner, description },
   } = props
-  console.log(props)
   return (
     <>
       <Layout preview={preview} loading={loading}>

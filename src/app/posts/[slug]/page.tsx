@@ -3,7 +3,6 @@ import { getPostBySlug } from 'lib/sanity.client'
 
 export default async function BlogDetailRoute({ params }: { params: { slug: string } }) {
   const data = await getPostBySlug(params.slug)
-  console.log(data)
   return <PostDetail data={data} />
 }
 

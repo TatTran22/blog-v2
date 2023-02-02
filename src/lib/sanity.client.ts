@@ -21,11 +21,11 @@ import { createClient } from 'next-sanity'
  */
 const client = projectId ? createClient({ projectId, dataset, apiVersion, useCdn }) : null
 
-export async function getSettings(): Promise<Settings | Record<string, never>> {
+export async function getSettings(): Promise<Settings | null> {
   if (client) {
-    return (await client.fetch(settingsQuery)) || {}
+    return (await client.fetch(settingsQuery)) || null
   }
-  return {}
+  return null
 }
 
 export async function getAllPosts(): Promise<Post[]> {
