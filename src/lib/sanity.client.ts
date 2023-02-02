@@ -10,10 +10,10 @@ import {
   indexQuery,
   postAndMoreStoriesQuery,
   postBySlugQuery,
-  postSlugsQuery,
+  searchPostsQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
-import { Author, Category, Post, PostHeading, Settings, Tag } from 'lib/types'
+import { Author, Category, Post, PostHeading, SearchPostsResponse, Settings, Tag } from 'lib/types'
 import { createClient } from 'next-sanity'
 
 /**
@@ -42,14 +42,6 @@ export async function getFeaturedPosts(): Promise<Post[]> {
   return []
 }
 
-export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
-  if (client) {
-    const slugs = (await client.fetch<string[]>(postSlugsQuery)) || []
-    return slugs.map((slug) => ({ slug }))
-  }
-  return []
-}
-
 export async function getPostBySlug(slug: string): Promise<{
   current: Post
   headings: PostHeading[]
@@ -58,6 +50,20 @@ export async function getPostBySlug(slug: string): Promise<{
 }> {
   if (client) {
     return (await client.fetch(postBySlugQuery, { slug })) || ({} as any)
+  }
+  return {} as any
+}
+
+export async function searchPosts(payload: {
+  search: string
+  page: number
+  perPage: number
+}): Promise<SearchPostsResponse> {
+  if (client) {
+    // get the search query from the payload and set default values if not provided
+    const { search = '*', page = 0, perPage = 10 } = payload
+    console.log('search', search, page, perPage)
+    return (await client.fetch(searchPostsQuery, { search, page, perPage })) || ({} as any)
   }
   return {} as any
 }

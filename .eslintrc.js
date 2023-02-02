@@ -12,16 +12,15 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   extends: [
+    'next',
+    'next/core-web-vitals',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
-    'next',
-    'next/core-web-vitals',
   ],
   rules: {
-    'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/anchor-is-valid': [
       'error',

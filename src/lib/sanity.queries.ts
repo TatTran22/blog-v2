@@ -64,10 +64,6 @@ export const postAndMoreStoriesQuery = groq`
   }
 }`
 
-export const postSlugsQuery = groq`
-*[_type == "post" && defined(slug.current)][].slug.current
-`
-
 export const postBySlugQuery = groq`
 *[_type == "post"  && slug.current == $slug]{
   "current": { 
@@ -81,6 +77,17 @@ export const postBySlugQuery = groq`
       "slug": slug.current, title, publicReleaseDate, "tags": tags[]->
   },
 }|order(publicReleaseDate)[0]
+`
+
+export const searchPostsQuery = groq`
+{
+  "posts": *[_type == "post" && defined(slug.current) && (title match $search || content match $search)] | order(date desc, _updatedAt desc) [$page...$page + $perPage] {
+    ${postFields}
+  },
+  "total": count(*[_type == "post" && defined(slug.current) && (title match $search || content match $search)]),
+  "page": $page,
+  "perPage": $perPage
+}
 `
 
 const snippetFields = `

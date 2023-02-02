@@ -257,3 +257,10 @@ export interface Database {
     }
   }
 }
+
+export interface SearchPostsResponse {
+  posts: Post[]
+  total: number
+  page: number
+  perPage: number
+}
