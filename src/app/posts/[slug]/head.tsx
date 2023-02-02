@@ -5,8 +5,9 @@ import { urlForImage } from 'lib/sanity.image'
 export default async function SlugHead({ params }: { params: { slug: string } }) {
   const { current } = await getPostBySlug(params.slug)
   const data = await getSettings()
-  const currentUrl = `${process.env.VERCEL_URL.startsWith('localhost') ? 'http' : 'https'}://${
-    process.env.VERCEL_URL
+  const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'localhost:3000'
+  const currentUrl = `${
+    process.env.NEXT_PUBLIC_SITE_URL ? process.env.NEXT_PUBLIC_SITE_URL : vercelUrl
   }/posts/${params.slug}`
 
   return (
