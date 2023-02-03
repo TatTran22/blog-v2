@@ -1,11 +1,11 @@
 'use client'
 import cn from 'classnames'
-import GithubSlugger from 'github-slugger'
 import { PostHeading } from 'lib/types'
+import slugify from 'slugify'
 
 const TableOfContent = ({ headings }: { headings: PostHeading[] }) => {
   console.log(headings)
-  const slugger = new GithubSlugger()
+
   return (
     <div className="py-4 xl:py-8">
       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -16,7 +16,7 @@ const TableOfContent = ({ headings }: { headings: PostHeading[] }) => {
           {headings.map((heading) => {
             if (!['h2', 'h3'].includes(heading.style)) return null
 
-            const slug = slugger.slug(heading.children.map((c) => c.text).join(''))
+            const slug = slugify(heading.children.map((c) => c.text).join(''))
             return (
               <li key={slug}>
                 <a

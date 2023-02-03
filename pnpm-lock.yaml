@@ -29,7 +29,6 @@ specifiers:
   eslint-config-prettier: ^8.6.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-simple-import-sort: ^10.0.0
-  github-slugger: ^2.0.0
   intl-segmenter-polyfill: ^0.4.4
   motion: ^10.15.5
   next: ^13.1.6
@@ -47,6 +46,7 @@ specifiers:
   sanity-plugin-asset-source-unsplash: ^1.0.6
   satori: ^0.2.0
   server-only: ^0.0.1
+  slugify: ^1.6.5
   styled-components: ^5.3.6
   suspend-react: ^0.0.9
   swr: ^2.0.3
@@ -70,7 +70,6 @@ dependencies:
   '@vercel/og': 0.0.27
   classnames: 2.3.2
   date-fns: 2.29.3
-  github-slugger: 2.0.0
   intl-segmenter-polyfill: 0.4.4
   motion: 10.15.5
   next: 13.1.6_biqbaboplfbrettd7655fr4n2y
@@ -85,6 +84,7 @@ dependencies:
   sanity-plugin-asset-source-unsplash: 1.0.6_hfs3wd77liajulqli2qbldk5tq
   satori: 0.2.0
   server-only: 0.0.1
+  slugify: 1.6.5
   styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
   suspend-react: 0.0.9_react@18.2.0
   swr: 2.0.3_react@18.2.0
@@ -3981,10 +3981,6 @@ packages:
       - supports-color
     dev: false
 
-  /github-slugger/2.0.0:
-    resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
-    dev: false
-
   /glob-parent/5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -6306,6 +6302,11 @@ packages:
       immer: 9.0.19
       is-plain-object: 5.0.0
       tiny-warning: 1.0.3
+    dev: false
+
+  /slugify/1.6.5:
+    resolution: {integrity: sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==}
+    engines: {node: '>=8.0.0'}
     dev: false
 
   /source-map-js/1.0.2:

@@ -1,10 +1,8 @@
 import { PortableTextReactComponents, toPlainText } from '@portabletext/react'
 import Pre from 'components/Pre'
-import GithubSlugger from 'github-slugger'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
-
-const slugger = new GithubSlugger()
+import slugify from 'slugify'
 
 const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
   types: {
@@ -33,11 +31,11 @@ const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
   },
   block: {
     h2: ({ children, value }) => {
-      const slug = slugger.slug(toPlainText(value))
+      const slug = slugify(toPlainText(value))
       return <h2 id={slug}>{children}</h2>
     },
     h3: ({ children, value }) => {
-      const slug = slugger.slug(toPlainText(value))
+      const slug = slugify(toPlainText(value))
       return <h3 id={slug}>{children}</h3>
     },
   },
