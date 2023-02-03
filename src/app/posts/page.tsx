@@ -1,11 +1,15 @@
 import ListPosts from 'components/pages/posts/ListPosts'
 import { getAllTags, searchPosts } from 'lib/sanity.client'
+import React from 'react'
 
-export default async function Blog({
+export interface NameProps {
+  params?: { name: string }
+  searchParams?: { search?: string; page?: number; perPage?: number; tags?: string }
+}
+
+const Posts: ({ searchParams }: NameProps) => Promise<JSX.Element> = async ({
   searchParams,
-}: {
-  searchParams: { search: string; page: number; perPage: number; tags: string }
-}) {
+}: NameProps) => {
   const payload = {
     search: searchParams.search || '*',
     page: Number(searchParams.page || 0),
@@ -26,14 +30,10 @@ export default async function Blog({
     total: postsResponse.total,
   }
 
-  return (
-    <ListPosts
-      postsResponse={filteredPosts}
-      search={searchParams.search}
-      tagsResponse={tagsResponse}
-    />
-  )
+  return <ListPosts postsResponse={filteredPosts} tagsResponse={tagsResponse} />
 }
+
+export default Posts
 
 // FIXME: remove the `revalidate` export below once you've followed the instructions in `/pages/api/revalidate.ts`
 export const revalidate = 1

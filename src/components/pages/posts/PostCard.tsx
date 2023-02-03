@@ -1,4 +1,3 @@
-import Category from 'components/Category'
 import formatDate from 'lib/formatDate'
 // import useSWR from 'swr'
 //
@@ -9,7 +8,7 @@ import Link from 'next/link'
 export default function PostCard({ post }: { post: Post }) {
   // const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher)
   // const views = data?.total
-  const { title, coverImage, publicReleaseDate, authors, slug, excerpt, categories } = post
+  const { title, coverImage, publicReleaseDate, authors, slug, excerpt, tags } = post
 
   return (
     <li key={slug} className="py-4">
@@ -33,11 +32,16 @@ export default function PostCard({ post }: { post: Post }) {
                 {title}
               </Link>
             </h3>
-            {/* <div className="flex flex-wrap">
-              {categories.map((c) => (
-                <Category key={c.slug} category={c} />
+            <div className="flex flex-wrap">
+              {tags.map((c) => (
+                <div
+                  key={c.slug}
+                  className="mr-3 text-sm font-medium uppercase text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                >
+                  {c.title}
+                </div>
               ))}
-            </div> */}
+            </div>
           </div>
           <div className="prose max-w-none text-gray-500 dark:text-gray-400">{excerpt}</div>
         </div>

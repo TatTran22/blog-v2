@@ -60,7 +60,7 @@ export default function TagsFilter(props: TagsFilterProps) {
                 id="tags"
                 type="text"
                 name="tags"
-                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 caret-primary-600 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 sm:text-sm"
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 caret-primary-600 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:ring-offset-gray-800 sm:text-sm"
                 displayValue={(selectedTags: TagWithCount[]) =>
                   selectedTags.length === 0 ? '' : selectedTags.map((tag) => tag.title).join(', ')
                 }

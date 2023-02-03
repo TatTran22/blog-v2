@@ -16,7 +16,7 @@ interface BlogPostsProps {
 }
 
 export default function BlogPosts(props: BlogPostsProps) {
-  const { preview, loading, search, postsResponse, tagsResponse } = props
+  const { preview, loading, postsResponse, tagsResponse } = props
   const { posts } = postsResponse
   return (
     <Layout preview={preview} loading={loading}>

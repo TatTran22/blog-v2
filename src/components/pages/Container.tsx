@@ -31,7 +31,6 @@ export default function Container(props: ContainerProps) {
             <MobileMenu />
             <NavItem href="/" text="Home" />
             <NavItem href="/posts" text="Blog" />
-            <NavItem href="/tags" text="Tag" />
             <NavItem href="/about" text="About" />
           </div>
           <div className="flex">
