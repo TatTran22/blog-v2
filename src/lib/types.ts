@@ -50,6 +50,10 @@ export interface Tag {
   slug: string
 }
 
+export interface TagWithCount extends Tag {
+  count: number
+}
+
 export interface Settings {
   title?: string
   owner: Author

@@ -89,7 +89,6 @@ export const searchPostsQuery = groq`
   "perPage": $perPage
 }
 `
-
 const snippetFields = `
   _id,
   title,
@@ -131,12 +130,6 @@ export const getAllTagsQuery = groq`
 *[_type == "tag"] | order(title asc) {
   ${tagFields}
   "count": count(*[_type == "post" && references(^._id)])
-}
-`
-
-export const getAllTagsWithCountQuery = groq`
-*[_type == "tag"] | order(title asc) {
-  ${tagFields},
 }
 `
 
