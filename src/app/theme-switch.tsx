@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-export default function ButtonThemeSwitch() {
+export default function ThemeSwitch() {
   const [mounted, setMounted] = useState(false)
   const [theme, setTheme] = useState('')
   useEffect(() => {

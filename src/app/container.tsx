@@ -1,14 +1,14 @@
 'use client'
-import Footer from 'components/Footer'
 import MobileMenu from 'components/MobileMenu'
+import { useSupabase } from 'components/providers/supabase-provider'
+import LoginDialog from 'components/SignInDialog'
 import { Author } from 'lib/types'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 
-import { useSupabase } from '../providers/supabase-provider'
-import LoginDialog from '../SignInDialog'
-import ButtonThemeSwitch from './ButtonThemeSwitch'
-import NavItem from './NavItem'
+import Footer from './footer'
+import NavItem from './nav-item'
+import ThemeSwitch from './theme-switch'
 
 interface ContainerProps {
   children: React.ReactNode
@@ -47,15 +47,17 @@ export default function Container(props: ContainerProps) {
               </div>
             )}
 
-            <ButtonThemeSwitch />
+            <ThemeSwitch />
           </div>
         </nav>
       </div>
+      <LoginDialog isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <main className="flex flex-col justify-center bg-gray-50 px-8 dark:bg-gray-900">
-        <LoginDialog isOpen={isOpen} onClose={() => setIsOpen(false)} />
-        {children}
-        <Footer owner={siteOwner} />
+        <div className="min-h-screen">
+          <div className="divide-y">{children}</div>
+        </div>
       </main>
+      <Footer owner={siteOwner} />
     </div>
   )
 }

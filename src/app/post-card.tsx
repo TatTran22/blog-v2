@@ -1,13 +1,10 @@
 import formatDate from 'lib/formatDate'
-// import useSWR from 'swr'
-//
-// import fetcher from 'lib/fetcher'
 import type { Post } from 'lib/types'
 import Link from 'next/link'
 
+import ViewCounter from './view-counter'
+
 export default function PostCard({ post }: { post: Post }) {
-  // const { data } = useSWR<Views>(`/api/views/${slug}`, fetcher)
-  // const views = data?.total
   const { title, coverImage, publicReleaseDate, authors, slug, excerpt, tags } = post
 
   return (
@@ -19,7 +16,7 @@ export default function PostCard({ post }: { post: Post }) {
             <time dateTime={publicReleaseDate}>{formatDate(publicReleaseDate)}</time>
           </dd>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-            {/*{`${views ? new Number(views).toLocaleString() : '–––'} views`}*/}3 views
+            <ViewCounter slug={post.slug} trackView={false} />
           </dd>
         </dl>
         <div className="space-y-3 xl:col-span-3">

@@ -4,15 +4,13 @@ import { PostHeading } from 'lib/types'
 import slugify from 'slugify'
 
 const TableOfContent = ({ headings }: { headings: PostHeading[] }) => {
-  console.log(headings)
-
   return (
     <div className="py-4 xl:py-8">
       <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
         Table of contents
       </h2>
       <div className="flex flex-wrap">
-        <ul className="flex w-full flex-col space-y-2 xl:w-auto  xl:space-y-0 ">
+        <ul className="flex w-full flex-col space-y-2 xl:w-auto xl:space-y-0 ">
           {headings.map((heading) => {
             if (!['h2', 'h3'].includes(heading.style)) return null
 

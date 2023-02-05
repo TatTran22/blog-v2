@@ -74,10 +74,10 @@ export interface Database {
     Functions: {
       graphql: {
         Args: {
-          operationName: string
-          query: string
-          variables: Json
-          extensions: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+          extensions?: Json
         }
         Returns: Json
       }
@@ -91,27 +91,136 @@ export interface Database {
   }
   public: {
     Tables: {
-      views: {
+      channels: {
         Row: {
-          count: number | null
+          created_by: string
+          id: number
+          inserted_at: string
+          slug: string
+        }
+        Insert: {
+          created_by: string
+          id?: number
+          inserted_at?: string
+          slug: string
+        }
+        Update: {
+          created_by?: string
+          id?: number
+          inserted_at?: string
+          slug?: string
+        }
+      }
+      messages: {
+        Row: {
+          channel_id: number
+          id: number
+          inserted_at: string
+          message: string | null
+          user_id: string
+        }
+        Insert: {
+          channel_id: number
+          id?: number
+          inserted_at?: string
+          message?: string | null
+          user_id: string
+        }
+        Update: {
+          channel_id?: number
+          id?: number
+          inserted_at?: string
+          message?: string | null
+          user_id?: string
+        }
+      }
+      pageviews: {
+        Row: {
           id: number
           inserted_at: string
           slug: string
           updated_at: string
+          view_count: number | null
         }
         Insert: {
-          count?: number | null
           id?: number
           inserted_at?: string
           slug: string
           updated_at?: string
+          view_count?: number | null
         }
         Update: {
-          count?: number | null
           id?: number
           inserted_at?: string
           slug?: string
           updated_at?: string
+          view_count?: number | null
+        }
+      }
+      role_permissions: {
+        Row: {
+          id: number
+          permission: Database['public']['Enums']['app_permission']
+          role: Database['public']['Enums']['app_role']
+        }
+        Insert: {
+          id?: number
+          permission: Database['public']['Enums']['app_permission']
+          role: Database['public']['Enums']['app_role']
+        }
+        Update: {
+          id?: number
+          permission?: Database['public']['Enums']['app_permission']
+          role?: Database['public']['Enums']['app_role']
+        }
+      }
+      user_roles: {
+        Row: {
+          id: number
+          role: Database['public']['Enums']['app_role']
+          user_id: string
+        }
+        Insert: {
+          id?: number
+          role: Database['public']['Enums']['app_role']
+          user_id: string
+        }
+        Update: {
+          id?: number
+          role?: Database['public']['Enums']['app_role']
+          user_id?: string
+        }
+      }
+      users: {
+        Row: {
+          avatar_url: string | null
+          full_name: string | null
+          id: string
+          inserted_at: string
+          status: Database['public']['Enums']['user_status'] | null
+          updated_at: string
+          username: string | null
+          website: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id: string
+          inserted_at?: string
+          status?: Database['public']['Enums']['user_status'] | null
+          updated_at?: string
+          username?: string | null
+          website?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          full_name?: string | null
+          id?: string
+          inserted_at?: string
+          status?: Database['public']['Enums']['user_status'] | null
+          updated_at?: string
+          username?: string | null
+          website?: string | null
         }
       }
     }
@@ -119,10 +228,22 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      authorize: {
+        Args: {
+          requested_permission: Database['public']['Enums']['app_permission']
+          user_id: string
+        }
+        Returns: boolean
+      }
+      update_views: {
+        Args: { page_slug: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_permission: 'channels.delete' | 'messages.delete'
+      app_role: 'admin' | 'moderator'
+      user_status: 'ONLINE' | 'OFFLINE'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -236,12 +357,12 @@ export interface Database {
         Args: {
           prefix: string
           bucketname: string
-          limits: number
-          levels: number
-          offsets: number
-          search: string
-          sortcolumn: string
-          sortorder: string
+          limits?: number
+          levels?: number
+          offsets?: number
+          search?: string
+          sortcolumn?: string
+          sortorder?: string
         }
         Returns: {
           name: string
@@ -260,11 +381,4 @@ export interface Database {
       [_ in never]: never
     }
   }
-}
-
-export interface SearchPostsResponse {
-  posts: Post[]
-  total: number
-  page: number
-  perPage: number
 }

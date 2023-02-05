@@ -1,8 +1,9 @@
 import { PortableTextReactComponents, toPlainText } from '@portabletext/react'
-import Pre from 'components/Pre'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import slugify from 'slugify'
+
+import Pre from './pre'
 
 const BlogContentPortableComponents: Partial<PortableTextReactComponents> = {
   types: {

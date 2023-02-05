@@ -1,6 +1,10 @@
-import ListPosts from 'components/pages/posts/ListPosts'
 import { getAllTags, searchPosts } from 'lib/sanity.client'
-import React from 'react'
+import React, { Suspense } from 'react'
+
+import ContainerHeader from '../container-header'
+import PostCard from '../post-card'
+import InputSearch from './input-search'
+import TagsFilter from './tags-filter'
 
 export interface NameProps {
   params?: { name: string }
@@ -21,16 +25,29 @@ const Posts: ({ searchParams }: NameProps) => Promise<JSX.Element> = async ({
     ? searchParams.tags.split(',')
     : tagsResponse.map((tag) => tag.slug)
 
-  const filteredPosts = {
-    posts: postsResponse.posts.filter((post) => {
-      return post.tags.some((tag) => tags.includes(tag.slug))
-    }),
-    page: postsResponse.page,
-    perPage: postsResponse.perPage,
-    total: postsResponse.total,
-  }
+  const posts = postsResponse.posts.filter((post) => {
+    return post.tags.some((tag) => tags.includes(tag.slug))
+  })
 
-  return <ListPosts postsResponse={filteredPosts} tagsResponse={tagsResponse} />
+  return (
+    <>
+      <Suspense fallback={null}>
+        <div className="space-y-2 pb-8 md:space-y-5">
+          <ContainerHeader title="All Posts" />
+          <div className="relative flex flex-row items-center space-x-4">
+            <InputSearch />
+            <TagsFilter tags={tagsResponse} />
+          </div>
+        </div>
+        {posts.length === 0 && 'No posts found.'}
+        <ul>
+          {posts.map((post) => (
+            <PostCard key={post.title} post={post} />
+          ))}
+        </ul>
+      </Suspense>
+    </>
+  )
 }
 
 export default Posts

@@ -81,7 +81,8 @@ export const postBySlugQuery = groq`
 
 export const searchPostsQuery = groq`
 {
-  "posts": *[_type == "post" && defined(slug.current) && (title match $search || content match $search)] | order(date desc, _updatedAt desc) [$page...$page + $perPage] {
+  "posts": *[_type == "post" && defined(slug.current) && (title match $search || content match $search)]
+  | order(date desc, _updatedAt desc) [$page...$page + $perPage] {
     ${postFields}
   },
   "total": count(*[_type == "post" && defined(slug.current) && (title match $search || content match $search)]),
