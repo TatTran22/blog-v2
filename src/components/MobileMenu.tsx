@@ -5,7 +5,11 @@ import { useEffect, useState } from 'react'
 import styles from 'styles/mobile-menu.module.css'
 import useDelayedRender from 'use-delayed-render'
 
-export default function MobileMenu() {
+export default function MobileMenu({
+  items,
+}: {
+  items: { text: string; href: string; transitionDelay: string }[]
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { mounted: isMenuMounted, rendered: isMenuRendered } = useDelayedRender(isMenuOpen, {
     enterDelay: 20,
@@ -47,30 +51,17 @@ export default function MobileMenu() {
             isMenuRendered && styles.menuRendered
           )}
         >
-          <li
-            className="border-b border-gray-300 text-sm font-semibold text-gray-900 dark:border-gray-700 dark:text-gray-100"
-            style={{ transitionDelay: '150ms' }}
-          >
-            <Link href="/" className="flex w-auto pb-4">
-              Home
-            </Link>
-          </li>
-          <li
-            className="border-b border-gray-300 text-sm font-semibold text-gray-900 dark:border-gray-700 dark:text-gray-100"
-            style={{ transitionDelay: '175ms' }}
-          >
-            <Link href="/posts" className="flex w-auto pb-4">
-              Blog
-            </Link>
-          </li>
-          <li
-            className="border-b border-gray-300 text-sm font-semibold text-gray-900 dark:border-gray-700 dark:text-gray-100"
-            style={{ transitionDelay: '200ms' }}
-          >
-            <Link href="/about" className="flex w-auto pb-4">
-              About
-            </Link>
-          </li>
+          {items.map((item) => (
+            <li
+              key={item.href}
+              className="border-b border-gray-300 text-sm font-semibold text-gray-900 dark:border-gray-700 dark:text-gray-100"
+              style={{ transitionDelay: item.transitionDelay }}
+            >
+              <Link href={item.href} className="flex w-auto pb-4" onClick={toggleMenu}>
+                {item.text}
+              </Link>
+            </li>
+          ))}
         </ul>
       )}
     </>

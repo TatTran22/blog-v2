@@ -1,5 +1,6 @@
 'use client'
 
+import fetcher from 'lib/fetcher'
 import { useEffect } from 'react'
 import useSWR from 'swr'
 
@@ -10,11 +11,6 @@ type PostViewResponse = {
     view_count: string
   }[]
   error?: any
-}
-
-async function fetcher<JSON = any>(input: RequestInfo, init?: RequestInit): Promise<JSON> {
-  const res = await fetch(input, init)
-  return res.json()
 }
 
 export default function ViewCounter({ slug, trackView }: { slug: string; trackView: boolean }) {
@@ -31,7 +27,8 @@ export default function ViewCounter({ slug, trackView }: { slug: string; trackVi
     if (trackView) {
       registerView()
     }
-  }, [slug, trackView])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug])
 
   return (
     <p className="text-sm text-gray-500 dark:text-gray-400">
