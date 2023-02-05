@@ -6,9 +6,9 @@ import slugify from 'slugify'
 const TableOfContent = ({ headings }: { headings: PostHeading[] }) => {
   return (
     <div className="py-4 xl:py-8">
-      <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+      <h3 className="text-sm uppercase tracking-wide text-gray-500 dark:text-gray-400">
         Table of contents
-      </h2>
+      </h3>
       <div className="flex flex-wrap">
         <ul className="flex w-full flex-col space-y-2 xl:w-auto xl:space-y-0 ">
           {headings.map((heading) => {

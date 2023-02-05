@@ -90,13 +90,13 @@ export default async function BlogDetailRoute({ params }: { params: { slug: stri
                 </dd>
               </dl>
               <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-                <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+                <TableOfContent headings={headings} />
+                <div className="prose max-w-none pb-8 dark:prose-dark">
                   <PortableText value={content} components={BlogContentPortableComponents} />
                 </div>
               </div>
               <footer>
                 <div className="divide-gray-200 text-sm font-medium leading-5 dark:divide-gray-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                  <TableOfContent headings={headings} />
                   {(next || previous) && (
                     <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                       {previous && (
