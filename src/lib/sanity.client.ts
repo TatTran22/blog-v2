@@ -12,16 +12,7 @@ import {
   searchPostsQuery,
   settingsQuery,
 } from 'lib/sanity.queries'
-import {
-  Author,
-  Category,
-  Post,
-  PostHeading,
-  SearchPostsResponse,
-  Settings,
-  Tag,
-  TagWithCount,
-} from 'lib/types'
+import { Author, Post, PostHeading, SearchPostsResponse, Settings, TagWithCount } from 'lib/types'
 import { createClient } from 'next-sanity'
 
 /**

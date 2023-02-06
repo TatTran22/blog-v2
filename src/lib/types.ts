@@ -61,6 +61,13 @@ export interface Settings {
   ogImage?: Image & { title: string }
 }
 
+export interface SearchPostsResponse {
+  posts: Post[]
+  total: number
+  page: number
+  perPage: number
+}
+
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
 export interface Database {

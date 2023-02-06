@@ -53,9 +53,9 @@ export default function Container(props: ContainerProps) {
   if (pathName.startsWith('/studio')) return <>{children}</>
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 xl:max-w-5xl xl:px-0">
+    <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-4 sm:px-6 xl:max-w-5xl xl:px-0">
       <div className="flex flex-col justify-center px-8">
-        <nav className="relative flex w-full flex-1 items-center justify-between border-gray-200 bg-gray-50 bg-opacity-60 pt-8 pb-8 text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 sm:pb-16">
+        <nav className="relative flex w-full flex-1 items-center justify-between border-gray-200 bg-gray-50 bg-opacity-60 pt-4 pb-4 text-gray-900 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100">
           <div className="ml-[-0.60rem]">
             <MobileMenu items={NAV_ITEMS} />
             {NAV_ITEMS.map((item) => (
@@ -87,12 +87,10 @@ export default function Container(props: ContainerProps) {
             )}
           </div>
         </nav>
+        <LoginDialog isOpen={isLoginDialogOpen} onClose={() => setIsLoginDialogOpen(false)} />
       </div>
-      <LoginDialog isOpen={isLoginDialogOpen} onClose={() => setIsLoginDialogOpen(false)} />
-      <main className="flex flex-col justify-center bg-gray-50 px-8 dark:bg-gray-900">
-        <div className="min-h-screen">
-          <div className="divide-y">{children}</div>
-        </div>
+      <main className="flex-1 justify-center bg-gray-50 px-8 dark:bg-gray-900">
+        <div className="divide-y">{children}</div>
       </main>
       <Footer owner={siteOwner} />
     </div>
