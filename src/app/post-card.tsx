@@ -5,11 +5,14 @@ import Link from 'next/link'
 import ViewCounter from './view-counter'
 
 export default function PostCard({ post }: { post: Post }) {
-  const { title, coverImage, publicReleaseDate, authors, slug, excerpt, tags } = post
+  const { title, publicReleaseDate, slug, excerpt, tags } = post
 
   return (
-    <li key={slug} className="py-4">
-      <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+    <li
+      key={slug}
+      className="py-4 transition duration-200 ease-in-out hover:scale-105 hover:shadow-lg"
+    >
+      <article className="space-y-2 px-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0 xl:space-x-6">
         <dl>
           <dt className="sr-only">Published on</dt>
           <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
