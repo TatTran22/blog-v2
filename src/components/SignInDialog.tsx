@@ -4,7 +4,12 @@ import { Fragment, useRef } from 'react'
 import SignInWithEmailForm from './SignInWithEmailForm'
 import SignInWithProviders from './SignInWithProviders'
 
-export default function SignInDialog({ isOpen, onClose }) {
+interface Props {
+  isOpen: boolean
+  onClose: () => void
+}
+
+export default function SignInDialog({ isOpen, onClose }: Props) {
   const initialFocusRef = useRef(null)
 
   return (

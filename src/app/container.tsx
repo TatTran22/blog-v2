@@ -40,10 +40,6 @@ export default function Container(props: ContainerProps) {
   const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false)
 
   useEffect(() => {
-    console.log('pathName', pathName)
-  }, [pathName])
-
-  useEffect(() => {
     if (session) {
       const fetchProfile = async () => {
         const { data } = await supabase.from('users').select('*').eq('id', session.user.id).single()

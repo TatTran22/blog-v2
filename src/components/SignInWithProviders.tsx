@@ -28,11 +28,13 @@ export default function SignInWithProviders() {
   const { supabase, session } = useSupabase()
 
   const handleProviderSignIn = async (provider: Provider) => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider,
-    })
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+      })
 
-    if (error) {
+      if (error) throw error
+    } catch (error) {
       console.log({ error })
     }
   }

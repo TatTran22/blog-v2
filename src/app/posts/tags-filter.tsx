@@ -32,12 +32,13 @@ export default function TagsFilter(props: TagsFilterProps) {
 
   const filteredTags =
     query === ''
-      ? tags
-      : tags.filter((tag) =>
-          tag.title
-            .toLowerCase()
-            .replace(/\s+/g, '')
-            .includes(query.toLowerCase().replace(/\s+/g, ''))
+      ? tags.filter((tag) => tag.count > 0)
+      : tags.filter(
+          (tag) =>
+            tag.title
+              .toLowerCase()
+              .replace(/\s+/g, '')
+              .includes(query.toLowerCase().replace(/\s+/g, '')) && tag.count > 0
         )
 
   const handleOnComboboxTagsChange = (selectedTags: TagWithCount[]) => {
