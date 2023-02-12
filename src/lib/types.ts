@@ -68,6 +68,10 @@ export interface SearchPostsResponse {
   perPage: number
 }
 
+export type Message = Database['public']['Tables']['channel_messages']['Row'] & {
+  users: Database['public']['Tables']['users']['Row']
+}
+
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[]
 
 export interface Database {
@@ -98,47 +102,76 @@ export interface Database {
   }
   public: {
     Tables: {
-      channels: {
+      channel_members: {
         Row: {
-          created_by: string
+          channel_id: string
           id: number
-          inserted_at: string
-          slug: string
+          user_id: string
         }
         Insert: {
-          created_by: string
+          channel_id: string
           id?: number
-          inserted_at?: string
-          slug: string
+          user_id: string
         }
         Update: {
-          created_by?: string
+          channel_id?: string
           id?: number
-          inserted_at?: string
-          slug?: string
+          user_id?: string
         }
       }
-      messages: {
+      channel_messages: {
         Row: {
-          channel_id: number
-          id: number
-          inserted_at: string
-          message: string | null
-          user_id: string
+          channel_id: string
+          content: string
+          created_at: string
+          id: string
+          parent_message_id: string | null
+          sender_id: string
+          updated_at: string
         }
         Insert: {
-          channel_id: number
-          id?: number
-          inserted_at?: string
-          message?: string | null
-          user_id: string
+          channel_id: string
+          content: string
+          created_at?: string
+          id?: string
+          parent_message_id?: string | null
+          sender_id: string
+          updated_at?: string
         }
         Update: {
-          channel_id?: number
-          id?: number
-          inserted_at?: string
-          message?: string | null
-          user_id?: string
+          channel_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          parent_message_id?: string | null
+          sender_id?: string
+          updated_at?: string
+        }
+      }
+      channels: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
         }
       }
       pageviews: {
@@ -201,9 +234,9 @@ export interface Database {
       users: {
         Row: {
           avatar_url: string | null
+          created_at: string
           full_name: string | null
           id: string
-          inserted_at: string
           status: Database['public']['Enums']['user_status'] | null
           updated_at: string
           username: string | null
@@ -211,9 +244,9 @@ export interface Database {
         }
         Insert: {
           avatar_url?: string | null
+          created_at?: string
           full_name?: string | null
           id: string
-          inserted_at?: string
           status?: Database['public']['Enums']['user_status'] | null
           updated_at?: string
           username?: string | null
@@ -221,9 +254,9 @@ export interface Database {
         }
         Update: {
           avatar_url?: string | null
+          created_at?: string
           full_name?: string | null
           id?: string
-          inserted_at?: string
           status?: Database['public']['Enums']['user_status'] | null
           updated_at?: string
           username?: string | null
@@ -248,7 +281,7 @@ export interface Database {
       }
     }
     Enums: {
-      app_permission: 'channels.delete' | 'messages.delete'
+      app_permission: 'channels.delete' | 'channel_messages.delete'
       app_role: 'admin' | 'moderator'
       user_status: 'ONLINE' | 'OFFLINE'
     }

@@ -1,6 +1,7 @@
 'use client'
 import cn from 'classnames'
 import NextLink from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   href: string
@@ -8,7 +9,10 @@ interface Props {
   isActive?: boolean
 }
 
-export default function NavItem({ href, text, isActive }: Props) {
+export default function NavItem({ href, text }: Props) {
+  const pathName = usePathname()
+  const isActive = pathName === href || (pathName.startsWith(href) && href !== '/')
+
   return (
     <NextLink
       href={href}

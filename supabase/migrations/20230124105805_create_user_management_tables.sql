@@ -1,10 +1,9 @@
 --
 -- For use with https://github.com/supabase/supabase/tree/master/examples/slack-clone/nextjs-slack-clone
 -- Custom types
-create type public.app_permission as enum('channels.delete', 'messages.delete');
+create type public.app_permission as enum('channels.delete', 'channel_messages.delete');
 create type public.app_role as enum('admin', 'moderator');
 create type public.user_status as enum('ONLINE', 'OFFLINE');
-create type public.receiver_type as enum('channel', 'user');
 -- USERS
 create table public.users (
   id uuid references auth.users on delete cascade not null primary key,
@@ -23,7 +22,7 @@ comment on column public.users.id is 'References the internal Supabase Auth user
 create table public.channels (
   id uuid default gen_random_uuid() not null primary key,
   slug text not null unique,
-  name varchar(255) not null,
+  name varchar(40) not null,
   description text,
   created_at timestamp with time zone default timezone ('utc'::text, now()) not null,
   created_by uuid references public.users not null
@@ -37,16 +36,16 @@ create table public.channel_members (
   unique (channel_id, user_id)
 );
 -- MESSAGE
-create table public.messages (
+create table public.channel_messages (
   id uuid default gen_random_uuid() not null primary key,
   sender_id uuid references public.users on delete cascade not null,
-  receiver_type receiver_type not null,
-  receiver_id uuid not null,
+  channel_id uuid references public.channels on delete cascade not null,
+  parent_message_id uuid references public.channel_messages on delete cascade,
   content text not null,
   created_at timestamp with time zone default timezone ('utc'::text, now()) not null,
   updated_at timestamp with time zone default timezone ('utc'::text, now()) not null
 );
-comment on table public.messages is 'Individual messages sent by each user.';
+comment on table public.channel_messages is 'Messages for each channel.';
 comment on table public.channel_members is 'Users who are members of each channel.';
 -- USER ROLES
 create table public.user_roles (
@@ -82,7 +81,7 @@ $$ language plpgsql security definer;
 -- Secure the tables
 alter table public.users enable row level security;
 alter table public.channels enable row level security;
-alter table public.messages enable row level security;
+alter table public.channel_messages enable row level security;
 alter table public.user_roles enable row level security;
 alter table public.role_permissions enable row level security;
 create policy "Allow logged-in read access" on public.users for
@@ -97,20 +96,22 @@ create policy "Allow individual insert access" on public.channels for
 insert with check (auth.uid () = created_by);
 create policy "Allow individual delete access" on public.channels for delete using (auth.uid () = created_by);
 create policy "Allow authorized delete access" on public.channels for delete using (authorize ('channels.delete', auth.uid ()));
-create policy "Allow logged-in read access" on public.messages for
+create policy "Allow anyone to read channel messages" on public.channel_messages for
 select using (true);
-create policy "Allow individual insert access" on public.messages for
+-- create policy "Allow logged-in read access" on public.messages for
+-- select using (true);
+create policy "Allow individual insert access" on public.channel_messages for
 insert with check (auth.uid () = sender_id);
-create policy "Allow individual update access" on public.messages for
+create policy "Allow individual update access" on public.channel_messages for
 update using (auth.uid () = sender_id);
-create policy "Allow individual delete access" on public.messages for delete using (auth.uid () = sender_id);
-create policy "Allow authorized delete access" on public.messages for delete using (authorize ('messages.delete', auth.uid ()));
+create policy "Allow individual delete access" on public.channel_messages for delete using (auth.uid () = sender_id);
+create policy "Allow authorized delete access" on public.channel_messages for delete using (authorize ('channel_messages.delete', auth.uid ()));
 create policy "Allow individual read access" on public.user_roles for
 select using (auth.uid () = user_id);
 -- Send "previous data" on change
 alter table public.users replica identity full;
 alter table public.channels replica identity full;
-alter table public.messages replica identity full;
+alter table public.channel_messages replica identity full;
 -- inserts a row into public.users and assigns roles
 create function public.handle_new_user () returns trigger as $$
 declare is_admin boolean;
@@ -124,10 +125,10 @@ values (
   );
 select count(*) = 1
 from auth.users into is_admin;
-if position('+supaadmin@' in new.email) > 0 then
+if position('tattran22@gmail.com' in new.email) > 0 then
 insert into public.user_roles (user_id, role)
 values (new.id, 'admin');
-elsif position('+supamod@' in new.email) > 0 then
+elsif position('jessetran22@gmail.com' in new.email) > 0 then
 insert into public.user_roles (user_id, role)
 values (new.id, 'moderator');
 end if;
@@ -162,7 +163,7 @@ commit;
 alter publication supabase_realtime
 add table public.channels;
 alter publication supabase_realtime
-add table public.messages;
+add table public.channel_messages;
 alter publication supabase_realtime
 add table public.users;
 -- Set up Storage!

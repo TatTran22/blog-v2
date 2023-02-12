@@ -1,4 +1,4 @@
-import { format, parseISO } from 'date-fns'
+import dayjs from 'dayjs'
 import { FaBook } from 'react-icons/fa'
 import { defineField, defineType } from 'sanity'
 
@@ -89,7 +89,7 @@ export default defineType({
     prepare({ title, media, author, publicReleaseDate }) {
       const subtitles = [
         author && `by ${author}`,
-        publicReleaseDate && `on ${format(parseISO(publicReleaseDate), 'LLL d, yyyy')}`,
+        publicReleaseDate && `on ${dayjs(publicReleaseDate).format('LLL d, yyyy')}`,
       ].filter(Boolean)
 
       return { title, media, subtitle: subtitles.join(' ') }

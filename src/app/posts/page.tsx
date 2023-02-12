@@ -1,7 +1,7 @@
-import { getAllTags, searchPosts } from 'lib/sanity.client'
-import React, { Suspense } from 'react'
+import { getAllTags, getSettings, searchPosts } from 'lib/sanity.client'
+import React from 'react'
 
-import ContainerHeader from '../container-header'
+import Container from '../container'
 import PostCard from '../post-card'
 import InputSearch from './input-search'
 import TagsFilter from './tags-filter'
@@ -20,7 +20,12 @@ const Posts: ({ searchParams }: NameProps) => Promise<JSX.Element> = async ({
     perPage: Number(searchParams.perPage || 100),
   }
 
-  const [postsResponse, tagsResponse] = await Promise.all([searchPosts(payload), getAllTags()])
+  const [postsResponse, tagsResponse, { owner }] = await Promise.all([
+    searchPosts(payload),
+    getAllTags(),
+    getSettings(),
+  ])
+
   const tags = searchParams.tags
     ? searchParams.tags.split(',')
     : tagsResponse.map((tag) => tag.slug)
@@ -31,9 +36,8 @@ const Posts: ({ searchParams }: NameProps) => Promise<JSX.Element> = async ({
 
   return (
     <>
-      <Suspense fallback={null}>
+      <Container siteOwner={owner} heading="All Posts">
         <div className="space-y-2 pb-8 md:space-y-5">
-          <ContainerHeader title="All Posts" />
           <div className="relative flex flex-row items-center space-x-4">
             <InputSearch />
             <TagsFilter tags={tagsResponse} />
@@ -45,7 +49,7 @@ const Posts: ({ searchParams }: NameProps) => Promise<JSX.Element> = async ({
             <PostCard key={post.title} post={post} />
           ))}
         </ul>
-      </Suspense>
+      </Container>
     </>
   )
 }

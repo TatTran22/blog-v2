@@ -5,7 +5,7 @@
 import { codeInput } from '@sanity/code-input'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, previewSecretId, projectId } from 'lib/sanity.api'
-import { previewDocumentNode } from 'plugins/previewPane'
+// import { previewDocumentNode } from 'plugins/previewPane'
 import { productionUrl } from 'plugins/productionUrl'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
@@ -29,7 +29,7 @@ export default defineConfig({
     deskTool({
       structure: settingsStructure(settingsType),
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
-      defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
+      // defaultDocumentNode: previewDocumentNode({ apiVersion, previewSecretId }),
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     settingsPlugin({ type: settingsType.name }),

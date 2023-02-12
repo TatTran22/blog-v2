@@ -9,7 +9,7 @@ interface Props {
 }
 
 const Pre = ({ value }: Props) => {
-  const { code, filename, language, highlightedLines } = value
+  const { code, filename, language } = value
   const [hovered, setHovered] = useState(false)
   const [copied, setCopied] = useState(false)
 

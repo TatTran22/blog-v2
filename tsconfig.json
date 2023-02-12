@@ -8,6 +8,7 @@
       "pages/*": ["pages/*"],
       "plugins/*": ["plugins/*"],
       "schemas/*": ["schemas/*"],
+      "hooks/*": ["hooks/*"],
       "styles/*": ["styles/*"],
       "public/*": ["../public/*"],
       "~/*": ["../*"]
