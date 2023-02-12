@@ -12,8 +12,10 @@ interface Props {
 }
 
 const MessageSection = ({ channel, serverMessages }: Props) => {
-  const { supabase } = useSupabase()
+  const { supabase, profiles } = useSupabase()
   const [messages, setMessages] = useState(serverMessages)
+  const [sortedMessages, setSortedMessages] = useState<Message[]>([])
+  const [sorted, setSorted] = useState(false)
 
   useEffect(() => {
     setMessages(serverMessages)
@@ -26,7 +28,17 @@ const MessageSection = ({ channel, serverMessages }: Props) => {
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'channel_messages' },
         (payload) => {
-          console.log('Change received!', payload)
+          const { new: newMessage } = payload
+
+          setMessages((messages) => [
+            ...messages,
+            {
+              ...newMessage,
+              users: profiles.find((profile) => profile.id === newMessage.sender_id),
+            } as Message,
+          ])
+
+          setSorted(false)
         }
       )
       .subscribe()
@@ -34,13 +46,24 @@ const MessageSection = ({ channel, serverMessages }: Props) => {
     return () => {
       supabase.removeChannel(channelMessages)
     }
-  }, [supabase, setMessages, messages])
+  }, [supabase, setMessages, messages, profiles])
+
+  useEffect(() => {
+    if (!sorted) {
+      setSortedMessages(
+        messages.sort((a, b) => {
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        })
+      )
+      setSorted(true)
+    }
+  }, [messages, sorted])
 
   return (
     <>
       <NewMessage channel={channel} />
       <div className="flex flex-col space-y-3">
-        {messages.map((message) => (
+        {sortedMessages.map((message) => (
           <MessageCard key={message.id} message={message} />
         ))}
       </div>

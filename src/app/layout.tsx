@@ -14,15 +14,18 @@ export const revalidate = 0
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient()
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
+  const [
+    {
+      data: { session },
+    },
+    { data: profiles },
+  ] = await Promise.all([supabase.auth.getSession(), supabase.from('users').select('*')])
 
   return (
     <html lang="en">
       <head />
       <body className="bg-gray-50 dark:bg-gray-900">
-        <SupabaseProvider session={session}>
+        <SupabaseProvider session={session} profiles={profiles}>
           <ToastProvider>
             <LoginDialogProvider>
               <SupabaseListener serverAccessToken={session?.access_token} />
