@@ -1,7 +1,8 @@
 'use client'
 
-// import { useLoginDialog } from 'components/providers/login-dialog-provider'
+import { useLoginDialog } from 'components/providers/login-dialog-provider'
 import { useSupabase } from 'components/providers/supabase-provider'
+import { useToast } from 'components/providers/toast-provider'
 import { Database } from 'lib/types'
 import { useState } from 'react'
 
@@ -13,8 +14,9 @@ export default function NewMessage(props: NewMessageProps) {
   const { channel } = props
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // const { open, close, isOpen } = useLoginDialog()
+  const { open, close, isOpen } = useLoginDialog()
   const { supabase, session } = useSupabase()
+  const { setToast, onOpenChange } = useToast()
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     try {
@@ -22,11 +24,13 @@ export default function NewMessage(props: NewMessageProps) {
 
       setIsSubmitting(true)
       if (!session) {
-        throw new Error('You must be logged in to send a message')
+        throw new Error('You must be logged in to send a message', {
+          cause: 'unauthenticated',
+        })
       }
 
       if (!message) {
-        throw new Error('Message cannot be empty')
+        throw new Error('Message cannot be empty', { cause: 'empty' })
       }
 
       const { error } = await supabase.from('channel_messages').insert({
@@ -38,7 +42,34 @@ export default function NewMessage(props: NewMessageProps) {
 
       setMessage('')
     } catch (err) {
-      console.log(err)
+      console.log(err.cause)
+      let title = 'Something went wrong'
+      let actionLabel = ''
+      switch (err.cause) {
+        case 'unauthenticated':
+          title = 'Login required'
+          actionLabel = 'Login'
+          break
+        case 'empty':
+          title = 'Message cannot be empty'
+          break
+      }
+
+      setToast({
+        title: title,
+        description: err.message || 'Something went wrong',
+        status: 'error',
+        duration: 5000,
+        isOpen: true,
+        onOpenChange,
+        onActionClick: err.cause
+          ? () => {
+              open()
+              onOpenChange(false)
+            }
+          : undefined,
+        actionLabel,
+      })
     } finally {
       setIsSubmitting(false)
     }

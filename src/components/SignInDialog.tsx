@@ -49,7 +49,7 @@ export default function SignInDialog({ isOpen, onClose }: Props) {
                         Sign in
                       </Dialog.Title>
                       <div className="mt-2 w-full rounded-lg sm:max-w-md md:mt-0 xl:p-0">
-                        <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
+                        {/* <div className="space-y-4 p-6 sm:p-8 md:space-y-6">
                           <SignInWithEmailForm ref={initialFocusRef} />
                         </div>
                         <div className="flex items-center justify-center space-x-4 p-2 md:space-x-6">
@@ -58,7 +58,7 @@ export default function SignInDialog({ isOpen, onClose }: Props) {
                             or continue with
                           </div>
                           <div className="w-full border-t border-gray-300 dark:border-gray-600" />
-                        </div>
+                        </div> */}
                         <SignInWithProviders />
                       </div>
                     </div>
