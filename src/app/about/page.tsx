@@ -1,4 +1,4 @@
-import { PortableText } from '@portabletext/react'
+import { PortableText, toPlainText } from '@portabletext/react'
 import Image from 'components/Image'
 import { getSettings } from 'lib/sanity.client'
 import { urlForImage } from 'lib/sanity.image'
@@ -57,4 +57,13 @@ export default async function AboutRoute() {
 }
 
 // FIXME: remove the `revalidate` export below once you've followed the instructions in `/pages/api/revalidate.ts`
-export const revalidate = 1
+export const revalidate = 60
+
+export async function generateMetadata() {
+  const { description, owner } = await getSettings()
+
+  return {
+    title: 'About',
+    description: owner ? toPlainText(owner.bio) : description,
+  }
+}

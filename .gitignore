@@ -155,3 +155,4 @@ fabric.properties
 !.yarn/versions
 
 .contentlayer
+supabase/config.toml

@@ -1,4 +1,3 @@
-import { PortableText } from '@portabletext/react'
 import { getFeaturedPosts, getSettings } from 'lib/sanity.client'
 
 import Container from './container'
@@ -30,7 +29,7 @@ export default async function IndexRoute() {
           <div
             className={`mt-2 font-serif text-lg leading-7 tracking-wide text-gray-500 dark:text-gray-400`}
           >
-            <PortableText value={description} />
+            {description}
           </div>
         </div>
         <ul>
@@ -43,5 +42,29 @@ export default async function IndexRoute() {
   )
 }
 
-// FIXME: remove the `revalidate` export below once you've followed the instructions in `/pages/api/revalidate.ts`
-export const revalidate = 1
+export const revalidate = 60
+
+export async function generateMetadata() {
+  const settings = await getSettings()
+
+  return {
+    title: settings.title,
+    description: settings.description,
+    openGraph: {
+      title: settings.title,
+      description: settings.description,
+      url: `https://tattran.com`,
+      images: [
+        {
+          url: 'https://tattran.com/images/tattran-square1.png',
+          width: 1200,
+          height: 1200,
+          alt: 'Tat Tran',
+        },
+      ],
+    },
+    twitter: {
+      cardType: 'summary_large_image',
+    },
+  }
+}

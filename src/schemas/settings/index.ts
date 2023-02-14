@@ -1,5 +1,5 @@
 import { FiSettings } from 'react-icons/fi'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 import OpenGraphInput from './OpenGraphInput'
 
@@ -30,34 +30,10 @@ export default defineType({
     defineField({
       name: 'description',
       description: 'Used both for the <meta> description tag for SEO, and the blog subheader.',
-      title: 'Descriprion',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'block',
-          options: {},
-          styles: [],
-          lists: [],
-          marks: {
-            decorators: [],
-            annotations: [
-              defineField({
-                type: 'object',
-                name: 'link',
-                fields: [
-                  {
-                    type: 'string',
-                    name: 'href',
-                    title: 'URL',
-                    validation: (rule) => rule.required(),
-                  },
-                ],
-              }),
-            ],
-          },
-        }),
-      ],
-      validation: (rule) => rule.max(155).required(),
+      title: 'Description',
+      type: 'string',
+      initialValue: 'A blog about software engineering, web development, and life.',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'ogImage',

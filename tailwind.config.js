@@ -16,9 +16,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Reaver', ...defaultTheme.fontFamily.sans],
-        serif: ['Radiance', ...defaultTheme.fontFamily.serif],
-        mono: ['Fira Code', ...defaultTheme.fontFamily.mono],
+        sans: ['var(--font-reaver)'],
+        serif: ['var(--font-radiance)'],
+        mono: ['var(--font-fira-code)'],
       },
       colors: {
         'accent-1': '#FAFAFA',

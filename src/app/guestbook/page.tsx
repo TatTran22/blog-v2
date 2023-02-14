@@ -54,3 +54,8 @@ export default async function GuestBookRoute() {
     </>
   )
 }
+
+export const metadata = {
+  title: 'Guestbook',
+  description: 'Welcome to the guestbook',
+}

@@ -58,3 +58,8 @@ export default Posts
 
 // FIXME: remove the `revalidate` export below once you've followed the instructions in `/pages/api/revalidate.ts`
 export const revalidate = 1
+
+export const metadata = {
+  title: 'Blog',
+  description: 'Read my thoughts on software development, design, and more.',
+}

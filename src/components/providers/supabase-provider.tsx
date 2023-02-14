@@ -55,6 +55,7 @@ export default function SupabaseProvider({
           const { new: newProfile, old: oldProfile } = payload
 
           if (oldProfile) {
+            // @ts-ignore
             const index = profiles.findIndex((profile) => profile.id === oldProfile.id)
             if (index !== -1) {
               profiles[index] = newProfile as Profile

@@ -57,7 +57,7 @@ export interface TagWithCount extends Tag {
 export interface Settings {
   title?: string
   owner: Author
-  description?: any[]
+  description: string
   ogImage?: Image & { title: string }
 }
 

@@ -14,7 +14,7 @@ export default function NewMessage(props: NewMessageProps) {
   const { channel } = props
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { open, close, isOpen } = useLoginDialog()
+  const { open } = useLoginDialog()
   const { supabase, session } = useSupabase()
   const { setToast, onOpenChange } = useToast()
 
@@ -42,7 +42,7 @@ export default function NewMessage(props: NewMessageProps) {
 
       setMessage('')
     } catch (err) {
-      console.log(err.cause)
+      console.log(err)
       let title = 'Something went wrong'
       let actionLabel = ''
       switch (err.cause) {
