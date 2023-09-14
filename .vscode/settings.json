@@ -1,18 +1,10 @@
 {
-  "typescript.tsdk": "node_modules/.pnpm/typescript@4.9.5/node_modules/typescript/lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "eslint.enable": true,
   "editor.formatOnSave": false,
-  "prettier.enable": false,
-  "eslint.alwaysShowStatus": true,
-  "eslint.validate": [
-    "vue",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "CodeGPT.maxTokens": 1000
+  "workbench.editor.wrapTabs": true,
 }

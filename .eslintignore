@@ -1,13 +1,2 @@
-./pnpm-lock.yaml
-/node_modules
-/studio/node_modules
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-/studio/dist
+node_modules
+.eslintrc.js
