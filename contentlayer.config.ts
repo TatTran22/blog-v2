@@ -131,9 +131,47 @@ export const Authors = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const Resumes = defineDocumentType(() => ({
+  name: 'Resume',
+  filePathPattern: 'resume/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    name: { type: 'string', required: true },
+    avatar: { type: 'string' },
+    occupation: { type: 'string' },
+    company: { type: 'string' },
+    email: { type: 'string' },
+    facebook: { type: 'string' },
+    twitter: { type: 'string' },
+    linkedin: { type: 'string' },
+    github: { type: 'string' },
+    layout: { type: 'string' },
+    address: { type: 'string' },
+    phone: { type: 'string' },
+    website: { type: 'string' },
+    skype: { type: 'string' },
+  },
+  computedFields: {
+    ...computedFields,
+    structuredData: {
+      type: 'json',
+      resolve: (doc) => ({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: doc.name,
+        jobTitle: doc.occupation,
+        worksFor: doc.company,
+        image: doc.avatar,
+        email: doc.email,
+        sameAs: [doc.facebook, doc.twitter, doc.linkedin, doc.github],
+      }),
+    },
+  },
+}))
+
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors],
+  documentTypes: [Blog, Authors, Resumes],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [

@@ -7,9 +7,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is *.clerk.accounts.dev;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
+  worker-src 'self' blob:;
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
@@ -67,9 +68,6 @@ module.exports = () => {
     },
     images: {
       domains: ['picsum.photos'],
-    },
-    experimental: {
-      appDir: true,
     },
     async headers() {
       return [
