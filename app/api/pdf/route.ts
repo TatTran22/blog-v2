@@ -11,7 +11,7 @@ export async function GET(request: Request) {
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--font-render-hinting=none'],
     })
     const page = await browser.newPage()
-    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/resume`, {
+    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/resume2`, {
       waitUntil: 'networkidle0',
     })
     // await page.setContent(HTMLcontent, {
