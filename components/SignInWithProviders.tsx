@@ -43,7 +43,7 @@ export default function SignInWithProviders() {
     <div className="flex items-center justify-center space-x-4 p-6 md:space-x-6">
       {providers.map((provider) => (
         <button
-          className="text-md mb-1 mr-2 flex items-center justify-center rounded bg-white px-4 py-2 font-normal uppercase text-gray-800 shadow-lg outline-none hover:shadow-md focus:outline-none active:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:shadow-gray-900 dark:hover:shadow-md"
+          className="mb-1 mr-2 flex items-center justify-center rounded bg-white px-4 py-2 text-base font-normal uppercase text-gray-800 shadow-lg outline-none hover:shadow-md focus:outline-none active:bg-gray-100 dark:bg-gray-800 dark:text-gray-100 dark:shadow-gray-900 dark:hover:shadow-md"
           type="button"
           key={provider.name}
           style={{ transition: 'all .15s ease' }}
