@@ -14,7 +14,7 @@ import siteMetadata from '@/data/siteMetadata'
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid place-items-center">
-      <main className="mb-auto">{children}</main>
+      <main className="mx-auto mb-auto">{children}</main>
     </div>
   )
 }

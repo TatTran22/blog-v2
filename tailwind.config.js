@@ -43,6 +43,7 @@ module.exports = {
       },
       colors: {
         primary: colors.cyan,
+        secondary: colors.sky,
         gray: colors.gray,
       },
       typography: ({ theme }) => ({

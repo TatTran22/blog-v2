@@ -1,60 +1,21 @@
 'use client'
 
-import { genPageMetadata } from 'app/seo'
-import type { Authors } from 'contentlayer/generated'
 import { allResumes, Resume } from 'contentlayer/generated'
-import { MDXComponents } from 'mdx/types'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
-import { coreContent } from 'pliny/utils/contentlayer'
 import { useCallback, useEffect, useState } from 'react'
+import { FaMapLocationDot } from 'react-icons/fa6'
 import { GrGithub, GrLocation, GrMail, GrSkype } from 'react-icons/gr'
 
 import Image from '@/components/Image'
-import { components as baseComponents } from '@/components/MDXComponents'
-import SocialIcon from '@/components/social-icons'
+import { ResumeContactComponents, ResumeMDXComponents } from '@/components/ResumeComponents'
 
 export default function ResumePage() {
   const resume = allResumes.find((p) => p.slug === 'tattran') as Resume
-  const [isPageReady, setIsPageReady] = useState(false)
 
   if (!resume) {
     throw new Error(`Cannot find resume with slug "${'tattran'}"`)
   }
-
-  const components: MDXComponents = {
-    ...baseComponents,
-    h2: (props) => (
-      <h2
-        className="mb-1 mt-3 border-b-2 text-base font-bold leading-6 tracking-wide text-primary-600"
-        {...props}
-      >
-        {props.children}
-      </h2>
-    ),
-    h3: (props) => (
-      <h3 className="mb-1 mt-2 text-base font-bold" {...props}>
-        {props.children}
-      </h3>
-    ),
-    h4: (props) => (
-      <h4 className="my-1 text-sm font-semibold" {...props}>
-        {props.children}
-      </h4>
-    ),
-    p: (props) => <p className={`indent-10 text-sm leading-normal`} {...props} />,
-    ul: (props) => <ul className="list-inside list-disc text-sm" {...props} />,
-    ol: (props) => <ol className="list-inside list-decimal text-sm" {...props} />,
-    li: (props) => <li className="text-sm" {...props} />,
-    a: (props) => (
-      <a className="text-blue-500 hover:underline" {...props}>
-        {props.children}
-      </a>
-    ),
-    blockquote: (props) => (
-      <blockquote className="my-4 border-l-4 border-gray-300 pl-4" {...props} />
-    ),
-  }
-
+  const { Name, Occupation, Github, Skype, Address, Email } = ResumeContactComponents
   function getOuterHeight(el: HTMLElement) {
     let height = el.offsetHeight
     const style = getComputedStyle(el)
@@ -72,7 +33,7 @@ export default function ResumePage() {
     const childNodes = documentRef?.children
     const pageHeight = 11.69 * 96
     const marginY = (0.39 + 0.38) * 96
-    const contentMaxHeight = pageHeight - marginY
+    const contentMaxHeight = pageHeight
     let page = 1
     let pageHeightLeft = contentMaxHeight
 
@@ -120,11 +81,11 @@ export default function ResumePage() {
       const page = i + 1
       const pageEl = document.createElement('article')
       pageEl.className =
-        'relative h-[11.69in] w-[8.27in] border pl-[0.39in] pr-[0.38in] pt-[0.39in] pb-[0.38in] shadow-md'
+        'relative h-[10.92in] ml-[0.39in] mr-[0.38in] mt-[0.39in] mb-[0.38in] before:content-[""] before:absolute before:top-[-0.39in] before:left-[-0.39in] before:right-[-0.38in] before:bottom-[-0.38in] before:border-[1px] before:border-gray-300 before:shadow-md before:z-[-1]'
       pageEl.setAttribute('data-page', page.toString())
       pageEl.setAttribute('id', 'page-' + page.toString())
       const pageNumberEl = document.createElement('div')
-      pageNumberEl.className = 'absolute bottom-10 right-10 text-sm text-gray-500'
+      pageNumberEl.className = 'absolute bottom-0 right-0 text-sm text-gray-500'
       pageNumberEl.innerText = `${page}`
       pageEl.appendChild(pageNumberEl)
       return pageEl
@@ -149,12 +110,8 @@ export default function ResumePage() {
 
   return (
     <>
-      <article
-        id="baseResume"
-        className="relative h-[11.69in] w-[8.27in] border pb-[0.38in] pl-[0.39in] pr-[0.38in] pt-[0.39in]"
-        // ref={resumeRef}
-      >
-        <div className="flex flex-col md:flex-row md:space-x-6">
+      <article id="baseResume" className="relative mb-[0.38in] ml-[0.39in] mr-[0.38in] mt-[0.39in]">
+        <div className="flex flex-row space-x-6">
           <div className="flex flex-col items-center space-x-2">
             {resume.avatar && (
               <Image
@@ -167,55 +124,17 @@ export default function ResumePage() {
             )}
           </div>
           <div className="col-span-2 flex flex-col space-y-1">
-            <h1 className="mb-2 pb-2 pt-3 font-serif text-6xl font-bold leading-8 tracking-tight text-primary-600">
-              {resume.name}
-            </h1>
-            <h4 className="font-serif text-xl font-semibold leading-8 tracking-tight text-gray-700">
-              {resume.occupation}
-            </h4>
-            <div className="flex flex-row space-x-6 text-sm">
-              {/* <div className="flex flex-row items-center justify-center space-x-1">
-              <GrPhone className="h-4 w-4" />
-              <a className="text-base" href={`tel:${resume.phone}`}>
-                {resume.phone}
-              </a>
-            </div> */}
-              <div className="flex flex-row items-center justify-center space-x-1">
-                <GrMail className="h-4 w-4" />
-                <a className="text-base" href={`mailto:${resume.email}`} target="_blank">
-                  {resume.email}
-                </a>
-              </div>
-              <div className="flex flex-row items-center justify-center space-x-1">
-                <GrSkype className="h-4 w-4" />
-                <a className="text-base" href={`skype:${resume.skype}?chat`} target="_blank">
-                  {resume.skype}
-                </a>
-              </div>
-              <div className="flex flex-row items-center justify-center space-x-1">
-                <GrGithub className="h-4 w-4" />
-                <a
-                  className="text-base"
-                  href={`https://github.com/${resume.github}`}
-                  target="_blank"
-                >
-                  {resume.github}
-                </a>
-              </div>
+            <Name>{resume.name}</Name>
+            <Occupation>{resume.occupation}</Occupation>
+            <div className="flex flex-row space-x-6 text-base">
+              {!!resume.email && <Email email={resume.email} />}
+              {!!resume.skype && <Skype skype={resume.skype} />}
+              {!!resume.github && <Github github={resume.github} />}
             </div>
-            <address className="flex flex-row items-center space-x-1">
-              <GrLocation className="h-4 w-4" />
-              <a
-                className="text-base"
-                href={`https://maps.app.goo.gl/xMBVW59dfBiKJB6a7`}
-                target="_blank"
-              >
-                {resume.address}
-              </a>
-            </address>
+            {!!resume.address && <Address address={resume.address} />}
           </div>
         </div>
-        <MDXLayoutRenderer code={resume.body.code} components={components} />
+        <MDXLayoutRenderer code={resume.body.code} components={ResumeMDXComponents} />
       </article>
     </>
   )
