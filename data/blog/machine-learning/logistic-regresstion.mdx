@@ -1,0 +1,101 @@
+---
+title: 'Logistic Regression (Hồi quy Logistic)'
+date: '2023-09-23 16:00:00 +0700'
+tags: ['machine learning', 'logistic regression']
+draft: false
+summary: 'Hồi quy Logistic là một thuật toán học có giám sát được sử dụng để phân loại các quan sát vào một trong hai lớp.'
+---
+
+Hãy cùng tìm hiểu sâu hơn về lý thuyết và ứng dụng của hồi quy logistic.
+
+## Hàm Logistic:
+
+Ở trung tâm của hồi quy logistic là hàm logistic (hoặc hàm sigmoid):
+
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
+
+Hàm này nhận bất kỳ số thực nào và ánh xạ nó vào phạm vi [0,1], làm cho nó đặc biệt hữu ích cho một mô hình xác suất. Đường cong có hình dạng S.
+
+## Mô hình:
+
+Trong hồi quy logistic, bạn muốn mô hình hóa xác suất \( P(Y=1) \) cho \( X \). Sự kết hợp tuyến tính của các biến dự đoán (giống như trong hồi quy tuyến tính) là:
+
+$$
+z = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n
+$$
+
+Sau đó, mô hình hồi quy logistic là:
+
+$$
+P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n)}}
+$$
+
+## Ước lượng Hệ số:
+
+Các tham số hoặc hệ số (giá trị β) của thuật toán hồi quy logistic phải được ước lượng từ dữ liệu huấn luyện. Điều này được thực hiện bằng Ước lượng Khả năng Tối đa (MLE). MLE tìm kiếm các giá trị cho $\beta$ để tối đa hóa khả năng của dữ liệu quan sát dựa trên mô hình.
+
+## Biên quyết định:
+
+Mặc dù mô hình hồi quy logistic dự đoán xác suất, trên thực tế, bạn cần đưa ra quyết định nhị phân. Điều này được thực hiện bằng cách giới thiệu một ngưỡng. Nếu $P(Y=1) > 0.5$, dự đoán lớp '1', ngược lại dự đoán lớp '0'. Ngưỡng này có thể được điều chỉnh dựa trên vấn đề và sự đánh đổi mong muốn (như độ nhạy so với đặc điểm).
+
+## Hồi quy Logistic Đa phân loại:
+
+Trong khi hồi quy logistic cơ bản được sử dụng cho các vấn đề phân loại nhị phân, có các mở rộng khi kết quả có thể có nhiều hơn hai loại. Nếu kết quả có thể có 3 hoặc nhiều loại khả dĩ (không được sắp xếp), điều đó được gọi là hồi quy logistic đa phân loại.
+
+## Chuẩn hóa trong Hồi quy Logistic:
+
+Hiện tượng quá khớp xảy ra khi mô hình quá phức tạp và nắm bắt nhiễu trong dữ liệu huấn luyện. Chuẩn hóa được sử dụng để tránh hiện tượng quá khớp bằng cách thêm một hình phạt vào hàm mất mát. Hai kỹ thuật chuẩn hóa phổ biến là:
+
+- **Chuẩn hóa L1 (Hồi quy Lasso)**
+- **Chuẩn hóa L2 (Hồi quy Ridge)**
+
+Trong `sklearn`, độ mạnh của chuẩn hóa được điều chỉnh bằng tham số `C`. Một giá trị nhỏ hơn của `C` có nghĩa là chuẩn hóa mạnh hơn.
+
+## Ưu và nhược điểm:
+
+**Ưu điểm:**
+
+- Cung cấp xác suất cho kết quả.
+- Tính toán không tốn kém.
+- Không yêu cầu đặc trưng đầu vào phải được chia tỷ lệ.
+- Không yêu cầu bất kỳ việc điều chỉnh nào.
+
+**Nhược điểm:**
+
+- Giả định tính tuyến tính giữa các biến độc lập và log odds.
+- Hiệu suất kém khi có nhiều biên quyết định hoặc không tuyến tính.
+- Không đủ linh hoạt để nắm bắt mối quan hệ phức tạp hơn.
+
+## Mẹo Thực tế:
+
+1. **Chuẩn hóa Đặc trưng:** Mặc dù hồi quy logistic không nhạy cảm với độ lớn của đặc trưng, chuẩn hóa đặc trưng có thể tăng tốc sự hội tụ trong quá trình tối ưu hóa.
+2. **Tầm quan trọng của Đặc trưng:** Bạn có thể hiểu về tầm quan trọng của các đặc trưng bằng cách xem xét độ lớn của hệ số.
+3. **Đa cộng tuyến:** Nếu tập dữ liệu của bạn có đa cộng tuyến, nó có thể làm cho ước lượng hệ số không đáng tin cậy. Xem xét việc loại bỏ các đặc trưng có mối tương quan cao.
+4. **Chẩn đoán:** Giống như hồi quy tuyến tính, việc kiểm tra giả định của mô hình, thống kê phù hợp và sai số là quan trọng để đánh giá chất lượng mô hình của bạn.
+
+## Ví dụ với `sklearn`:
+
+```python
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+
+# Tạo dữ liệu
+X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
+
+# Chia dữ liệu
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Tạo và huấn luyện mô hình
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Dự đoán
+y_pred = model.predict(X_test)
+
+# Đánh giá mô hình
+print("Độ chính xác:", accuracy_score(y_test, y_pred))
+
+```

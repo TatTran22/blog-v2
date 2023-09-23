@@ -24,7 +24,6 @@ import remarkMath from 'remark-math'
 import siteMetadata from './data/siteMetadata'
 
 const root = process.cwd()
-const slugger = new GithubSlugger()
 
 const computedFields: ComputedFields = {
   readingTime: { type: 'json', resolve: (doc) => readingTime(doc.body.raw) },
@@ -51,7 +50,7 @@ function createTagCount(allBlogs) {
   allBlogs.forEach((file) => {
     if (file.tags && file.draft !== true) {
       file.tags.forEach((tag) => {
-        const formattedTag = slugger.slug(tag)
+        const formattedTag = new GithubSlugger().slug(tag)
         if (formattedTag in tagCount) {
           tagCount[formattedTag] += 1
         } else {
