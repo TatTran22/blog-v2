@@ -1,4 +1,4 @@
-import { UserButton } from '@clerk/nextjs'
+import { currentUser, UserButton } from '@clerk/nextjs'
 
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
@@ -10,6 +10,7 @@ import SearchButton from './SearchButton'
 import ThemeSwitch from './ThemeSwitch'
 
 const Header = () => {
+  const user = currentUser()
   return (
     <header className="flex items-center justify-between py-10">
       <div>
@@ -35,14 +36,14 @@ const Header = () => {
             <Link
               key={link.title}
               href={link.href}
-              className="hidden font-medium text-gray-900 dark:text-gray-100 sm:block"
+              className="hidden text-base font-semibold text-secondary-900 hover:text-secondary-700 dark:text-secondary-100 dark:hover:text-secondary-300 sm:block"
             >
               {link.title}
             </Link>
           ))}
         <SearchButton />
         <ThemeSwitch />
-        <UserButton afterSignOutUrl="/" />
+        {!!user && <UserButton afterSignOutUrl="/" />}
         <MobileNav />
       </div>
     </header>

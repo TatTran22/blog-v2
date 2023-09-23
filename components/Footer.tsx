@@ -13,11 +13,11 @@ export default function Footer() {
           <SocialIcon kind="facebook" href={siteMetadata.facebook} size={6} />
         </div>
         <div className="mb-2 flex space-x-2 text-sm text-gray-500 dark:text-gray-400">
-          <div>{siteMetadata.author}</div>
+          <Link href={siteMetadata.siteUrl}>{siteMetadata.title}</Link>
           <div>{` • `}</div>
           <div>{`© ${new Date().getFullYear()}`}</div>
           <div>{` • `}</div>
-          <Link href={siteMetadata.siteUrl}>{siteMetadata.title}</Link>
+          <Link href="/privacy">Privacy Policy</Link>
         </div>
       </div>
     </footer>

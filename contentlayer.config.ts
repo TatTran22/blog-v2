@@ -168,9 +168,18 @@ export const Resumes = defineDocumentType(() => ({
   },
 }))
 
+export const Privacy = defineDocumentType(() => ({
+  name: 'Privacy',
+  filePathPattern: 'privacy/**/*.mdx',
+  contentType: 'mdx',
+  computedFields: {
+    ...computedFields,
+  },
+}))
+
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors, Resumes],
+  documentTypes: [Blog, Authors, Resumes, Privacy],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
@@ -183,7 +192,6 @@ export default makeSource({
     rehypePlugins: [
       rehypeSlug,
       rehypeAutolinkHeadings,
-      // @ts-ignore
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, 'data') }],
       [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
