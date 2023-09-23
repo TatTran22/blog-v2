@@ -1,3 +1,5 @@
+import { UserButton } from '@clerk/nextjs'
+
 import headerNavLinks from '@/data/headerNavLinks'
 import Logo from '@/data/logo.svg'
 import siteMetadata from '@/data/siteMetadata'
@@ -40,6 +42,7 @@ const Header = () => {
           ))}
         <SearchButton />
         <ThemeSwitch />
+        <UserButton afterSignOutUrl="/" />
         <MobileNav />
       </div>
     </header>

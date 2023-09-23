@@ -1,9 +1,12 @@
+import { allResumes, Resume } from 'contentlayer/generated'
 import { MDXComponents } from 'mdx/types'
+import { MDXLayoutRenderer } from 'pliny/mdx-components'
+import { useCallback, useEffect, useState } from 'react'
 import { FaMapLocationDot } from 'react-icons/fa6'
 import { GrGithub, GrMail, GrSkype } from 'react-icons/gr'
 
+import Image from '@/components/Image'
 import { components as baseComponents } from '@/components/MDXComponents'
-
 export const ResumeMDXComponents: MDXComponents = {
   ...baseComponents,
   h2: (props) => (
@@ -85,3 +88,72 @@ export const ResumeContactComponents = {
     </div>
   ),
 }
+
+const ResumeComponent = ({ className, resume }: { className?: string; resume: Resume }) => (
+  <article id="baseResume" className={`relative ${className}`}>
+    <div className="flex flex-row space-x-6">
+      <div className="flex flex-col items-center space-x-2">
+        {resume.avatar && (
+          <Image
+            src={resume.avatar}
+            alt={resume.name}
+            width={144}
+            height={144}
+            className="rounded-full"
+          />
+        )}
+      </div>
+      <div className="col-span-2 flex flex-col space-y-1">
+        <h1 className="mb-2 border-gray-300 pb-2 pt-3 font-serif text-6xl font-bold leading-8 tracking-tight text-primary-600 dark:border-gray-700 dark:text-primary-400">
+          {resume.name}
+        </h1>
+        <h4 className="font-serif text-xl font-semibold leading-8 tracking-tight text-secondary-600 dark:text-secondary-400">
+          {resume.occupation}
+        </h4>
+        <div className="flex flex-row space-x-6 text-base">
+          {!!resume.email && (
+            <div className="flex flex-row items-center justify-center space-x-1">
+              <GrMail className="h-5 w-5" />
+              <a className="text-base" href={`mailto:${resume.email}`} target="_blank">
+                {resume.email}
+              </a>
+            </div>
+          )}
+          {!!resume.skype && (
+            <div className="flex flex-row items-center justify-center space-x-1">
+              <GrSkype className="h-5 w-5" />
+              <a className="text-base" href={`skype:${resume.skype}?chat`} target="_blank">
+                {resume.skype}
+              </a>
+            </div>
+          )}
+          {!!resume.github && (
+            <div className="flex flex-row items-center justify-center space-x-1">
+              <GrGithub className="h-5 w-5" />
+              <a className="text-base" href={`https://github.com/${resume.github}`} target="_blank">
+                {resume.github}
+              </a>
+            </div>
+          )}
+        </div>
+        {!!resume.address && (
+          <div className="flex flex-row items-center justify-start space-x-1">
+            <FaMapLocationDot className="h-5 w-5" />
+            <address className="flex flex-row items-center space-x-1">
+              <a
+                className="text-base"
+                href={`https://maps.app.goo.gl/xMBVW59dfBiKJB6a7`}
+                target="_blank"
+              >
+                {resume.address}
+              </a>
+            </address>
+          </div>
+        )}
+      </div>
+    </div>
+    <MDXLayoutRenderer code={resume.body.code} components={ResumeMDXComponents} />
+  </article>
+)
+
+export default ResumeComponent

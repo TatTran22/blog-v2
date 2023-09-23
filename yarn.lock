@@ -1762,6 +1762,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@clerk/themes@npm:^1.7.6":
+  version: 1.7.6
+  resolution: "@clerk/themes@npm:1.7.6"
+  peerDependencies:
+    react: ">=16"
+  checksum: be4368c2bc15b61422c197ea22f052deed8a348ce06019f29796f8a2a7a2ae7d24a276e26ac67ceb276ad4e1e21ef70af23646475b94827418c678c759c2e92e
+  languageName: node
+  linkType: hard
+
 "@clerk/types@npm:^3.52.0":
   version: 3.52.0
   resolution: "@clerk/types@npm:3.52.0"
@@ -12357,6 +12366,7 @@ __metadata:
   resolution: "tailwind-nextjs-starter-blog@workspace:."
   dependencies:
     "@clerk/nextjs": ^4.24.0
+    "@clerk/themes": ^1.7.6
     "@headlessui/react": ^1.7.17
     "@next/bundle-analyzer": 13.5.2
     "@radix-ui/react-toast": ^1.1.4
