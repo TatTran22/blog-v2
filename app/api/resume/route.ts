@@ -1,5 +1,4 @@
-const fs = require('fs')
-import { NextResponse } from 'next/server'
+import { PDFDocument } from 'pdf-lib'
 import puppeteer from 'puppeteer'
 
 export async function GET(request: Request) {
@@ -26,9 +25,25 @@ export async function GET(request: Request) {
       preferCSSPageSize: true,
     })
     await browser.close()
-    return new Response(pdfBuffer, {
+
+    // Give the buffer to pdf-lib
+    const pdfDoc = await PDFDocument.load(pdfBuffer)
+    pdfDoc.setTitle('Tat Tran - Resume')
+    pdfDoc.setSubject('Tat Tran - Resume')
+    pdfDoc.setKeywords(['Tat Tran', 'Resume', 'Software Engineer'])
+    pdfDoc.setProducer('Tat Tran')
+    pdfDoc.setCreator('Tat Tran')
+    pdfDoc.setAuthor('Tat Tran')
+    pdfDoc.setCreationDate(new Date())
+    pdfDoc.setModificationDate(new Date())
+    const pdfBytes = await pdfDoc.save()
+
+    // Return the PDF with the correct MIME type
+    return new Response(pdfBytes, {
       headers: {
         'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename=resume.pdf',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
       },
     })
   } catch (error) {
