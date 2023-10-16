@@ -1,0 +1,117 @@
+---
+title: 'Dive into Ridge Regression'
+date: '2023-10-16 16:50:00 +0700'
+tags: ['machine learning', 'linear regression', 'ridge regression', 'regularization']
+draft: false
+summary: "Ridge Regression, also known as Tikhonov regularization, is a type of linear regression that incorporates a regularization term. This regularization term discourages overly complex models which can lead to overfitting."
+---
+
+Hello, data enthusiasts! After our exploration of linear and logistic regressions, let's delve into a regularization technique designed to combat the curse of multicollinearity: **Ridge Regression**. This method plays a vital role in enhancing linear regression models.
+
+## Introduction: What is Ridge Regression?
+
+Ridge Regression, also known as Tikhonov regularization, is a type of linear regression that incorporates a regularization term. This regularization term discourages overly complex models which can lead to overfitting.
+
+## The Concept of Regularization
+
+Regularization adds a penalty to different parameters of the model to reduce the freedom of the model and in turn, prevent overfitting. In the context of ridge regression, this penalty is applied to the coefficients of the model.
+
+## Mathematical Formulation
+
+The cost function for ridge regression is:
+
+$$
+J(\theta) = ||Y - X\theta||^2 + \lambda||\theta||^2
+$$
+
+Where:
+- $$ J(\theta) $$ is the cost function.
+- $$ Y $$ is the actual output.
+- $$ X $$ is the input matrix.
+- $$ \theta $$ represents the coefficient matrix.
+- $$ \lambda $$ is the regularization parameter.
+
+The key here is the term $$ \lambda||\theta||^2 $$. This term is added to the ordinary least squares (OLS) cost function, and it imposes a penalty on the size of coefficients.
+
+## Choosing $$ \lambda $$
+
+The regularization parameter, $$ \lambda $$, serves as a control for the penalty. 
+- When $$ \lambda $$ is 0, Ridge Regression becomes linear regression.
+- When $$ \lambda $$ is very large, all coefficients approach zero, leading to a model that's too simplistic.
+
+The best value of $$ \lambda $$ can be found using techniques like cross-validation.
+
+## Advantages of Ridge Regression
+
+1. **Prevents Overfitting:** The main advantage of ridge regression is its ability to prevent overfitting.
+2. **Handles Multicollinearity:** If predictors are highly correlated, ridge regression can still perform well.
+
+## Limitations
+
+1. **Bias:** Introduces bias into estimates.
+2. **Selection of $$ \lambda $$:** The performance is sensitive to the value of $$ \lambda $$. It requires tuning.
+
+## When to use Ridge Regression?
+
+Ridge regression is particularly useful when the dataset has multicollinearity, i.e., when predictors are correlated.
+
+Of course! I apologize for the oversight. Let's redo the practical section for Ridge Regression in English.
+
+## Practical Implementation of Ridge Regression using Python
+
+In this section, we'll walk through the implementation of Ridge Regression using the `scikit-learn` library.
+
+### Step 1: Preparing the Data
+
+We'll be using the Diabetes dataset from `scikit-learn` as an example.
+
+```python
+from sklearn.datasets import load_diabetes
+from sklearn.model_selection import train_test_split
+
+data = load_diabetes()
+X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.2, random_state=42)
+```
+
+### Step 2: Train the Ridge Regression Model
+
+```python
+from sklearn.linear_model import Ridge
+from sklearn.metrics import mean_squared_error
+
+alpha = 1.0  # Regularization strength (as discussed in the theory above)
+
+ridge = Ridge(alpha=alpha)
+ridge.fit(X_train, y_train)
+```
+
+### Step 3: Evaluate the Model
+
+```python
+y_pred = ridge.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse:.2f}")
+```
+
+### Step 4: Hyperparameter Tuning
+
+You can use Cross-Validation to find the best value for $$ \lambda $$. `scikit-learn` offers `RidgeCV` to optimize this process.
+
+```python
+from sklearn.linear_model import RidgeCV
+
+alphas = [0.001, 0.01, 0.1, 1, 10, 100]
+ridge_cv = RidgeCV(alphas=alphas, store_cv_values=True)
+ridge_cv.fit(X_train, y_train)
+
+print(f"Best alpha: {ridge_cv.alpha_}")
+```
+
+With these steps, you should have a basic understanding of how to implement Ridge Regression using Python and `scikit-learn`. Continue practicing with other datasets and tweaking hyperparameters to achieve the best results!
+
+## Wrapping Up
+
+Ridge regression is a powerful extension of linear regression. While it comes with its own set of complexities, like the choice of $$ \lambda $$, it offers a solution to some of the inherent issues in linear regression models, such as overfitting and multicollinearity.
+
+Keep diving deep into the ocean of data science, and happy modeling!
