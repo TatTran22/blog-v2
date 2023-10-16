@@ -1,0 +1,62 @@
+---
+title: 'Linear Regression (Hồi quy tuyến tính)'
+date: '2023-09-23 15:00:00 +0700'
+tags: ['machine learning', 'linear regression']
+draft: true
+summary: 'Hồi quy tuyến tính là một trong những kỹ thuật thống kê đơn giản và được sử dụng rộng rãi nhất trong học máy. Đây là một cách tiếp cận tuyến tính để mô hình hóa mối quan hệ giữa một biến phản hồi vô hướng (hoặc biến phụ thuộc) và một hoặc nhiều biến giải thích (hoặc biến độc lập).'
+---
+
+Xin chào những tâm trí tò mò! Nếu bạn đang khám phá thế giới rộng lớn của học máy, việc hiểu hồi quy tuyến tính là một bước đầu tiên quan trọng. Trong bài viết này, chúng ta sẽ vượt xa những điều cơ bản và đào sâu hơn vào những chi tiết phức tạp của thuật toán nền tảng này.
+
+## Giới thiệu: Hồi quy tuyến tính là gì?
+
+Hồi quy tuyến tính là một thuật toán học có giám sát mô hình và phân tích mối quan hệ giữa một biến phụ thuộc và một hoặc nhiều biến độc lập. Mục tiêu chính là tìm mối quan hệ tuyến tính giữa đầu vào (biến độc lập) và đầu ra (biến phụ thuộc).
+
+## Hình ảnh hóa hồi quy tuyến tính
+
+Hãy tưởng tượng bạn phân tán các điểm dữ liệu trên một đồ thị. Hồi quy tuyến tính, về bản chất, vẽ một đường thẳng làm nổi bật nhất xu hướng ẩn đằng sau những điểm đó.
+
+![Linear Regression](https://www.scribbr.com/wp-content/uploads/2020/02/simple-linear-regression-graph.png)
+
+## Toán học của hồi quy tuyến tính
+
+Phương trình cho hồi quy tuyến tính đơn giản là:
+
+$$ y = \beta_0 + \beta_1x + \epsilon $$
+
+Trong đó:
+- $$ y $$ là biến phụ thuộc (những gì chúng ta đang cố gắng dự đoán),
+- $$ x $$ là biến độc lập (đầu vào),
+- $$ \beta_0 $$ là giao điểm y của đường thẳng,
+- $$ \beta_1 $$ biểu thị độ dốc của đường thẳng, và
+- $$ \epsilon $$ biểu thị lỗi trong dự đoán.
+
+Mục tiêu là tìm các giá trị cho $$ \beta_0 $$ và $$ \beta_1 $$ giảm thiểu lỗi $$ \epsilon $$.
+
+## Hàm chi phí và Gradient Descent
+
+Đường thẳng 'phù hợp nhất' được tìm thấy bằng cách giảm thiểu tổng bình phương sai số (lỗi) giữa các đầu ra dự đoán và đầu ra thực tế. Phương pháp này được gọi là "phương pháp bình phương tối thiểu".
+
+Hàm được sử dụng để tính toán lỗi này cho tất cả các quan sát được gọi là "Hàm chi phí" hoặc "Hàm mất mát". Khi chúng ta có hàm chi phí, chúng ta có thể sử dụng một phương pháp như "Gradient Descent" để tìm giá trị nhỏ nhất của hàm, điều đó sẽ cung cấp cho chúng ta đường thẳng tốt nhất có thể.
+
+## Giả thiết trong hồi quy tuyến tính
+
+Để hồi quy tuyến tính hoạt động tối ưu, cần có một số giả thiết:
+1. **Đường thẳng:** Mối quan hệ giữa biến độc lập và biến phụ thuộc là tuyến tính.
+2. **Độc lập:** Các quan sát độc lập với nhau.
+3. **Đồng nhất:** Phương sai của các lỗi là nhất quán trên tất cả các cấp độ của các biến độc lập.
+4. **Không đa tuyến:** Các biến độc lập không quá cao.
+
+## Ứng dụng của hồi quy tuyến tính
+
+Hồi quy tuyến tính tìm thấy các ứng dụng trong các lĩnh vực đa dạng, từ dự đoán doanh số, đánh giá các yếu tố rủi ro y tế, dự báo tài chính và nhiều hơn nữa.
+
+## Giới hạn
+
+Mặc dù mạnh mẽ, hồi quy tuyến tính cũng có những hạn chế. Nó giả định mối quan hệ tuyến tính giữa các biến, và các điểm ngoại lai có thể ảnh hưởng không cân xứng đến kết quả.
+
+## Kết luận
+
+Hồi quy tuyến tính là một viên đá nền tảng trong học máy, cung cấp đồng thời tính đơn giản và tiện ích. Mặc dù có vẻ cơ bản, nó đặt nền tảng để hiểu các thuật toán và kỹ thuật phức tạp hơn trong tương lai.
+
+Hãy tiếp tục tò mò và tiếp tục khám phá!

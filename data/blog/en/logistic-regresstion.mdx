@@ -1,0 +1,75 @@
+---
+title: 'Understanding Logistic Regression'
+date: '2023-10-16 16:00:00 +0700'
+tags: ['machine learning', 'logistic regression']
+draft: false
+summary: "Logistic Regression is a supervised learning algorithm used for binary classification problems, i.e., when the output can be of two classes, like 'Yes' or 'No', '1' or '0'."
+---
+
+Hello, passionate learners! After our deep dive into linear regression, it's time to unravel another critical machine learning algorithm: **Logistic Regression**. While it has "regression" in its name, it's primarily used for classification tasks. Let's explore!
+
+## Introduction: What is Logistic Regression?
+
+Logistic Regression is a supervised learning algorithm used for binary classification problems, i.e., when the output can be of two classes, like "Yes" or "No", "1" or "0".
+
+## How is it different from Linear Regression?
+
+Linear regression is used for predicting continuous values, whereas logistic regression predicts the probability that a given instance belongs to a particular category.
+
+## The Sigmoid Function
+
+Logistic Regression utilizes the Sigmoid function, which maps any input into a value between 0 and 1.
+
+$$
+S(z) = \frac{1}{1 + e^{-z}} 
+$$
+
+Where $$ e $$ is the base of natural logarithms, and $$ z $$ is the input to the function (a linear combination of weights and input features).
+
+## Mathematics of Logistic Regression
+
+Given $$ z = \beta_0 + \beta_1x_1 + ... + \beta_nx_n $$,
+
+The predicted probability $$ \hat{y} $$ is:
+
+$$
+ \hat{y} = S(z) 
+$$
+
+To classify this probability into one of the two classes, a threshold (commonly 0.5) is applied.
+
+## Estimating the Coefficients
+
+The process of training in logistic regression involves adjusting the coefficients to maximize the likelihood of observing the given data. The method used is called Maximum Likelihood Estimation (MLE).
+
+## Cost Function & Gradient Descent
+
+In logistic regression, the cost function used is the log loss:
+
+$$
+J(\beta) = -\frac{1}{m}\sum_{i=1}^{m}[y_i \cdot log(\hat{y}_i) + (1-y_i) \cdot log(1-\hat{y}_i)]
+$$
+
+To find the coefficients, we aim to minimize this cost function. Gradient Descent, as in linear regression, can be employed here.
+
+## Assumptions of Logistic Regression
+
+1. **Binary Outcome:** Response variable is binary.
+2. **Linearity:** Each predictor's log odds are a linear combination of its values.
+3. **No Multicollinearity:** Little to no multicollinearity among predictors.
+4. **Independence:** Observations are independent.
+
+## Applications of Logistic Regression
+
+Logistic regression is widely used in fields like medicine (disease diagnosis), finance (credit approval), marketing (customer churn prediction), and many more.
+
+## Limitations
+
+- Assumes linearity of independent variables and log odds.
+- Requires large sample sizes because maximum likelihood estimates are less powerful at low sample sizes than ordinary least square.
+  
+## Wrapping Up
+
+Logistic regression is a powerful tool for binary classification tasks. While it has its set of assumptions and limitations, when used wisely, it can be incredibly effective.
+
+Happy learning and exploring!
