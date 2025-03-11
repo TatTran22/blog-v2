@@ -59,3 +59,15 @@ input:-webkit-autofill:focus {
     background-color 600000s 0s,
     color 600000s 0s;
 }
+
+ul > li {
+  @apply list-disc
+}
+
+li > ul {
+  @apply pl-4
+}
+
+li > ul > li {
+  @apply list-circle
+}

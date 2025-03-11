@@ -28,7 +28,9 @@ export const ResumeMDXComponents: MDXComponents = {
     </h4>
   ),
   p: (props) => <p className={`indent-10 text-sm leading-normal`} {...props} />,
-  ul: (props) => <ul className="list-inside list-disc text-sm" {...props} />,
+  ul: (props) => {
+    return <ul className="list-inside text-sm" {...props} />
+  },
   ol: (props) => <ol className="list-inside list-decimal text-sm" {...props} />,
   li: (props) => <li className="text-sm" {...props} />,
   a: (props) => (
@@ -91,19 +93,8 @@ export const ResumeContactComponents = {
 
 const ResumeComponent = ({ className, resume }: { className?: string; resume: Resume }) => (
   <article id="baseResume" className={`relative ${className}`}>
-    <div className="flex flex-row space-x-6">
-      <div className="flex flex-col items-center space-x-2">
-        {resume.avatar && (
-          <Image
-            src={resume.avatar}
-            alt={resume.name}
-            width={144}
-            height={144}
-            className="rounded-full"
-          />
-        )}
-      </div>
-      <div className="col-span-2 flex flex-col space-y-1">
+    <div className="flex flex-row items-center justify-between space-x-6">
+      <div className="flex flex-col space-y-1">
         <h1 className="mb-2 border-gray-300 pb-2 pt-3 font-serif text-6xl font-bold leading-8 tracking-tight text-primary-600 dark:border-gray-700 dark:text-primary-400">
           {resume.name}
         </h1>
@@ -149,6 +140,17 @@ const ResumeComponent = ({ className, resume }: { className?: string; resume: Re
               </a>
             </address>
           </div>
+        )}
+      </div>
+      <div className="flex flex-col items-center space-x-2">
+        {resume.avatar && (
+          <Image
+            src={resume.avatar}
+            alt={resume.name}
+            width={144}
+            height={144}
+            className="rounded-full"
+          />
         )}
       </div>
     </div>

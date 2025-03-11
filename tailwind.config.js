@@ -46,6 +46,14 @@ module.exports = {
         secondary: colors.sky,
         gray: colors.gray,
       },
+      listStyleType: {
+        none: 'none',
+        disc: 'disc',
+        decimal: 'decimal',
+        square: 'square',
+        roman: 'upper-roman',
+        circle: 'circle',
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {

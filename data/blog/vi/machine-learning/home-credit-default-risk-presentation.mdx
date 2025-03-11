@@ -1,0 +1,305 @@
+---
+title: 'Home Credit Default Risk'
+date: '2023-10-18 11:00:00 +0700'
+tags: ['machine learning', 'kaggle', 'home credit default risk']
+draft: true
+summary: 'Predicting how capable each applicant is of repaying a loan.'
+---
+
+**Trang 1:**
+Chào mọi người, cảm ơn các bạn đã đến ngày hôm nay. Hôm nay, tôi muốn trình bày về một chủ đề rất quan trọng: "Home Credit Default Risk". Đây là một vấn đề mà nhiều ngân hàng và tổ chức tín dụng quan tâm, và tôi hy vọng sau bài trình bày này, các bạn sẽ có cái nhìn sâu hơn về vấn đề này. Trước hết, cho phép tôi giới thiệu bản thân, tôi là Tat Tran và bài thuyết trình này đã được cập nhật lần cuối vào ngày 30 tháng 8 năm 2023.
+
+---
+
+**Trang 2:**
+Để giúp các bạn dễ dàng theo dõi, tôi đã chia bài trình bày thành một số phần chính:
+1. Tổng quan về Home Credit
+2. Tổng quan về bộ dữ liệu
+3. Phân tích dữ liệu khám phá
+4. Tiền xử lý và kỹ thuật tạo đặc trưng
+5. Xây dựng mô hình
+6. Tinh chỉnh mô hình
+7. Đánh giá mô hình
+8. Tầm quan trọng của các đặc trưng
+9. Kết luận
+
+Hãy cùng đi sâu vào từng phần để hiểu rõ hơn về chủ đề này!
+
+---
+
+### III. Đánh Giá Home Credit
+
+**A. Ưu điểm của Home Credit:**
+1. **Kinh nghiệm lâu năm:** Home Credit có lịch sử hoạt động từ năm 1997, hiện diện ở nhiều quốc gia.
+2. **Dịch vụ đa dạng:** Từ vay tiêu dùng, thẻ tín dụng, đến bảo hiểm và vay mua sắm tại điểm bán.
+3. **Hỗ trợ khách hàng mới:** Home Credit thường hỗ trợ những khách hàng không có lịch sử tín dụng trước đây.
+
+**B. Thách thức và rủi ro:**
+1. **Cạnh tranh:** Thị trường tài chính ngày càng cạnh tranh với sự xuất hiện của nhiều công ty fintech.
+2. **Rủi ro tín dụng:** Home Credit cần phải cẩn trọng với khách hàng không có lịch sử tín dụng.
+
+---
+
+### IV. Phân Tích Dataset
+
+**A. Ưu điểm của Dataset:**
+1. **Đa dạng:** Dataset chứa thông tin từ nhiều nguồn khác nhau, giúp phân tích toàn diện.
+2. **Chi tiết:** Dữ liệu chi tiết về số dư, lịch sử thanh toán, và các khoản vay trước đó giúp đánh giá khả năng thanh toán của khách hàng.
+
+**B. Cách sử dụng Dataset:**
+1. **Mô hình hóa:** Sử dụng dữ liệu này để xây dựng mô hình dự đoán khả năng thanh toán của khách hàng.
+2. **Phân tích:** Đánh giá các yếu tố ảnh hưởng đến khả năng vay và trả nợ của khách hàng.
+
+**C. Rủi ro và hạn chế:**
+1. **Dữ liệu cũ:** Thông tin có thể đã lạc hậu hoặc không còn phản ánh tình hình hiện tại.
+2. **Thiếu dữ liệu:** Có thể có những thông tin quan trọng không được ghi nhận trong dataset.
+
+---
+
+**Trang 3: Đánh giá sự mất cân đối trong tập dữ liệu**
+
+• **Giới thiệu về vấn đề mất cân đối**: Mô tả tầm quan trọng của việc có một bộ dữ liệu cân đối khi huấn luyện mô hình máy học và tác động của dữ liệu mất cân đối lên hiệu suất của mô hình.
+
+• **Phương pháp xử lý dữ liệu mất cân đối**: 
+  - Oversampling: Tăng số lượng mẫu thiểu số bằng cách sao chép hoặc tạo dữ liệu tổng hợp.
+  - Undersampling: Giảm số lượng mẫu đa số.
+  - Sử dụng thuật toán có trọng số: Gán trọng số cao hơn cho lớp thiểu số.
+
+---
+
+**Trang 4: Phân tích dữ liệu dựa trên các tính năng chuỗi**
+
+• **Mức độ học vấn và trách nhiệm tài chính**: 
+  - Biểu đồ thể hiện tỷ lệ vỡ nợ theo từng trình độ học vấn.
+  - Nhận xét về mối liên hệ giữa trình độ học vấn và khả năng trả nợ.
+
+• **Giới và tỷ lệ vỡ nợ**: 
+  - Biểu đồ so sánh tỷ lệ vỡ nợ giữa nam và nữ.
+  - Thảo luận về các yếu tố có thể ảnh hưởng đến sự khác biệt này.
+
+• **Quyền sở hữu tài sản và tín dụng**: 
+  - Biểu đồ thể hiện tỷ lệ vỡ nợ của những người sở hữu so với không sở hữu tài sản nhất định (xe hơi, nhà cửa).
+  - Phân tích tầm quan trọng của việc sở hữu tài sản đối với đánh giá tín dụng.
+
+• **Yếu tố nghề nghiệp và rủi ro vỡ nợ**: 
+  - Biểu đồ thể hiện các ngành nghề hoặc nghề nghiệp có tỷ lệ vỡ nợ cao nhất.
+  - Thảo luận về nguyên nhân và hậu quả của việc vỡ nợ trong các ngành nghề này.
+
+---
+
+**Trang 1:**
+**Tiêu đề:** Tác động của Trình độ Học vấn lên Tính Chắc Chắn Tài chính
+
+**Nội dung:**
+
+1. **Phân phối Trình độ Học vấn:** 
+    - Đa số những người có trình độ "Secondary / secondary special" có tỷ lệ trả nợ đúng hẹn cao nhất (79%).
+    - Trái lại, những người có bằng học thuật chỉ chiếm 25% trong nhóm trả nợ đúng hẹn.
+
+2. **Nhận xét:** 
+    - Có thể thấy rằng trình độ học vấn có tác động đến khả năng trả nợ của cá nhân.
+    - Cần tiếp tục nghiên cứu để hiểu rõ hơn về mối quan hệ này và những yếu tố khác có thể ảnh hưởng.
+
+---
+
+**Trang 2:**
+**Tiêu đề:** Những yếu tố Giới tính trong việc Trả Nợ
+
+**Nội dung:**
+
+1. **Phân phối giới tính:**
+    - Trong nhóm trả nợ đúng hẹn, tỷ lệ nam giới chiếm 57% so với 43% nữ giới.
+    - Trong nhóm không trả nợ đúng hẹn, tỷ lệ nam giới chiếm 67% so với 33% nữ giới.
+
+2. **Nhận xét:** 
+    - Có vẻ như nam giới có nguy cơ mặc định cao hơn so với nữ giới.
+    - Cần phân tích sâu hơn để xác định nguyên nhân và tác động của các yếu tố khác như thu nhập, tuổi, và trình độ học vấn.
+
+---
+
+**[Slide 1: Exploratory Data Analysis]**
+
+"Trong phần thứ ba của bài thuyết trình, chúng ta sẽ tập trung vào việc phân tích dữ liệu khám phá dựa trên các đặc trưng số học. Cụ thể, ta sẽ đi sâu vào 16 cột dữ liệu. 
+
+Ba câu hỏi quan trọng mà chúng ta muốn giải đáp thông qua phân tích này gồm:
+
+1. Liệu một số tiền vay lớn có dẫn đến vỡ nợ không?
+2. Giá cao của mặt hàng mà khoản vay được sử dụng để mua có gây ra vỡ nợ không?
+3. Số lượng con cái có ảnh hưởng đến việc vỡ nợ không?
+
+Hãy cùng tìm hiểu lần lượt từng câu hỏi."
+
+---
+
+**[Slide 2: Does a large amount of credit lead to default?]**
+
+"Chúng ta bắt đầu với câu hỏi đầu tiên: Liệu một số tiền vay lớn có dẫn đến vỡ nợ không?
+
+Như bạn thấy trên biểu đồ phân bố, mức tiền vay được thể hiện qua trục hoành, trong khi mật độ được thể hiện qua trục tung. Hai đường biểu diễn màu khác nhau đại diện cho những trường hợp vỡ nợ và không vỡ nợ.
+
+Rõ ràng rằng khoản vay lớn không phải là nguyên nhân chính dẫn đến vỡ nợ. Các ngân hàng thường áp dụng biện pháp kiểm tra nghiêm ngặt hơn đối với những khoản vay lớn. Phần lớn những người vỡ nợ thực sự có khoản vay dưới 1 triệu đô.
+
+Vậy, mặc dù việc vay một số tiền lớn có thể mang lại áp lực tài chính, nhưng nó không phải là nguyên nhân chính gây ra vỡ nợ trong dữ liệu này."
+
+---
+
+"Làm thế nào tuổi tác ảnh hưởng đến khả năng trả nợ?"
+
+Trên màn hình, bạn có thể thấy hai biểu đồ. Biểu đồ bên trái cho thấy sự phân bố của tuổi tác, và được nhóm theo hai loại: những người đã trả nợ và những người chưa trả nợ. Như chúng ta có thể thấy, nhóm tuổi từ 20 đến 30 có một mức độ cao của những người chưa trả nợ so với những nhóm tuổi khác.
+
+Còn bên phải là biểu đồ cột, thể hiện tỷ lệ phần trăm của những người không trả nợ dựa trên nhóm tuổi. Rõ ràng, nhóm tuổi từ 20-25 chiếm tỷ lệ cao nhất về việc không trả nợ, và con số này giảm dần khi tuổi tác tăng lên.
+
+Tóm lại, dựa trên dữ liệu của chúng ta, có thể kết luận rằng những ứng viên trẻ hơn có xu hướng khó trả nợ hơn so với những ứng viên lớn tuổi hơn. Điều này cung cấp cho chúng ta một góc nhìn quý giá về việc làm thế nào tuổi tác có thể ảnh hưởng đến khả năng trả nợ và giúp chúng ta trong việc đưa ra quyết định tín dụng.
+
+---
+
+"Liệu giá cao của sản phẩm mà khoản vay được yêu cầu có gây ra việc mặc định trong việc thanh toán hay không?"
+
+Biểu đồ bên trái cho thấy sự phân bố của số năm làm việc và được nhóm dựa trên việc có thanh toán nợ hay không. Chúng ta có thể thấy một sự khác biệt rõ ràng giữa hai nhóm, đặc biệt là ở những người mới bắt đầu làm việc.
+
+Để đi sâu hơn vào vấn đề này, hãy nhìn vào biểu đồ cột ở bên phải. Ở đây, chúng ta thấy tỷ lệ phần trăm của những người không trả nợ dựa trên số năm làm việc. Một điểm đáng chú ý là những người có ít kinh nghiệm làm việc, dưới 6 năm, có tỷ lệ không trả nợ cao hơn so với những người có nhiều kinh nghiệm hơn.
+
+Tóm lại, kinh nghiệm làm việc, có liên hệ mật thiết với tuổi tác, cho thấy khi kinh nghiệm tăng lên, số lượng khách hàng trong nhóm TARGET 1 giảm đi. Điều này chỉ ra rằng những khách hàng có ít kinh nghiệm hơn có xu hướng mặc định trong việc thanh toán nợ so với những khách hàng có nhiều kinh nghiệm hơn.
+
+---
+
+Chúng ta đang tiếp tục phần phân tích dữ liệu khám phá và lần này chúng ta sẽ tập trung vào sự tương quan và mối quan hệ giữa các biến.
+
+Đầu tiên, ta cần hiểu rằng các đặc trưng 'EXT_SOURCE_1', 'EXT_SOURCE_2', và 'EXT_SOURCE_3' đại diện cho các chỉ số tín dụng từ các nguồn bên ngoài. Những chỉ số này có vai trò quan trọng trong việc đánh giá khả năng trả nợ của một người xin vay. Khác với dữ liệu nội bộ, những chỉ số này mang lại một cái nhìn rộng lạc về hồ sơ tín dụng của một người xin vay.
+
+Nhìn vào ma trận tương quan ở giữa, ta có thể thấy một số điểm quan trọng:
+
+- Những nguồn dữ liệu tín dụng bên ngoài này có mức độ tương quan thấp với nhau, điều này chỉ ra rằng mỗi nguồn cung cấp thông tin độc lập và có giá trị.
+
+- Hơn nữa, khi chúng ta xem xét sự tương quan giữa các nguồn này và biến mục tiêu (TARGET), ta thấy một mức độ tương quan âm nhẹ. Điều này có nghĩa là khi chỉ số tín dụng từ các nguồn bên ngoài tăng, khả năng mặc định trả nợ giảm nhẹ.
+
+Tóm lại, những chỉ số tín dụng bên ngoài này cung cấp một cái nhìn quý giá và bổ sung cho chúng ta về hồ sơ tín dụng của khách hàng. Tuy nhiên, chúng cũng cho thấy rằng không có một yếu tố cụ thể nào có thể đảm bảo khả năng trả nợ của một khách hàng và việc đánh giá này cần phải dựa trên nhiều yếu tố.
+
+---
+
+Chúng ta tiếp tục với phần IV: Tiền xử lý và Kỹ thuật Tính năng.
+
+- Trước hết, về việc xác minh dữ liệu: Để đảm bảo chất lượng của dữ liệu, một số bước đã được thực hiện. Cụ thể, cột 'SK_ID_CURR' đã được loại bỏ khỏi cả hai bộ dữ liệu. Ngoài ra, một số giá trị bất thường, như 365243 trong cột 'DAYS_EMPLOYED', đã được thay thế bằng giá trị NaN. Cũng rất quan trọng, giá trị 'XNA' trong cột 'CODE_GENDER' đã được thay thế.
+
+- Một kỹ thuật khác mà chúng ta đã áp dụng là tổng hợp 20 đặc trưng liên quan đến tài liệu thành một đặc trưng duy nhất. Điều này được thực hiện bằng cách cộng số lượng tài liệu theo từng ứng viên, giúp đơn giản hóa mô hình mà không mất thông tin quan trọng.
+
+- Một quyết định quan trọng khác là loại bỏ các đặc trưng 'AMT_REQ_CREDIT' bởi vì chúng không ảnh hưởng đến mục tiêu và có thể gây hiểu lầm khi xây dựng mô hình.
+
+- Cuối cùng, chúng ta đã thêm vào một số đặc trưng mới như: 'AGE', 'YEARS_EMPLOYED' và 'DEBT_TO_INCOME_RATIO', cùng với một số phân loại khác dựa trên giá trị kinh tế và thời gian làm việc. Việc thêm những đặc trưng này giúp mô hình có cái nhìn sâu rộng hơn về hồ sơ tín dụng của mỗi ứng viên.
+
+Như vậy, qua các bước tiền xử lý và kỹ thuật tính năng, chúng ta đã tối ưu hóa dữ liệu và chuẩn bị cho việc xây dựng mô hình trong các phần tiếp theo.
+
+---
+
+Chúng ta tiếp tục phần Tiền xử lý và Kỹ thuật tạo đặc trưng:
+
+Trước tiên, xử lý dữ liệu thiếu: Khi làm việc với dữ liệu thực tế, việc gặp phải dữ liệu thiếu là đi
+
+ều không thể tránh khỏi. Đối với các đặc trưng số, chúng ta sẽ loại bỏ bất kỳ thuộc tính nào có tỷ lệ giá trị thiếu lớn (trên 50%). Điều này giúp tránh việc sử dụng dữ liệu không chính xác hoặc không đại diện cho toàn bộ tập dữ liệu. Đối với các giá trị còn lại, chúng ta sẽ áp dụng phương pháp điền giá trị thiếu dựa trên giá trị trung bình, nhưng với một chiến lược mạnh mẽ hơn để đảm bảo không bị ảnh hưởng bởi các giá trị ngoại lệ. 
+
+Đối với các đặc trưng phân loại, việc xử lý dữ liệu thiếu sẽ được thực hiện trong bước mã hóa. Một chiến lược thú vị ở đây là việc loại bỏ biến giả (dummy variable) cho giá trị NA. Điều này không chỉ giúp giảm kích thước của dữ liệu sau cùng mà còn giảm thiểu sự phức tạp khi xây dựng mô hình.
+
+Tiếp theo là việc mã hóa dữ liệu phân loại và loại bỏ các hạng mục thiếu: Việc mã hóa dữ liệu phân loại là một bước quan trọng, đặc biệt khi chúng ta muốn chuyển đổi dữ liệu phân loại thành dạng số để các mô hình học máy có thể hiểu và xử lý. Chúng ta sẽ sử dụng phương pháp one-hot encoding, một kỹ thuật phổ biến và hiệu quả. Sau khi mã hóa, dữ liệu phân loại sẽ được nối với dữ liệu số, tạo ra một bộ dữ liệu hoàn chỉnh và sẵn sàng cho việc huấn luyện và đánh giá mô hình.
+
+Như vậy, qua các bước tiền xử lý và kỹ thuật tạo đặc trưng, chúng ta đã tạo ra một bộ dữ liệu sạch, chính xác và sẵn sàng cho việc xây dựng mô hình trong các phần tiếp theo.
+
+---
+
+V. Xây dựng Mô hình:
+
+**Chia Dữ liệu Thành Tập Huấn Luyện và Tập Kiểm Định:**
+- Trước hết, chúng ta cần chia dữ liệu thành hai phần: tập huấn luyện và tập kiểm định. Điều này giúp chúng ta huấn luyện mô hình trên một phần dữ liệu và kiểm tra hiệu suất của mô hình trên một phần dữ liệu khác mà mô hình chưa từng thấy.
+
+**Lựa Chọn Mô hình:**
+- Chúng ta sử dụng SMOTE để cân bằng dữ liệu. Điều này quan trọng vì trong nhiều tình huống, dữ liệu của chúng ta có thể bị mất cân bằng, khiến một số lớp có quá ít mẫu.
+- Tiếp theo, chúng ta tiến hành chuẩn hóa các đặc trưng. Việc này giúp cải thiện hiệu suất của một số thuật toán học máy.
+- Để chọn ra những đặc trưng quan trọng nhất cho mô hình, chúng ta sử dụng phương pháp RFE (Recursive Feature Elimination).
+- Kết quả sau khi áp dụng các mô hình khác nhau cho thấy:
+  - Hồi quy Logistic đạt điểm ROC AUC là 0.739, là mô hình có hiệu suất tốt nhất trong ba mô hình đã thử nghiệm.
+  - Cây quyết định đạt điểm ROC AUC là 0.535, thấp nhất trong ba.
+  - Phân tích Phân biệt Tuyến tính đạt 0.701, nằm giữa hai mô hình kia.
+
+Dựa trên kết quả trên, Hồi quy Logistic cho thấy hiệu suất cao nhất với ROC AUC 0.739. Tuy nhiên, chúng ta cũng cần lưu ý rằng Cây quyết định có điểm thấp nhất và có thể đang gặp vấn đề quá khớp. Để cải thiện hiệu suất của Cây quyết định, chúng ta có thể xem xét việc sử dụng các phương pháp kết hợp như Rừng ngẫu nhiên hoặc Gradient Boosting.
+
+Như vậy, chúng ta đã có cái nhìn tổng quan về quá trình xây dựng và đánh giá mô hình. Bước tiếp theo sẽ là tinh chỉnh và tối ưu hóa mô hình để đạt được hiệu suất tốt hơn.
+
+---
+
+Chúng ta tiếp tục đi sâu vào phần xây dựng mô hình với việc tập trung vào các phương pháp kết hợp. Những phương pháp này sử dụng cách tiếp cận tổng hợp để cải thiện hiệu suất mô hình thông qua việc kết hợp dự đoán từ nhiều mô hình con.
+
+- Đầu tiên, chúng ta có Random Forest, một phương pháp dựa trên việc sử dụng nhiều cây quyết định trên các tập con dữ liệu khác nhau. Mục tiêu chính ở đây là giảm thiểu hiện tượng quá khớp.
+
+- Tiếp theo, Gradient Boosting tiếp tục xây dựng mô hình dự đoán dựa trên lỗi của các mô hình trước đó, giúp tăng cường hiệu suất và giảm thiểu lỗi.
+
+- Chúng ta cũng thấy rằng XGBoost và LightGBM là hai thực hiện phổ biến của gradient boosting, với hiệu suất cao và tốc độ nhanh.
+
+- Về kết quả, Gradient Boosting Classifier đã cho thấy hiệu suất tốt nhất với ROC AUC là 0.746, theo sau là XGBoost với 0.727 và cuối cùng là Random Forest với 0.716.
+
+- Để kết luận, trong số các mô hình kết hợp mà chúng ta đã thử nghiệm, GBC đã cho thấy hiệu suất tốt nhất, sau đó là XGBoost và Random Forest.
+
+---
+
+Chúng ta đang chuyển sang phần điều chỉnh mô hình, một bước quan trọng để tối ưu hóa hiệu suất và đạt được kết quả tốt nhất từ dữ liệu.
+
+- Mục tiêu ở đây là tinh chỉnh Logistic Regression và Gradient Boosting Classifier sử dụng RandomSearchCV, một công cụ mạnh mẽ giúp tìm kiếm các tham số tối ưu thông qua việc thử nghiệm ngẫu nhiên.
+
+- Đối với Logistic Regression, một pipeline được sử dụng bao gồm việc điều chỉnh dữ liệu, ứng dụng SMOTE để giải quyết vấn đề mất cân bằng lớp và RFE để chọn đặc trưng. Kết quả tốt nhất mà chúng ta thu được là ROC AUC 0.734 với một số tham số nhất định.
+
+- Về Gradient Boosting, chúng ta đã thăm dò nhiều siêu tham số khác nhau như số lượng ước tính, độ sâu tối đa và tốc độ học. Để giải quyết vấn đề mất cân bằng lớp, các trọng số mẫu đã được chỉ định. Với 200 ước lượng, độ sâu tối đa là 10 và tốc độ học là 0.01, chúng ta thu được ROC AUC tốt nhất là 0.748.
+
+- Cuối cùng, điều đáng chú ý là sau khi điều chỉnh, cả hai mô hình đều có hiệu suất tốt hơn. Tuy nhiên, Gradient Boosting đã trình diễn tốt hơn và cho thấy nó là mô hình có tiềm năng nhất cho các bước phân tích tiếp theo.
+
+---
+
+Tiếp theo, chúng ta sẽ chuyển đến phần đánh giá mô hình. Đây là giai đoạn mà chúng ta xác định mức độ hiệu suất của mô hình trên dữ liệu thực tế.
+
+- Đầu tiên, hãy nhìn vào ROC Curve của Logistic Regression. Đường màu xanh lá cây đại diện cho hiệu suất trên dữ liệu huấn luyện với ROC là 0.74, trong khi đường màu xanh dương cho thấy hiệu suất trên dữ liệu thử nghiệm với ROC là 0.73. Điều này cho thấy mô hình hoạt động khá ổn định trên cả hai tập dữ liệu và không có dấu hiệu của overfitting.
+
+- Bên cạnh đó, Confusion Matrix cung cấp cho chúng ta một cái nhìn sâu hơn về cách mô hình dự đoán. Phần lớn các dự đoán đều chính xác, nhưng có một số trường hợp bị sai. Điều này đặc biệt quan trọng khi chúng ta xem xét việc xác định khoản vay xấu.
+
+- Tuy nhiên, mô hình vẫn còn một số hạn chế. Mặc dù ROC cho thấy sự nhất quán giữa dữ liệu huấn luyện và thử nghiệm, nhưng mô hình vẫn gặp khó khăn trong việc xác định khoản vay xấu. Để cải thiện điều này, có thể cần thêm thời gian tính toán và nghiên cứu thêm.
+
+Trong tóm lược, Logistic Regression đã cho thấy kết quả khá tốt, nhưng vẫn cần phải cải thiện trong việc xác định khoản vay xấu. Chúng ta nên tiếp tục nghiên cứu và tinh chỉnh mô hình để đạt được hiệu suất tốt hơn.
+
+---
+
+Chúng ta tiếp tục đi sâu vào phần đánh giá mô hình, lần này là với mô hình Gradient Boosting.
+
+- Bắt đầu với ROC Curve. Tại đây, chúng ta có thể thấy một khoảng cách rõ ràng giữa đường ROC trên dữ liệu huấn luyện (màu xanh lá cây với giá trị 0.84) so với đường ROC trên dữ liệu kiểm thử (màu xanh dương với giá trị 0.75). Điều này chỉ ra rằng mô hình có dấu hiệu overfitting, tức là mô hình hoạt động rất tốt trên dữ liệu huấn luyện nhưng không đạt hiệu suất tương tự trên dữ liệu mới.
+
+- Confusion Matrix cho thấy mô hình này đặc biệt giỏi trong việc xác định khoản vay tốt, với số lượng dự đoán chính xác rất cao. Tuy nhiên, mô hình lại gặp khó khăn hơn trong việc xác định khoản vay xấu, điều này thể hiện qua số lượng lớn của false negatives.
+
+- Hai điểm chú ý từ slide này là:
+  1. ROC Gap: Sự khác biệt giữa hiệu suất trên dữ liệu huấn luyện và kiểm thử cho thấy mô hình có nguy cơ overfitting.
+  2. Class Imbalance: Mô hình hiện tại dường như tốt hơn trong việc xác định khoản vay tốt hơn là khoản vay xấu, điều này cần được cải thiện trong tương lai.
+
+Tóm lại, mặc dù Gradient Boosting cho thấy kết quả khả quan, chúng ta vẫn cần phải xem xét việc tinh chỉnh mô hình để giảm bớt overfitting và cải thiện khả năng phát hiện khoản vay xấu.
+
+---
+
+Chúng ta tiếp tục với phần quan trọng nhất của một mô hình dự đoán: độ quan trọng của các đặc trưng. Việc hiểu rõ những đặc trưng nào ảnh hưởng mạnh mẽ nhất tới dự đoán giúp chúng ta tối ưu hóa mô hình và cải thiện chiến lược kinh doanh.
+
+- Đứng đầu danh sách là `MEAN_EXT_SOURCE` với độ quan trọng cao nhất, khoảng 0.2. Điều này cho thấy đặc trưng này có ảnh hưởng lớn đối với mô hình của chúng ta.
+  
+- Tiếp theo, chúng ta có ba nguồn dữ liệu ngoại vi (`EXT_SOURCE_3`, `EXT_SOURCE_2`, và `EXT_SOURCE_1`). Trong đó, `EXT_SOURCE_3` và `EXT_SOURCE_2` cho thấy mức độ quan trọng cao, 0.11 và 0.09 tương ứng, trong khi `EXT_SOURCE_1` chỉ ở mức 0.04.
+
+- Một số đặc trưng liên quan đến thời gian làm việc và tuổi (`YEARS_EMPLOYED`, `DAYS_EMPLOYED`, `DAYS_BIRTH`, và `AGE`) cũng cho thấy mức độ quan trọng tương đối tương đồng, xấp xỉ 0.02 - 0.03. Điều này cho thấy thời gian làm việc và tuổi tác cũng ảnh hưởng đến quyết định vay mượn.
+
+- Cuối cùng, `AMT_GOODS_PRICE` và `AMT_CREDIT` - những đặc trưng liên quan đến giá trị của sản phẩm và số tiền vay - cũng được mô hình xem xét với mức độ quan trọng tương đối.
+
+Tóm lại, thông qua biểu đồ này, chúng ta có thể thấy rõ những yếu tố nào quan trọng nhất đối với quyết định vay mượn. Việc tập trung vào những đặc trưng này trong quá trình thu thập dữ liệu và tinh chỉnh mô hình sẽ giúp cải thiện hiệu suất và hiệu quả của mô hình.
+
+---
+
+Chúng ta đang xem xét phần kết luận của bài thuyết trình. Để tóm tắt:
+
+- Trong phần **Phân tích Dữ liệu Khám phá (EDA)**, chúng ta đã bắt đầu bằng việc hiểu rõ dữ liệu thông qua thống kê mô tả và các biểu đồ trực quan.
+- Khi tiến hành **Tiền xử lý dữ liệu**, mọi giá trị thiếu sót, lỗi và bất thường đã được xác định và xử lý, dựa trên kiến thức chuyên ngành. Chúng ta cũng đã tạo ra các đặc trưng mới từ dữ liệu gốc.
+- Phần **Mô hình hóa** cho chúng ta thấy quá trình phát triển từ việc sử dụng những mô hình đơn giản đến việc áp dụng các phương pháp tổ hợp như Random Forest, Gradient Boosting và XGBoost.
+- **Tối ưu hóa mô hình** đã được thực hiện thông qua việc tinh chỉnh tham số sử dụng Randomized Search.
+- Chúng ta đã **Đánh giá** hiệu suất mô hình thông qua biểu đồ ROC, và phân tích ma trận nhầm lẫn để đánh giá độ chính xác dự đoán.
+- Việc khám phá **Tầm quan trọng của các đặc trưng** giúp chúng ta hiểu rõ hơn về các biến có ảnh hưởng lớn đến dự đoán.
+- Và cuối cùng, chúng ta đã tiếp cận một cách **Toàn diện** - từ việc trích xuất thông tin, tiền xử lý dữ liệu, xây dựng và tối ưu hóa mô hình, và đánh giá thông qua các chỉ số và biểu đồ trực quan.
+- Như một bước đi tiếp theo, chúng ta sẽ tiếp tục khám phá sử dụng thêm các khung dữ liệu để nâng cao sự hiểu biết và tinh chỉnh mô hình.
+
+Đây là một quá trình toàn diện và chi tiết, cho thấy sự cẩn trọng và kỹ lưỡng trong việc xử lý và mô hình hóa dữ liệu.

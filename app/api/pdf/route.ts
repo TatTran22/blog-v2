@@ -7,7 +7,7 @@ export async function GET(request: Request) {
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--font-render-hinting=none'],
     })
     const page = await browser.newPage()
-    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/resume2`, {
+    await page.goto(`${process.env.NEXT_PUBLIC_APP_URL}/blog/en/ridge-regression`, {
       waitUntil: 'networkidle0',
     })
     await page.emulateMediaType('print')
@@ -28,9 +28,9 @@ export async function GET(request: Request) {
 
     // Give the buffer to pdf-lib
     const pdfDoc = await PDFDocument.load(pdfBuffer)
-    pdfDoc.setTitle('Tat Tran - Resume')
-    pdfDoc.setSubject('Tat Tran - Resume')
-    pdfDoc.setKeywords(['Tat Tran', 'Resume', 'Software Engineer'])
+    pdfDoc.setTitle('Tat Tran - ridge-regression')
+    pdfDoc.setSubject('Tat Tran - ridge-regression')
+    pdfDoc.setKeywords(['Tat Tran', 'ridge-regression', 'Software Engineer'])
     pdfDoc.setProducer('Tat Tran')
     pdfDoc.setCreator('Tat Tran')
     pdfDoc.setAuthor('Tat Tran')
@@ -38,11 +38,12 @@ export async function GET(request: Request) {
     pdfDoc.setModificationDate(new Date())
     const pdfBytes = await pdfDoc.save()
 
-    // Return the PDF view
+    // Return the PDF with the correct MIME type
     return new Response(pdfBytes, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': 'attachment; filename="resume.pdf"',
+        'Content-Disposition': 'attachment; filename=ridge-regression.pdf',
+        'Cache-Control': 'public, max-age=0, must-revalidate',
       },
     })
   } catch (error) {
